@@ -38,12 +38,12 @@ function showinfo()
 {
 	var info = 'chgInfo';
 
-	if(!Element.hasClassName(info, 'pn-hide')) {
+	if(!Element.hasClassName(info, 'z-hide')) {
 		Element.update(info, '&nbsp;');
-		Element.addClassName(info, 'pn-hide');
+		Element.addClassName(info, 'z-hide');
 	} else {
 		Element.update(info, '<img src="images/ajax/circle-ball-dark-antialiased.gif">');
-		Element.removeClassName(info, 'pn-hide');
+		Element.removeClassName(info, 'z-hide');
 	}
 }
 
@@ -76,17 +76,17 @@ function modifyField_failure(){
 function showfieldinfo(fndid, infotext){
     if(fndid) {
         var info = 'foruminfo_' + fndid;
-        if(!Element.hasClassName(info, 'pn-hide')) {
+        if(!Element.hasClassName(info, 'z-hide')) {
             Element.update(info, '&nbsp;');
-            Element.addClassName(info, 'pn-hide');
+            Element.addClassName(info, 'z-hide');
         } else {
             Element.update(info, infotext);
-            Element.removeClassName(info, 'pn-hide');
+            Element.removeClassName(info, 'z-hide');
         }
     } else {
         $A(document.getElementsByClassName('fieldinfo')).each(function(info){
             Element.update(info, '&nbsp;');
-            Element.addClassName(info, 'pn-hide');
+            Element.addClassName(info, 'z-hide');
         });
     }
 }
@@ -140,12 +140,12 @@ function mark_response(req){
 		reloadFlaggedBlock();
 	}
 	if(json.m == 1){
-		$(json.fmid).src="modules/IWforums/pnimages/marcat.gif";
-		$("msgMark" + json.fmid).src="modules/IWforums/pnimages/marcat.gif";
+		$(json.fmid).src="modules/IWforums/images/marcat.gif";
+		$("msgMark" + json.fmid).src="modules/IWforums/images/marcat.gif";
 		Element.update('msgMark' + json.fmid, json.fmid).innerHTML;
 	}else{
-		$(json.fmid).src="modules/IWforums/pnimages/res.gif";
-		$("msgMark" + json.fmid).src="modules/IWforums/pnimages/res.gif";
+		$(json.fmid).src="modules/IWforums/images/res.gif";
+		$("msgMark" + json.fmid).src="modules/IWforums/images/res.gif";
 		Element.update('msgMark' + json.fmid, json.fmid).innerHTML;
 	}
 }
@@ -224,7 +224,7 @@ function openMsg_response(req){
 	var json = pndejsonize(req.responseText);
 	Element.update('openMsgRow_' + json.fmid, json.content).innerHTML;
 	$('openMsgIcon_' + json.fmid).toggle();
-	$('msgImage_' + json.fmid).src="modules/IWforums/pnimages/msg.gif";
+	$('msgImage_' + json.fmid).src="modules/IWforums/images/msg.gif";
 }
 
 function openMsg_failure(){
@@ -233,6 +233,6 @@ function openMsg_failure(){
 
 function closeMsg(fmid){
 	Element.update('openMsgRow_' + fmid, '').innerHTML;
-	$('openMsgIcon_' + fmid).src="modules/IWforums/pnimages/msgopen.gif";
+	$('openMsgIcon_' + fmid).src="modules/IWforums/images/msgopen.gif";
 	$('openMsgIcon_' + fmid).toggle();
 }

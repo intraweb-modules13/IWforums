@@ -1,6 +1,6 @@
 {include file="IWforums_admin_menu.htm"}
 <div class="z-admincontainer">
-    <div class="z-adminpageicon">{img modname='IWforums' src='add_user_large.gif' set='pnimages'}</div>
+    <div class="z-adminpageicon">{img modname='IWforums' src='add_user_large.gif' set='images'}</div>
     <h2>{gt text="Add a moderator"}</h2>
     <form class="z-form" action="{modurl modname="IWforums" type="admin" func="addModerator"}" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
@@ -21,7 +21,7 @@
                 <option value="{$member.id}">{$member.name}</option>
                 {/foreach}
             </select>
-            <div id="chgInfo" class="pn-hide pn-noteinfo" style="float:left; margin-left:20px;">&nbsp;</div>
+            <div id="chgInfo" class="z-hide z-noteinfo" style="float:left; margin-left:20px;">&nbsp;</div>
         </div>
         <div class="z-formOptions" align="center">
 	    {button src='button_ok.gif' set='icons/small' __alt="Add" __title="Add"}

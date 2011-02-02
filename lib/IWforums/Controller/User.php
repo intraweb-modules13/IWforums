@@ -167,8 +167,10 @@ class IWforums_Controller_User extends Zikula_Controller {
         $llistatemes = ModUtil::apiFunc('IWforums', 'user', 'get_temes',
                                          array('fid' => $fid,
                     'u' => $u));
-        if ($llistatemes != false) $hi_ha_temes = true;
-
+        $hi_ha_temes = ($llistatemes != false) ? true : false;
+        $usersList = '';
+        $hi_ha_missatges = false;
+        $messages = array();
         foreach ($llistatemes as $tema) {
             $usersList .= $tema['lastuser'] . '$$' . $tema['usuari'] . '$$';
         }
@@ -302,6 +304,8 @@ class IWforums_Controller_User extends Zikula_Controller {
         $view->assign('inici', $inici);
         $view->assign('name', $registre['nom_forum']);
         $view->assign('fid', $fid);
+        $view->assign('ftid', 0);
+        $view->assign('title', '');
         $view->assign('extensions', ModUtil::getVar('IWmain', 'extensions'));
         return $view->fetch('IWforums_user_new_tema.htm');
     }
@@ -441,6 +445,8 @@ class IWforums_Controller_User extends Zikula_Controller {
                                                 'idparent' => 0,
                                                 'inici' => $inici,
                                                 'rpp' => 10));
+        $messages = array();
+        $hi_ha_missatges = false;
         // process the messages
         foreach ($listmessages as $message) {
             if (isset($message)) $hi_ha_missatges = true;
@@ -484,9 +490,11 @@ class IWforums_Controller_User extends Zikula_Controller {
         $usuaris_rem = ModUtil::apiFunc('IWforums', 'user', 'getremitents',
                                          array('ftid' => $ftid,
                                                'fid' => $registre['fid']));
+        $usersList = '';
         foreach ($usuaris_rem as $user) {
             $usersList .= $user['usuari'] . '$$';
         }
+        $usersList = '';
         // get all users information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $users = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
@@ -521,12 +529,13 @@ class IWforums_Controller_User extends Zikula_Controller {
         $view->assign('messages', $messages);
         $view->assign('usuaris', $usuaris);
         $view->assign('u', $u);
-        $view->assign('uname', $usersInfo[$u]);
+//        $view->assign('uname', $usersInfo[$u]);
         $view->assign('fid', $fid);
         $view->assign('ftid', $ftid);
         $view->assign('hi_ha_missatges', $hi_ha_missatges);
         $view->assign('pager', $pager);
         $view->assign('inici', $inici);
+        $view->assign('hi_ha_temes', false);
         return $view->fetch('IWforums_user_forum.htm');
     }
 
@@ -595,7 +604,6 @@ class IWforums_Controller_User extends Zikula_Controller {
         $view->assign('name', $registre['nom_forum']);
         $view->assign('msg', $msg);
         $view->assign('title', $titol);
-        $view->assign('menu', $menu);
         $view->assign('adjunts', $registre['adjunts']);
         $view->assign('extensions', ModUtil::getVar('IWmain', 'extensions'));
         $view->assign('u', $u);
@@ -771,7 +779,8 @@ class IWforums_Controller_User extends Zikula_Controller {
                                  'sv' => $sv));
         }
         // prepare printing messages
-        $printer .= "<table width=100%>";
+        /*
+        $printer = "<table width=100%>";
         $printer .= '<tr><td><font face=Arial color=navy><strong>' . $registre['titol'] . '</font></td></tr>';
         $printer .= '<tr><td>' . $this->__('From: ') . '<font face=Arial color=green><strong>' . $usersName . '</strong></td></tr>';
         $printer .= '<tr><td>' . $this->__('Date') . ': <font face=Arial size=2 color=696969><strong>' . date('d/m/y', $registre['data']) . '</strong></font></td></tr>';
@@ -784,6 +793,7 @@ class IWforums_Controller_User extends Zikula_Controller {
                                                 array('text' => $registre['missatge'])) . '</td></tr>';
         $printer .= '<tr><td><hr></td></tr>';
         $printer .= "</table><br>";
+        */
         $marcat = (strpos($registre['marcat'], '$' . UserUtil::getVar('uid') . '$') == 0) ? false : true;
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
@@ -872,11 +882,9 @@ class IWforums_Controller_User extends Zikula_Controller {
                                       'info' => 'ncc',
                                       'list' => $usersList));
         // get smarticons if module bbsmile is active
+        $icons = array();
         if (ModUtil::available('bbsmile') && ModUtil::isHooked('bbsmile', 'IWforums')) {
             $icons = ModUtil::apiFunc('bbsmile', 'user', 'getall');
-            $view->assign('icons', $icons);
-        } else {
-            $view->assign('icons', false);
         }
         $adjunts = ($forum['adjunts'] == 1) ? true : false;
         // get file extension
@@ -896,7 +904,6 @@ class IWforums_Controller_User extends Zikula_Controller {
         $view->assign('fid', $fid);
         $view->assign('u', $u);
         $view->assign('inici', $inici);
-        $view->assign('menu', $menu);
         $view->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'));
         $view->assign('title', $registre['titol']);
         $view->assign('message', $registre['missatge']);
@@ -1379,7 +1386,6 @@ class IWforums_Controller_User extends Zikula_Controller {
         $view->assign('fid', $fid);
         $view->assign('ftid', $ftid);
         $view->assign('missatge', $missatge);
-        $view->assign('menu', $menu);
         $view->assign('name', $registre['nom_forum']);
         $view->assign('adjunts', $registre['adjunts']);
         $view->assign('extensions', ModUtil::getVar('IWmain', 'extensions'));

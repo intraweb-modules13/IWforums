@@ -397,7 +397,7 @@ class IWforums_Api_User extends Zikula_Api {
 
         $records = array();
 
-        $pntable = & DBUtil::getTables();
+        $pntable = DBUtil::getTables();
 
         $c = $pntable['IWforums_msg_column'];
 
@@ -586,7 +586,7 @@ class IWforums_Api_User extends Zikula_Api {
         if (!isset($fmid)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
-        $pntable = & DBUtil::getTables();
+        $pntable = DBUtil::getTables();
         $t = $pntable['IWforums_msg'];
         $c = &$pntable['IWforums_msg_column'];
         $llegit = $llegit . '$' . UserUtil::getVar('uid') . '$';
@@ -912,7 +912,7 @@ class IWforums_Api_User extends Zikula_Api {
         //Esborrem el fitxer adjunt del servidor
         $esborrat = unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWforums', 'urladjunts') . '/' . $missatge['adjunt']);
         if ($esborrat) {
-            $pntable = & DBUtil::getTables();
+            $pntable = DBUtil::getTables();
             $t = $pntable['IWforums_msg'];
             $c = &$pntable['IWforums_msg_column'];
             //Inserim el registre a la base de dades
@@ -941,7 +941,7 @@ class IWforums_Api_User extends Zikula_Api {
             return LogUtil::registerPermissionError();
         }
         $registres = array();
-        $pntable = & DBUtil::getTables();
+        $pntable = DBUtil::getTables();
         //$t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
         $tema = ($tots != null && $tots == 1) ? "" : ' ' . $c['ftid'] . '=' . $ftid . ' AND ';
@@ -975,7 +975,7 @@ class IWforums_Api_User extends Zikula_Api {
         //Comprovem que els valors han arribat
         if (!isset($fmid) || !isset($marcat)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
-            $pntable = & DBUtil::getTables();
+            $pntable = DBUtil::getTables();
             $t = $pntable['IWforums_msg'];
             $c = &$pntable['IWforums_msg_column'];
             $sql = "UPDATE $t
@@ -1006,7 +1006,7 @@ class IWforums_Api_User extends Zikula_Api {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        //Carreguem la informaciï¿œ del fï¿œrum
+        //Carreguem la informació del fòrum
         $registre = ModUtil::apiFunc('IWforums', 'user', 'get',
                                       array('fid' => $fid));
         if ($registre == false) {
@@ -1034,20 +1034,20 @@ class IWforums_Api_User extends Zikula_Api {
         if (!isset($titol) || !isset($msg)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
-        $pntable = & DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
+        $pntable = DBUtil::getTables();
         $c = &$pntable['IWforums_msg_column'];
         $msg = str_replace("'", "&#039;", $msg);
         $titol = str_replace("'", "&#039;", $titol);
-        //Inserim el registre a la base de dades
-        $sql = "UPDATE $t
-                            SET $c[titol]='$titol',$c[missatge]='$msg',$c[icon]='$icon',$c[adjunt]='$adjunt'
-                            WHERE $c[fmid]=$fmid";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
-            return LogUtil::registerError($this->__('An error has occurred while editing the message'));
+        $where = "$c[fmid]=$fmid";
+        $items = array('titol' => $titol,
+                       'missatge' => $msg,
+                       'icon' => $icon,
+                       'adjunt' => $adjunt);
+
+        if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
         }
-        //Retorna el id del nou registre que s'acaba d'introduir
+
         return $fmid;
     }
 
@@ -1063,7 +1063,7 @@ class IWforums_Api_User extends Zikula_Api {
         }
         //Comprovaciï¿œ de seguretat. Si falla retorna una matriu buida
         $registres = array();
-        $pntable = & DBUtil::getTables();
+        $pntable = DBUtil::getTables();
         $t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
         //Fem la consulta que recollirï¿œ el nombre de temes dins d'un fï¿œrum
@@ -1153,7 +1153,7 @@ class IWforums_Api_User extends Zikula_Api {
         if ($access < 4) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        $pntable = & DBUtil::getTables();
+        $pntable = DBUtil::getTables();
         $t = $pntable['IWforums_temes'];
         $c = $pntable['IWforums_temes_column'];
         //Fem la consulta a la base de dades de la modificaciï¿œ de les dades

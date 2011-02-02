@@ -18,7 +18,7 @@ function smarty_function_iwforumsusermenulinks($params, &$smarty)
 	if (!isset($params['class'])) {
 		$params['class'] = 'pn-menuitem-title';
 	}
-
+        $message = array('marcat' => '');
 	if(isset($params['fmid']) && $params['fmid'] > 0){
 		//get message information
 		$message = ModUtil::apiFunc('IWforums', 'user', 'get_msg', array('fmid' => $params['fmid']));
@@ -43,7 +43,7 @@ function smarty_function_iwforumsusermenulinks($params, &$smarty)
 
 	if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && isset($params['m6']) && $access > 0 && UserUtil::isLoggedIn()) {
 		$forumsusermenulinks .= "<a href=\"" . DataUtil::formatForDisplayHTML(ModUtil::url('IWforums', 'user', 'lectors',
-						array('inici' => $inici,
+						array('inici' => 0,
 							'fid' => $params['fid'],
 							'ftid' => $params['ftid'],
 							'u' => $params['u'],

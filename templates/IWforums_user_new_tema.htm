@@ -25,8 +25,8 @@
     <h2>{$name} => {gt text="Add a new topic"}</h2>
     <div style="height:5px;">&nbsp;</div>
     <form  method="post" name="new_tema" id="new_msg" action="index.php?module=IWforums&func=crear_tema" enctype="multipart/form-data">
-        <input type="hidden" name="authid" value="{secgenauthkey module="IWforums"}" />
-               <input type="hidden" name="fid" value="{$fid}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+        <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="ftid" value="{$ftid}" />
         <table class="usertable">
             <tr>
@@ -47,10 +47,10 @@
                 <td><textarea name="msg" cols="60" rows="10" id="intraweb"></textarea></td>
             </tr>
             {if $adjunts neq "0"}
-                <tr>
-                    <td>{gt text="Attached file"}</td>
-                    <td><input type="file" name="adjunt" size="50"></td>
-                </tr>
+            <tr>
+                <td>{gt text="Attached file"}</td>
+                <td><input type="file" name="adjunt" size="50"></td>
+            </tr>
             {/if}
         </table>
         <div class="formOptions" style="text-align:center;">
