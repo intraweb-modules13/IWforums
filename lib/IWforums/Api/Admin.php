@@ -1,7 +1,6 @@
 <?php
 
 class IWforums_Api_Admin extends Zikula_Api {
-
     /**
      * Create a new forum in database
      * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
