@@ -8,7 +8,7 @@
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="confirmation" value="true" />
-        <input type="hidden" name="authid" value="{secgenauthkey module="IWforums"}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
         <div class="z-formOptions" style="text-align:center;">
             <a href="javascript:send()">{img modname='core' src='button_ok.gif' set='icons/small'   __alt="Confirm the deletion of the topic" __title="Confirm the deletion of the topic"}</a>{gt text="Confirm the deletion of the topic"}
             <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>

@@ -403,7 +403,7 @@ class IWforums_Api_User extends Zikula_Api {
 
         $where = "$c[fid]=$fid";
         $items = DBUtil::selectObjectArray ('IWforums_msg', $where, '');
-        //Comprovem que la consulta hagi estat amb ï¿œxit
+        //Comprovem que la consulta hagi estat amb éxit
         if ($items === false) {
             return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
         }
@@ -568,7 +568,7 @@ class IWforums_Api_User extends Zikula_Api {
     }
 
     /*
-      Funciï¿œ que posa a l'usuari com que ha llegit el missatge
+      Funcié que posa a l'usuari com que ha llegit el missatge
      */
 
     public function llegit($args) {
@@ -587,17 +587,15 @@ class IWforums_Api_User extends Zikula_Api {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
         $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
-        $c = &$pntable['IWforums_msg_column'];
+        $c = $pntable['IWforums_msg_column'];
         $llegit = $llegit . '$' . UserUtil::getVar('uid') . '$';
-        $sql = "UPDATE $t
-                            SET $c[llegit] = '$llegit'
-                            WHERE $c[fmid]=$fmid;";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
+        $where = "$c[fmid]=$fmid";
+        $items = array('llegit' => $llegit);
+        if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('The modification of the users who have read the message has failed'));
         }
-        //Informem que el procï¿œs s'ha acabat amb ï¿œxit
+
+        //Informem que el procés s'ha acabat amb éxit
         return true;
     }
 
@@ -678,20 +676,19 @@ class IWforums_Api_User extends Zikula_Api {
         if ($access < 4) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        //Establim connexiï¿œ amb la base de dades
+        //Establim connexié amb la base de dades
         $dbconn = DBConnectionStack::getConnection * (true);
         $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
         // Update message clicked. Change idparent to 0
-        $sql = "UPDATE $t
-                            SET $c[fid]='" . (int) DataUtil::formatForStore($nouforum) . "',
-                            $c[ftid]='" . (int) DataUtil::formatForStore($noutema) . "', $c[idparent]=0
-                            WHERE $c[fmid]='$fmid';";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
+        $where = "$c[fmid]=$fmid";
+        $items = array('fid' => $nouforum,
+                       'ftid' => $noutema,
+                       'idparent' => 0);
+        if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('The transfer of the message has failed'));
         }
+
         // Get the rest messages to move (the replies)
         $listmessages = ModUtil::apiFunc('IWforums', 'user', 'getall_msg',
                                           array('ftid' => $ftid,
@@ -702,12 +699,10 @@ class IWforums_Api_User extends Zikula_Api {
                                                 'tots' => 1));
         // Update the replies
         foreach ($listmessages as $message) {
-            $sql = "UPDATE $t
-                                    SET $c[fid]='" . (int) DataUtil::formatForStore($nouforum) . "',
-                                    $c[ftid]='" . (int) DataUtil::formatForStore($noutema) . "'
-                                    WHERE $c[fmid]='" . $message['fmid'] . "';";
-            $registre = $dbconn->Execute($sql);
-            if ($dbconn->ErrorNo() != 0) {
+            $where = "$c[fmid]=$message[fmid]";
+            $items = array('fid' => $nouforum,
+                           'ftid' => $noutema);
+            if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
                 return LogUtil::registerError($this->__('The transfer of the message has failed'));
             }
         }
@@ -720,7 +715,7 @@ class IWforums_Api_User extends Zikula_Api {
     }
 
     /*
-      Funciï¿œ que esborra un tema d'un fï¿œrum
+      Funcié que esborra un tema d'un férum
      */
 
     public function deltema($args) {
@@ -734,11 +729,11 @@ class IWforums_Api_User extends Zikula_Api {
         if (!isset($ftid) || !isset($fid)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
-        //Cridem la funciï¿œ get que retorna les dades
+        //Cridem la funcié get que retorna les dades
         $link = ModUtil::apiFunc('IWforums', 'user', 'get_tema',
                                   array('ftid' => $ftid,
                                         'fid' => $fid));
-        //Comprovem que el registre efectivament existeix i, per tant, es podrï¿œ esborrar
+        //Comprovem que el registre efectivament existeix i, per tant, es podré esborrar
         if ($link == false) {
             return LogUtil::registerError($this->__('No messages have been found'));
         }
@@ -758,22 +753,20 @@ class IWforums_Api_User extends Zikula_Api {
                                    array('fid' => $fid));
         //delete messages files
         foreach ($files as $file) {
-            unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWforums', 'urladjunts') . '/' . $file['adjunt']);
+            $filePath = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWforums', 'urladjunts') . '/' . $file['adjunt'];
+            if (file_exists($filePath)) unlink($filePath);
         }
-        // Message deletion
-        $sql = "DELETE FROM $t2 WHERE $c2[ftid]='" . (int) DataUtil::formatForStore($ftid) . "';";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
+        // Messages deletion
+        $where = "$c2[ftid]=$ftid";
+        if (!DBUtil::deleteWhere('IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('An error has occurred while deleting the message'));
         }
-        //Esborrem el registre
-        $sql = "DELETE FROM $t WHERE $c[ftid]='" . (int) DataUtil::formatForStore($ftid) . "';";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
+        // record deletion
+        if (!DBUtil::deleteWhere('IWforums_temes', $where)) {
             return LogUtil::registerError($this->__('An error has occurred while deleting the message'));
         }
 
-        //Retornem true ja que el procï¿œs ha finalitzat amb ï¿œxit
+        //Retornem true ja que el procés ha finalitzat amb éxit
         return true;
     }
 
@@ -872,9 +865,8 @@ class IWforums_Api_User extends Zikula_Api {
     }
 
     /*
-      FunciÃ³ que esborra el fitxer adjunt a un missatge
+      Funció que esborra el fitxer adjunt a un missatge
      */
-
     public function del_adjunt($args) {
         $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : null, 'POST');
         // Security check
@@ -904,7 +896,7 @@ class IWforums_Api_User extends Zikula_Api {
         if ($access < 2) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        //Comprovem que l'usuari sigui moderador del fï¿œrum i pugui editar el missatge
+        //Comprovem que l'usuari sigui moderador del férum i pugui editar el missatge
         $moderator = ($access == 4) ? true : false;
         if (!$moderator && (time() > $missatge['data'] + 60 * $registre['msgDelTime'] || $missatge['usuari'] != UserUtil::getVar('uid'))) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
@@ -913,23 +905,20 @@ class IWforums_Api_User extends Zikula_Api {
         $esborrat = unlink(ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWforums', 'urladjunts') . '/' . $missatge['adjunt']);
         if ($esborrat) {
             $pntable = DBUtil::getTables();
-            $t = $pntable['IWforums_msg'];
-            $c = &$pntable['IWforums_msg_column'];
-            //Inserim el registre a la base de dades
-            $sql = "UPDATE $t
-                                    SET $c[adjunt]=''
-                                    WHERE $c[fmid]=$fmid";
-            $registre = $dbconn->Execute($sql);
-            if ($dbconn->ErrorNo() != 0) {
-                return LogUtil::registerError($this->__('An error has occurred while editing the message') . $sql);
+            $c = $pntable['IWforums_msg_column'];
+            $where = "$c[fmid]=$fmid";
+            $items = array('adjunt' => '');
+            if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
+                return LogUtil::registerError($this->__('An error has occurred while editing the message'));
             }
         }
+
         //Retorna el id del nou registre que s'acaba d'introduir
         return $fmid;
     }
 
     /*
-      Funciï¿œ que retorna una matriu amb la informaciï¿œ de tots els usuaris que han participat en el fï¿œrum
+      Funcié que retorna una matriu amb la informacié de tots els usuaris que han participat en el férum
      */
 
     public function getremitents($args) {
@@ -948,7 +937,7 @@ class IWforums_Api_User extends Zikula_Api {
         $where = $tema . " $c[fid]=$fid";
         $items = DBUtil::selectObjectArray('IWforums_msg', $where, '');
 
-        //Comprovem que la consulta hagi estat amb ï¿œxit
+        //Comprovem que la consulta hagi estat amb éxit
         if ($items === false) {
             return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
         }
@@ -962,7 +951,7 @@ class IWforums_Api_User extends Zikula_Api {
     }
 
     /*
-      Funciï¿œ que marca o treu la marca d'un missatge
+      Funcié que marca o treu la marca d'un missatge
      */
 
     public function marcat($args) {
@@ -975,23 +964,23 @@ class IWforums_Api_User extends Zikula_Api {
         //Comprovem que els valors han arribat
         if (!isset($fmid) || !isset($marcat)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
-            $pntable = DBUtil::getTables();
-            $t = $pntable['IWforums_msg'];
-            $c = &$pntable['IWforums_msg_column'];
-            $sql = "UPDATE $t
-                            SET $c[marcat] = '$marcat'
-                            WHERE $c[fmid]=$fmid";
-            $registre = $dbconn->Execute($sql);
-            if ($dbconn->ErrorNo() != 0) {
-                return LogUtil::registerError($this->__('An error has occurred while checking/unchecking a message'));
-            }
-            //Informem que el procï¿œs s'ha acabat amb ï¿œxit
-            return true;
         }
+
+        $pntable = DBUtil::getTables();
+        $c = $pntable['IWforums_msg_column'];
+
+        $where = "$c[fmid]=$fmid";
+        $items = array('marcat' => $marcat);
+
+        if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
+            return LogUtil::registerError($this->__('An error has occurred while checking/unchecking a message'));
+        }
+
+        return true;
     }
 
     /*
-      Funciï¿œ que modifica un missatge
+      Funcié que modifica un missatge
      */
 
     public function update_msg($args) {
@@ -1025,17 +1014,17 @@ class IWforums_Api_User extends Zikula_Api {
         if ($missatge == false) {
             return LogUtil::registerError($this->__('No messages have been found'));
         }
-        //Comprovem que l'usuari sigui moderador del fï¿œrum i pugui editar el missatge
+        //Comprovem que l'usuari sigui moderador del férum i pugui editar el missatge
         $moderator = ($access == 4) ? true : false;
         if (!$moderator && (time() > $missatge['data'] + 60 * $registre['msgEditTime'] || $missatge['usuari'] != UserUtil::getVar('uid'))) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        //Comprova que el tï¿œtol del missatge i el contingut del mateix hagin arribat
+        //Comprova que el tétol del missatge i el contingut del mateix hagin arribat
         if (!isset($titol) || !isset($msg)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
         $pntable = DBUtil::getTables();
-        $c = &$pntable['IWforums_msg_column'];
+        $c = $pntable['IWforums_msg_column'];
         $msg = str_replace("'", "&#039;", $msg);
         $titol = str_replace("'", "&#039;", $titol);
         $where = "$c[fmid]=$fmid";
@@ -1052,36 +1041,24 @@ class IWforums_Api_User extends Zikula_Api {
     }
 
     /*
-      Funciï¿œ que retorna si un missatge ï¿œs pare o no ho ï¿œs
+      Funció que retorna si un missatge és pare o no ho és
      */
-
     public function is_parent($args) {
         $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        //Comprovaciï¿œ de seguretat. Si falla retorna una matriu buida
+        //Comprovacié de seguretat. Si falla retorna una matriu buida
         $registres = array();
         $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
-        //Fem la consulta que recollirï¿œ el nombre de temes dins d'un fï¿œrum
-        $sql = "SELECT count(1)
-                            FROM $t
-                            WHERE $c[idparent]=$fmid";
-        $registre = $dbconn->Execute($sql);
-        //Comprovem que la consulta hagi estat amb ï¿œxit
-        if ($dbconn->ErrorNo() != 0) {
+        $where = "$c[idparent]=$fmid";
+        $number = DBUTil::selectObjectCount('IWforums_msg', $where);
+        if ($number === false) {
             return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
         }
-        list($nmsg) = $registre->fields;
-        //Comprovem que la consulta hagi estat amb ï¿œxit
-        if ($dbconn->ErrorNo() != 0) {
-            return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
-        }
-        //Retornem la matriu plena de registres
-        if ($nmsg > 0) {
+        if ($number > 0) {
             return true;
         } else {
             return false;
@@ -1100,32 +1077,24 @@ class IWforums_Api_User extends Zikula_Api {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        $registres = array();
+        $items = array();
         $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
-        // Query to get all the messages for the current level
-        $sql = "SELECT $c[fmid], $c[llegit]
-                            FROM $t
-                            WHERE $c[fid]=$fid AND $c[llegit] NOT LIKE '%$" . UserUtil::getVar('uid') . "$%';";
-        $registre = $dbconn->Execute($sql);
-        //Comprovem que la consulta hagi estat amb ï¿œxit
-        if ($dbconn->ErrorNo() != 0) {
+        $where = "$c[fid]=$fid AND $c[llegit] NOT LIKE '%$" . UserUtil::getVar('uid') . "$%';";
+
+        $items = DBUtil::selectObjectArray('IWforums_msg', $where, '');
+        // Check for an error with the database code, and if so set an appropriate
+        // error message and return
+        if ($items === false) {
             return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
-        }
-        //Recorrem els registres i els posem dins de la matriu
-        for (; !$registre->EOF; $registre->MoveNext()) {
-            list ($fmid, $llegit) = $registre->fields;
-            $registres[] = array('fmid' => $fmid,
-                'llegit' => $llegit);
         }
 
         //Retornem la matriu plena de registres
-        return $registres;
+        return $items;
     }
 
     /*
-      FunciÃ³ que modifica la posiciÃ³ d'un tema del fÃ³rum
+      Funció que modifica la posició d'un tema del fòrum
      */
 
     public function put_order($args) {
@@ -1140,7 +1109,7 @@ class IWforums_Api_User extends Zikula_Api {
         if ($ftid == null || $ordre == null) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
-        //Cridem la funciï¿œ get de l'API que ens retornarï¿œ les dades de l'entrada al menï¿œ
+        //Cridem la funcié get de l'API que ens retornaré les dades de l'entrada al mené
         $forum = ModUtil::apiFunc('IWforums', 'user', 'get',
                                    array('fid' => $fid));
         //Comprovem que la consulta anterior ha tornat amb resultats
@@ -1154,18 +1123,14 @@ class IWforums_Api_User extends Zikula_Api {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
         $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_temes'];
         $c = $pntable['IWforums_temes_column'];
-        //Fem la consulta a la base de dades de la modificaciï¿œ de les dades
-        $sql = "UPDATE $t
-                            SET $c[order] = '" . DataUtil::formatForStore($ordre) . "'
-                            WHERE $c[ftid] = '" . (int) DataUtil::formatForStore($ftid) . "'";
-        $registre = $dbconn->Execute($sql);
-        if ($dbconn->ErrorNo() != 0) {
-            return LogUtil::registerError(_FORUMSMODIFICACIOORDREERROR);
-        }
 
-        //Informem que el procï¿œs s'ha acabat amb ï¿œxit
+        $where = "$c[ftid]=$ftid";
+        $items = array('order' => $ordre);
+
+        if (!DBUTil::updateObject($items, 'IWforums_temes', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+        }
         return true;
     }
 

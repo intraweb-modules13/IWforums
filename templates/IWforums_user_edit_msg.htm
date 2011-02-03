@@ -25,7 +25,7 @@
     <h2>{$name} => {gt text="Edit the message"}</h2>
     <div style="height:15px;">&nbsp;</div>
     <form  method="post" name="new_msg" id="new_msg" enctype="multipart/form-data">
-        <input type="hidden" name="authid" value="{secgenauthkey module="IWforums"}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="u" value="{$u}" />
@@ -90,8 +90,7 @@
             <tr>
                 <td colspan="2">
                     <div style="margin:30px;">
-                        {$missatge.quotes|nl2br|modcallhooks|varcensor}
-                    </div>
+                        {$missatge.quotes|nl2br}
                 </td>
             </tr>
         </table>

@@ -2,7 +2,7 @@
 class IWforums_Controller_Admin extends Zikula_Controller {
     /**
      * Show the manage module site
-     * @author		Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author		Albert Pérez Monfort (aperezm@xtec.cat)
      * @return		The configuration information
      */
     public function main() {
@@ -17,7 +17,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
         // Create output object
         $view = Zikula_View::getInstance('IWforums', false);
 
-        //Cridem la funciï¿œ API anomenada getall i que retornarï¿œ la informaciï¿œ de tots els fï¿œrums creats
+        //Cridem la funcié API anomenada getall i que retornaré la informacié de tots els férums creats
         $forums = ModUtil::apiFunc('IWforums', 'user', 'getall');
         $moderators = '';
         foreach ($forums as $forum) {
@@ -76,30 +76,8 @@ class IWforums_Controller_Admin extends Zikula_Controller {
     }
 
     /**
-     * Show the module information
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
-     * @return	The module information
-     */
-    public function module() {
-        // Security check
-        if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
-        }
-
-        // Create output object
-        $view = Zikula_View::getInstance('IWforums', false);
-
-        $module = ModUtil::func('IWmain', 'user', 'module_info',
-                                 array('module_name' => 'IWforums',
-                                       'type' => 'admin'));
-
-        $view->assign('module', $module);
-        return $view->fetch('IWforums_admin_module.htm');
-    }
-
-    /**
      * Show a form to create a new forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @return	The forum creation form
      */
     public function newItem($args) {
@@ -139,7 +117,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Create a new forum
-     * @autor	Albert Pï¿œrez Monfort
+     * @autor	Albert Pérez Monfort
      * @param	main values for the forum
      * @return	Redirect the user to the administration main page
      */
@@ -203,7 +181,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Add a group with access to the forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	array with the group identity
      * @return	Redirect user to main admin page
      */
@@ -270,7 +248,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Delete a group with access to the forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	the information of the group that have to be deleted
      * @return	Redirect user to main admin page
      */
@@ -339,7 +317,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Add a moderator in the forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	array with the manager identity
      * @return	Redirect user to main admin page
      */
@@ -414,7 +392,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Delete the moderator of a forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	the information of the manager who is going to be deleted
      * @return	Redirect user to main admin page
      */
@@ -478,7 +456,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Delete a forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	the information of the forum that is going to be deleted
      * @return	Redirect user to main admin page
      */
@@ -522,7 +500,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Show a form with the module confirable parameters
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @return	The new configurable parameters
      */
     public function conf() {
@@ -553,7 +531,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * Update the configurable options of a form
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	The form parameter values
      * @return	Redirect user to admin main page
      */
@@ -581,7 +559,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
 
     /**
      * get the characteristics content of a forum
-     * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
+     * @author	Albert Pérez Monfort (aperezm@xtec.cat)
      * @param	The forum identity
      * @return	The forum information
      */

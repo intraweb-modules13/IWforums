@@ -24,7 +24,7 @@
     <h2>{$name} => {gt text="Add a new message"}</h2>
     <div style="height:15px;">&nbsp;</div>
     <form  method="post" name="new_msg" id="new_msg" action="{modurl modname="IWforums" type="user" func="crear_msg"}" enctype="multipart/form-data">
-        <input type="hidden" name="authid" value="{secgenauthkey module="IWforums"}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fmid" value="{$fmid}" />
@@ -75,7 +75,7 @@
             <tr>
                 <td colspan="2">
                     <div style="margin:30px;">
-                        {$msg|nl2br|modcallhooks|varcensor}
+                        {$msg|nl2br}
                     </div>
                 </td>
             </tr>

@@ -10,7 +10,7 @@
         document.move_msg.submit();
     }
 </script>
-{include file="IWforums_user_menu.htm" m1=1 m2=1 m4=1 m3=1 m9=1 fid=$fid ftid=$ftid u=$u inici=$inici}
+{include file="IWforums_user_menu.htm" m1=1 m2=1 m4=1 m3=1 m9=1 fid=$fid ftid=$ftid u=$u}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='editdelete.gif' set='icons/large'}</div>
     <h2>{$name} => {if $ftid neq 0}{$tema} => {/if}{gt text="Move the message"}</h2>
@@ -56,9 +56,9 @@
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="moutema" />
-        <input type="hidden" name="authid" value="{secgenauthkey module="IWforums"}" />
+        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
         <input type="hidden" name="u" value="{$u}" />
-        {if $modera|count_paragraphs gt 1}
+        {if $modera|@count gt 1}
             {gt text="Move the message to the forum"} =>
             <select name="nouforum" id="nouforum" onChange="javascript:canviforum()">
                 {section name=modera loop=$modera}
@@ -67,7 +67,7 @@
             </select>
             <br /><br />
         {/if}
-        {if $temes|count_paragraphs gt 1}
+        {if $temes|@count gt 1}
             {gt text="Move the message to the topic"} =>
             <select name="noutema" id="noutema">
                 <option value="0">{gt text="Without topic"}</option>
@@ -81,15 +81,15 @@
         {/if}
         <div class="formOptions" style="text-align:center;">
             <a href="javascript:move()">{img modname='core' src='button_ok.gif' set='icons/small'   __alt="Confirm the transfer" __title="Confirm the transfer"}</a>{gt text="Confirm the transfer"}
-                {if $ftid neq 0}
-                    <a href="{modurl modname="IWforums" type="user" func="llista_msg" ftid=$ftid fid=$fid u=$u}">
-                        {img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"}
-                    </a>
-                {else}
-                    <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid u=$u}">
-                        {img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"}
-                    </a>
-                {/if}
+            {if $ftid neq 0}
+                <a href="{modurl modname="IWforums" type="user" func="llista_msg" ftid=$ftid fid=$fid u=$u}">
+                    {img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"}
+                </a>
+            {else}
+                <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid u=$u}">
+                {img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"}
+                </a>
+            {/if}
         </div>
     </form>
 </div>
