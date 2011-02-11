@@ -346,7 +346,7 @@ class IWforums_Controller_Admin extends Zikula_Controller {
             $groups = ModUtil::func('IWmain', 'user', 'getAllGroups',
                                      array('sv' => $sv,
                                            'plus' => $this->__('Choose a gruop...'),
-                                           'less' => ModUtil::getVar('iw_myrole', 'rolegroup')));
+                                           'less' => ModUtil::getVar('IWmyrole', 'rolegroup')));
 
 
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');

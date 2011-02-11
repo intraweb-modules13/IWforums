@@ -187,11 +187,7 @@ class IWforums_Controller_User extends Zikula_Controller {
                                     'oid' => $message['oid']);
             }
         }
-        // set as visited
-        if (ModUtil::available('iw_visits') && ModUtil::isHooked('iw_visits', 'IWforums')) {
-            // set record
-            ModUtil::apiFunc('iw_visits', 'user', 'visit');
-        }
+
         if ($access == 4) $moderator = true;
 
         $adjunts = ($registre['adjunts'] == 1) ? true : false;
@@ -986,7 +982,7 @@ class IWforums_Controller_User extends Zikula_Controller {
         // file name with the path
         $fileName = FormUtil::getPassedValue('fileName', isset($args['fileName']) ? $args['fileName'] : 0, 'GET');
         // security check
-        if (!SecurityUtil::checkPermission('iw_noteboard::', "::", ACCESS_READ)) {
+        if (!SecurityUtil::checkPermission('IWnoteboard::', "::", ACCESS_READ)) {
             return LogUtil::registerError(_MODULENO, 403);
         }
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
