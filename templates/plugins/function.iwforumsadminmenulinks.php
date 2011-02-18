@@ -18,7 +18,7 @@ function smarty_function_iwforumsadminmenulinks($params, &$smarty)
 		$params['seperator'] = '|';
 	}
 	if (!isset($params['class'])) {
-		$params['class'] = 'pn-menuitem-title';
+		$params['class'] = 'z-menuitem-title';
 	}
 
 	$forumsadminmenulinks = "<span class=\"" . $params['class'] . "\">" . $params['start'] . " ";

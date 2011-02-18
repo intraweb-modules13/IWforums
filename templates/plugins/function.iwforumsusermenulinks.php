@@ -9,7 +9,7 @@ function smarty_function_iwforumsusermenulinks($params, &$smarty) {
     if (!isset($params['start'])) $params['start'] = '[';
     if (!isset($params['end'])) $params['end'] = ']';
     if (!isset($params['seperator'])) $params['seperator'] = '| ';
-    if (!isset($params['class'])) $params['class'] = 'pn-menuitem-title';
+    if (!isset($params['class'])) $params['class'] = 'z-menuitem-title';
     $message = array('marcat' => '');
     if (isset($params['fmid']) && $params['fmid'] > 0) {
         //get message information
