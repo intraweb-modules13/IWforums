@@ -34,13 +34,13 @@
                                 {gt text="Read only"}
                         {/if}
                         <a href="javascript:deleteGroup('{$group.id}',{$forum.fid})">
-                            {img modname='core' src='delete_group.gif' set='icons/extrasmall'   __alt="Delete" __title="Delete"}
+                            {img modname='core' src='delete_group.png' set='icons/extrasmall'   __alt="Delete" __title="Delete"}
                         </a>
                     </div>
                     {/foreach}
                     <div class="formOptions"  style="float: right;">
                     <a href="{modurl modname="IWforums" type="admin" func="addGroup" fid=$forum.fid}">
-                        {img modname='core' src='add_group.gif' set='icons/extrasmall'   __alt="Add a group with access to the forum" __title="Add a group with access to the forum"}
+                        {img modname='core' src='add_group.png' set='icons/extrasmall'   __alt="Add a group with access to the forum" __title="Add a group with access to the forum"}
                     </a>
                     </div>
                 </td>
@@ -49,13 +49,13 @@
                     <div id="mod_{$forum.fid}_{$mod.id}">
                         {$mod.name}
                         <a href="javascript:deleteModerator({$forum.fid},{$mod.id})">
-                            {img modname='core' src='delete_user.gif' set='icons/extrasmall'   __alt="Delete" __title="Delete"}
+                            {img modname='core' src='delete_user.png' set='icons/extrasmall'   __alt="Delete" __title="Delete"}
                         </a>
                     </div>
                     {/foreach}
                     <div class="formOptions" style="float: right;">
                         <a href="{modurl modname="IWforums" type="admin" func="addModerator" fid=$forum.fid}">
-                            {img modname='core' src='add_user.gif' set='icons/extrasmall' __alt="Add a moderator" __title="Add a moderator"}
+                            {img modname='core' src='add_user.png' set='icons/extrasmall' __alt="Add a moderator" __title="Add a moderator"}
                         </a>
                     </div>
                 </td>

@@ -1,6 +1,7 @@
 <?php
 
 class IWforums_Api_Admin extends Zikula_Api {
+
     /**
      * Create a new forum in database
      * @author	Albert Pï¿œrez Monfort (aperezm@xtec.cat)
@@ -27,12 +28,12 @@ class IWforums_Api_Admin extends Zikula_Api {
         }
 
         $item = array('nom_forum' => $nom_forum,
-                      'descriu' => $descriu,
-                      'adjunts' => $adjunts,
-                      'observacions' => $observacions,
-                      'msgEditTime' => $msgEditTime,
-                      'msgDelTime' => $msgDelTime,
-                      'actiu' => $actiu);
+            'descriu' => $descriu,
+            'adjunts' => $adjunts,
+            'observacions' => $observacions,
+            'msgEditTime' => $msgEditTime,
+            'msgDelTime' => $msgDelTime,
+            'actiu' => $actiu);
 
         if (!DBUtil::insertObject($item, 'IWforums_definition', 'fid')) {
             return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
@@ -41,7 +42,7 @@ class IWforums_Api_Admin extends Zikula_Api {
 
         // Let any hooks know that we have created a new item
         ModUtil::callHooks('item', 'create', $item['fid'],
-                            array('module' => 'IWforums'));
+                        array('module' => 'IWforums'));
 
         return $item['fid'];
     }
@@ -68,7 +69,7 @@ class IWforums_Api_Admin extends Zikula_Api {
 
         //Get form information
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__("No valid forum"));
         }
@@ -105,7 +106,7 @@ class IWforums_Api_Admin extends Zikula_Api {
 
         //Get form information
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__("No valid forum"));
         }
@@ -114,7 +115,7 @@ class IWforums_Api_Admin extends Zikula_Api {
 
         //Delete all the posts and attached files associated to the forum
         $adjunts = ModUtil::apiFunc('IWforums', 'user', 'get_adjunts',
-                                     array('fid' => $fid));
+                        array('fid' => $fid));
 
         $c = $pntables['IWforums_msg_column'];
         $where = "$c[fid]=$fid";
@@ -136,4 +137,15 @@ class IWforums_Api_Admin extends Zikula_Api {
 
         return true;
     }
+
+    public function getlinks($args) {
+        $links = array();
+        if (SecurityUtil::checkPermission('IWforms::', '::', ACCESS_ADMIN)) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'admin', 'newItem'), 'text' => $this->__('Create a new forum'), 'id' => 'iwforums_newItem', 'class' => 'z-icon-es-new');
+            $links[] = array('url' => ModUtil::url('IWforums', 'admin', 'main'), 'text' => $this->__('View the created forums'), 'id' => 'iwforums_main', 'class' => 'z-icon-es-view');
+            $links[] = array('url' => ModUtil::url('IWforums', 'admin', 'conf'), 'text' => $this->__('Configure the module'), 'id' => 'iwforums_conf', 'class' => 'z-icon-es-config');
+        }
+        return $links;
+    }
+
 }

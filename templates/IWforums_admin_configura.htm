@@ -2,7 +2,7 @@
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' src='configure.png' set='icons/large'}</div>
     <h2>{gt text="Create a new forum"}</h2>
-    <form  class="z-form" method="post" name="configura" id="configura" action="{modurl modname="IWforums" type="admin" func="update_conf"}" >
+    <form  class="z-form" method="post" id="configura" action="{modurl modname="IWforums" type="admin" func="update_conf"}" >
            <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
            <div style="height:40px;">&nbsp;</div>
         {if not $multizk}
@@ -31,10 +31,10 @@
         </div>
         <div class="z-center">
             <div class="z-button">
-                {button src='button_ok.png' set='icons/small' __alt="Modify" __title="Modify"} {gt text="Modify"}
+                <a onclick="javascript: forms['configura'].submit();">{img modname='core' src='button_ok.png' set='icons/small' __alt="Modify" __title="Modify"} {gt text="Modify"}</a>
             </div>
             <div class="z-button">
-                <a href="{modurl modname=IWforums type=admin func=conf}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+                <a href="{modurl modname=IWforums type=admin func=main}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
             </div>
         </div>
     </form>

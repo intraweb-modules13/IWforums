@@ -20,7 +20,7 @@
 
 {include file="IWforums_user_menu.htm" fid=$fid fmid=$fmid ftid=$ftid m2=1 m7=1}
 <div class="usercontainer">
-    <div class="userpageicon">{img modname='core' src='filenew.gif' set='icons/large'}</div>
+    <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Add a new message"}</h2>
     <div style="height:15px;">&nbsp;</div>
     <form  method="post" name="new_msg" id="new_msg" action="{modurl modname="IWforums" type="user" func="crear_msg"}" enctype="multipart/form-data">
@@ -62,13 +62,17 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="formOptions" style="text-align:center;">
-                        <a href="javascript:send()">{img modname='core' src='button_ok.gif' set='icons/small'   __alt="Create the message" __title="Create the message"}</a>{gt text="Create the message"}
-                        {if $ftid neq 0}
-                            <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-                        {else}
-                            <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-                        {/if}
+                    <div class="z-center">
+                        <div class="z-button">
+                            <a href="javascript:send()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Create the message" __title="Create the message"} {gt text="Create the message"}</a>
+                        </div>
+                        <div class="z-button">
+                            {if $ftid neq 0}
+                                <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+                            {else}
+                                <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
+                            {/if}
+                        </div>
                     </div>
                 </td>
             </tr>
