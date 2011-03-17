@@ -1703,6 +1703,7 @@ class IWforums_Controller_User extends Zikula_Controller {
         }
         $usersList = '$$';
         foreach ($missatges_llista as $missatge) {
+            $fileIcon = '';
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $photo = ModUtil::func('IWmain', 'user', 'getUserPicture',
                                     array('uname' => UserUtil::getVar('uname', $missatge['usuari']),
