@@ -69,65 +69,6 @@ class IWforums_Installer extends Zikula_Installer {
      * @return bool true if successful, false otherwise
      */
     public function upgrade($oldversion) {
-
-        if (!DBUtil::changeTable('IWforums_temes'))
-            return false;
-        if (!DBUtil::changeTable('IWforums_msg'))
-            return false;
-
-        if ($oldversion < 1.1) {
-            $tables = DBUtil::getTables();
-            $c = $tables['IWforums_temes_column'];
-
-            //get all the forums defined
-            $items = DBUtil::selectObjectArray('IWforums_definition', '', '', '-1', '-1', 'fid');
-
-            //for each forum get the topics
-            foreach ($items as $item) {
-                $where = "$c[fid]=$item[fid]";
-                $items1 = DBUtil::selectObjectArray('IWforums_temes', $where, '', '-1', '-1', 'ftid');
-                foreach ($items1 as $item1) {
-                    //get last message in topic
-                    $c = $tables['IWforums_msg_column'];
-
-                    $where = "$c[ftid] = $item1[ftid]";
-
-                    $orderby = "$c[data] desc";
-
-                    // get the objects from the db
-                    $items2 = DBUtil::selectObjectArray('IWforums_msg', $where, $orderby, '0', '1', 'ftid');
-
-                    //update topic last time and user information
-                    $c = $tables['IWforums_temes_column'];
-
-                    $where = "$c[ftid]=$item1[ftid]";
-
-                    $itemsUpdate = array('last_time' => $items2[$item1[ftid]]['data'],
-                        'last_user' => $items2[$item1[ftid]]['usuari']);
-
-                    if (!DBUTil::updateObject($itemsUpdate, 'IWforums_temes', $where)) {
-                        return LogUtil::registerError($this->__('Error! Update attempt failed.'));
-                    }
-                }
-            }
-        }
-
-        if ($oldversion < 1.2) {
-            //Create indexes
-            $tables = DBUtil::getTables();
-            $c = $tables['IWforums_msg_column'];
-            if (!DBUtil::createIndex($c['idparent'], 'IWforums_msg', 'idparent'))
-                return false;
-            if (!DBUtil::createIndex($c['ftid'], 'IWforums_msg', 'ftid'))
-                return false;
-            if (!DBUtil::createIndex($c['fid'], 'IWforums_msg', 'fid'))
-                return false;
-
-            $c = $tables['IWforums_temes_column'];
-            if (!DBUtil::createIndex($c['fid'], 'IWforums_temes', 'fid'))
-                return false;
-        }
-
         //success
         return true;
     }
