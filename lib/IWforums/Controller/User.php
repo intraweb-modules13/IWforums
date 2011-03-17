@@ -1171,7 +1171,6 @@ class IWforums_Controller_User extends Zikula_Controller {
         }
         sort($readers);
         $view->assign('readers', $readers);
-        $view->assign('menu', $menu);
         $view->assign('fid', $fid);
         $view->assign('ftid', $ftid);
         $view->assign('fmid', $fmid);

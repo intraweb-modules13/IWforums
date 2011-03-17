@@ -1160,4 +1160,75 @@ class IWforums_Api_User extends Zikula_Api {
         // Return the items
         return $items;
     }
+
+    public function getlinks($args) {
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : 0, 'GETPOST');
+        $ftid = FormUtil::getPassedValue('ftid', isset($args['ftid']) ? $args['ftid'] : 0, 'GETPOST');
+        $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : 0, 'GETPOST');
+        $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : 0, 'GETPOST');
+        $oid = FormUtil::getPassedValue('oid', isset($args['oid']) ? $args['oid'] : 0, 'GETPOST');
+        $u = FormUtil::getPassedValue('u', isset($args['u']) ? $args['u'] : 0, 'GETPOST');
+        $m1 = FormUtil::getPassedValue('m1', isset($args['m1']) ? $args['m1'] : 0, 'POST');
+        $m2 = FormUtil::getPassedValue('m2', isset($args['m2']) ? $args['m2'] : 0, 'POST');
+        $m3 = FormUtil::getPassedValue('m3', isset($args['m3']) ? $args['m3'] : 0, 'POST');
+        $m4 = FormUtil::getPassedValue('m4', isset($args['m4']) ? $args['m4'] : 0, 'POST');
+        $m5 = FormUtil::getPassedValue('m5', isset($args['m5']) ? $args['m5'] : 0, 'POST');
+        $m6 = FormUtil::getPassedValue('m6', isset($args['m6']) ? $args['m6'] : 0, 'POST');
+        $m7 = FormUtil::getPassedValue('m7', isset($args['m7']) ? $args['m7'] : 0, 'POST');
+        $m8 = FormUtil::getPassedValue('m8', isset($args['m8']) ? $args['m8'] : 0, 'POST');
+        $m9 = FormUtil::getPassedValue('m9', isset($args['m9']) ? $args['m9'] : 0, 'POST');
+        $m12 = FormUtil::getPassedValue('m12', isset($args['m12']) ? $args['m12'] : 0, 'POST');
+        $m13 = FormUtil::getPassedValue('m13', isset($args['m13']) ? $args['m13'] : 0, 'POST');
+        $access = ($fid > 0) ? ModUtil::func('IWforums', 'user', 'access',
+                        array('fid' => $fid)) : false;
+
+        $message = array('marcat' => '');
+        if ($fmid > 0) {
+            //get message information
+            $message = ModUtil::apiFunc('IWforums', 'user', 'get_msg',
+                                         array('fmid' => $fmid));
+            if ($message == false) {
+                LogUtil::registerError($this->__('No messages have been found'));
+                return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
+            }
+        }
+        $links = array();
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m5 == 1 && $access > 1) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'nou_msg', array('inici' => $inici, 'fid' => $fid, 'ftid' => $ftid, 'u' => $u, 'fmid' => $fmid, 'oid' => $oid)), 'text' => $this->__('Reply to the message'), 'id' => 'iwforums_nou_msg', 'class' => 'z-icon-es-new');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m6 == 1 && $access > 0 && UserUtil::isLoggedIn()) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'lectors', array('inici' => 0, 'fid' => $fid, 'ftid' => $ftid, 'u' => $u, 'fmid' => $fmid, 'oid' => $oid)), 'text' => $this->__('Who has read the message?'), 'id' => 'iwforums_lectors', 'class' => 'z-icon-es-info');
+        }
+
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m1 == 1 && $access > 2 && $ftid == 0) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'nou_tema', array('fid' => $fid, 'u' => $u, 'inici' => $inici)), 'text' => $this->__('Create a new topic'), 'id' => 'iwforums_nou_tema', 'class' => 'z-icon-es-new');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m2 == 1 && $access > 1) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'nou_msg', array('fid' => $fid, 'u' => $u, 'inici' => $inici, 'ftid' => $ftid)), 'text' => $this->__('Send a new message'), 'id' => 'iwforums_nou_msg', 'class' => 'z-icon-es-new');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m3 == 1) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'main', array('inici' => $inici)), 'text' => $this->__('View the forum list'), 'id' => 'iwforums_main', 'class' => 'z-icon-es-view');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && ($m4 == 1 && $access > 0) || ($ftid != 0 && $access > 0)) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'forum', array('inici' => $inici, 'u' => $u, 'fid' => $fid)), 'text' => $this->__('Return to the list of topics and messages'), 'id' => 'iwforums_forum', 'class' => 'z-icon-es-view');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m7 == 1 && $access > 0 && $fmid != 0) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'llista_msg', array('inici' => $inici, 'u' => $u, 'fid' => $fid, 'ftid' => $ftid)), 'text' => $this->__('Return to the message list'), 'id' => 'iwforums_llista_msg', 'class' => 'z-icon-es-view');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m8 == 1 && $access > 0) {
+            $links[] = array('url' => ModUtil::url('IWforums', 'user', 'msg', array('inici' => $inici, 'u' => $u, 'fid' => $fid, 'ftid' => $ftid, 'fmid' => $fmid, 'oid' => $oid)), 'text' => $this->__('Return to the message'), 'id' => 'iwforums_msg', 'class' => 'z-icon-es-mail');
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && $m9 == 1 && $access > 0 && UserUtil::isLoggedIn()) {
+            if ($ftid == 0) {
+                $links[] = array('url' => ModUtil::url('IWforums', 'user', 'llegits', array('inici' => $inici, 'fid' => $fid)), 'text' => $this->__('Check all messages as read'), 'id' => 'iwforums_llegits', 'class' => 'z-icon-es-ok');
+            } else {
+                $links[] = array('url' => ModUtil::url('IWforums', 'user', 'llegits', array('inici' => $inici, 'fid' => $fid, 'ftid' => $ftid, 'u' => $u)), 'text' => $this->__('Check all messages as read'), 'id' => 'iwforums_llegits', 'class' => 'z-icon-es-ok');
+            }
+        }
+        if (SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ) && ($m12 == 1 || $m13 == 1) && $access > 0 && UserUtil::isLoggedIn()) {
+            $links[] = array('url' => "javascript:mark(" . $fid . "," . $fmid . ")", 'text' => $this->__('Check/uncheck the message'), 'id' => 'iwforums_mark', 'class' => 'z-icon-es-view');
+            //$forumsusermenulinks .= "<span style=\"cursor: pointer;\" id=\"markText" . $params['fmid'] . "\"><a onclick=\"javascript:mark(" . $params['fid'] . "," . $params['fmid'] . ")\">" . __('Check the message', $dom) . "</a></span> " . $params['seperator'];
+        }
+        return $links;
+    }
 }

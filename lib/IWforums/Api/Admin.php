@@ -147,5 +147,4 @@ class IWforums_Api_Admin extends Zikula_Api {
         }
         return $links;
     }
-
 }

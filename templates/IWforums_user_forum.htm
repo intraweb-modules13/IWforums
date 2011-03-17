@@ -2,7 +2,7 @@
 {userloggedin assign=userid}
 <div class="usercontainer">
     {if $hi_ha_temes}
-    <div class="userpageicon">{img modname='core' src='windowlist.gif' set='icons/large'}</div>
+    <div class="userpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>
     <h2>{$name} {if $u > 0}({$users[$u]|trim}){/if}</h2>
     <strong>{gt text="List of topics"}</strong>
     <table class="usertable" style="border: 1px solid #dddddd">
@@ -79,7 +79,7 @@
 {/if}
 {if $hi_ha_missatges}
 {if !$hi_ha_temes}
-<div class="userpageicon">{img modname='core' src='windowlist.gif' set='icons/large'}</div>
+<div class="userpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>
 {/if}
 {if $ftid eq 0}
 {if $hi_ha_temes}
