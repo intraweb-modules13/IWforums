@@ -80,10 +80,10 @@
             <br /><br />
         {/if}
         <div class="z-center">
-            <div class="z-button">
+            <span class="z-buttons">
                 <a href="javascript:move()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Confirm the transfer" __title="Confirm the transfer"} {gt text="Confirm the transfer"}</a>
-            </div>
-            <div class="z-button">
+            </span>
+            <span class="z-buttons">
                 {if $ftid neq 0}
                     <a href="{modurl modname="IWforums" type="user" func="llista_msg" ftid=$ftid fid=$fid u=$u}">
                         {img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"} {gt text="Cancel"}
@@ -93,7 +93,7 @@
                     {img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel the transfer of the message" __title="Cancel the transfer of the message"} {gt text="Cancel"}
                     </a>
                 {/if}
-            </div>
+            </span>
         </div>
     </form>
 </div>

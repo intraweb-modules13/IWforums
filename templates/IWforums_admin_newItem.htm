@@ -53,16 +53,16 @@
             <input id="actiu" name="actiu" type="checkbox" {if $forum.actiu eq 1}checked{/if} value="1"/>
         </div>
         <div class="z-center">
-            <div class="z-button">
+            <span class="z-buttons">
                 <!--[if isset($forum.fid) AND $forum.fid gt 0]-->
                 <a onclick="javascript: send();">{img modname='core' src='button_ok.png' set='icons/small' __alt="Modify" __title="Modify"} {gt text="Modify"}</a>
                 <!--[else]-->
                 <a onclick="javascript: send();">{img modname='core' src='button_ok.png' set='icons/small' __alt="Create" __title="Create"} {gt text="Create"}</a>
                 <!--[/if]-->
-            </div>
-            <div class="z-button">
+            </span>
+            <span class="z-buttons">
                 <a href="{modurl modname=IWforums type=admin func=main}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
-            </div>
+            </span>
         </div>
     </form>
 </div>

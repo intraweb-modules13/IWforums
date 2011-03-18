@@ -10,12 +10,12 @@
         <input type="hidden" name="confirmation" value="true" />
         <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
         <div class="z-center">
-            <div class="z-button">
+            <span class="z-buttons">
                 <a href="javascript:send()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Confirm the deletion of the topic" __title="Confirm the deletion of the topic"} {gt text="Confirm the deletion of the topic"}</a>
-            </div>
-            <div class="z-button">
+            </span>
+            <span class="z-buttons">
                 <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
-            </div>
+            </span>
         </div>
     </form>
 </div>
