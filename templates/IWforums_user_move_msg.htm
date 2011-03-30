@@ -51,7 +51,7 @@
     </table>
 	{gt text="Confirm the transfer"}
     <br><br>
-    <form name="move_msg" method="post" id="move_msg">
+    <form name="move_msg" method="post" id="move_msg" class="z-form" action="">
         <input type="hidden" name="fmid" value="{$fmid}" />
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fid" value="{$fid}" />
@@ -66,22 +66,24 @@
                 {/section}
             </select>
             <br /><br />
+        {else}
+            <input type="hidden" name="nouforum" value="{$fid}" />
         {/if}
-        {if $temes|@count gt 1}
-            {gt text="Move the message to the topic"} =>
-            <select name="noutema" id="noutema">
-                <option value="0">{gt text="Without topic"}</option>
-                {section name=temes loop=$temes}
-                    {if $temes[temes].ftid neq $ftid}
-                        <option value="{$temes[temes].ftid}">{$temes[temes].titol}</option>
-                    {/if}
-                {/section}
-            </select>
-            <br /><br />
-        {/if}
+        {gt text="Move the message to the topic"} =>
+        <select name="noutema" id="noutema">
+            <option value="0">{gt text="Without topic"}</option>
+            {section name=temes loop=$temes}
+                {if $temes[temes].ftid neq $ftid}
+                    <option value="{$temes[temes].ftid}">{$temes[temes].titol}</option>
+                {/if}
+            {/section}
+        </select>
+        <div>
+            <input type="checkbox" name="keepCopy" value="1" /> {gt text="Keep a copy in the source forum and topic"}
+        </div>
         <div class="z-center">
             <span class="z-buttons">
-                <a href="javascript:move()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Confirm the transfer" __title="Confirm the transfer"} {gt text="Confirm the transfer"}</a>
+                <a href="javascript:move()">{img modname='core' src='button_ok.png' set='icons/small' __alt="Confirm the transfer" __title="Confirm the transfer"} {gt text="Confirm the transfer"}</a>
             </span>
             <span class="z-buttons">
                 {if $ftid neq 0}

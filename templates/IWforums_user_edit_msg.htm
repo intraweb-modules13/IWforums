@@ -21,7 +21,7 @@
 </script>
 {include file="IWforums_user_menu.htm" m2=1 m7=1 fid=$fid ftid=$ftid}
 <div class="usercontainer">
-    <div class="userpageicon">{img modname='core' src='edit.gif' set='icons/large'}</div>
+    <div class="userpageicon">{img modname='core' src='edit.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Edit the message"}</h2>
     <div style="height:15px;">&nbsp;</div>
     <form  method="post" name="new_msg" id="new_msg" enctype="multipart/form-data">
@@ -57,10 +57,10 @@
                     <td>{gt text="Icon"}</td>
                     <td>
                         <input type="radio" name="icon" value="" {if $missatge.icon eq ''}checked{/if} />
-                                                    {section name=icons loop=$icons}
-                               <input type="radio" name="icon" {if $missatge.icon eq $icons[icons].imgsrc}checked{/if} value="{$icons[icons].imgsrc}" />
-                                                            {img modname='core' src=$icons[icons].imgsrc set='smilies'}
-                                                    {/section}
+                        {section name=icons loop=$icons}
+                            <input type="radio" name="icon" {if $missatge.icon eq $icons[icons].imgsrc}checked{/if} value="{$icons[icons].imgsrc}" />
+                            {img modname='core' src=$icons[icons].imgsrc set='smilies'}
+                        {/section}
                     </td>
                 </tr>
             {else}
@@ -76,13 +76,17 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <div class="formOptions" style="text-align:center;">
-                        <a href="javascript:send()">{img modname='core' src='button_ok.gif' set='icons/small'   __alt="Modify the message" __title="Modify the message"}</a>{gt text="Modify the message"}
-                        {if $ftid neq 0}
-                            <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-                        {else}
-                            <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.gif' set='icons/small'   __alt="Cancel" __title="Cancel"}</a>
-                        {/if}
+                    <div class="z-center">
+                        <span class="z-buttons">
+                            <a href="javascript:send()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Modify the message" __title="Modify the message"} {gt text="Modify the message"}</a>
+                        </span>
+                        <span class="z-buttons">
+                            {if $ftid neq 0}
+                                <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="cancel"}</a>
+                            {else}
+                                <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"} {gt text="cancel"}</a>
+                            {/if}
+                        </span>
                     </div>
                 </td>
             </tr>
@@ -91,6 +95,7 @@
                 <td colspan="2">
                     <div style="margin:30px;">
                         {$missatge.quotes|nl2br}
+                    </div>
                 </td>
             </tr>
         </table>

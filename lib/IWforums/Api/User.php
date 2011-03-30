@@ -676,8 +676,6 @@ class IWforums_Api_User extends Zikula_Api {
         if ($access < 4) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        //Establim connexié amb la base de dades
-        $dbconn = DBConnectionStack::getConnection * (true);
         $pntable = DBUtil::getTables();
         $c = $pntable['IWforums_msg_column'];
         // Update message clicked. Change idparent to 0
@@ -712,6 +710,86 @@ class IWforums_Api_User extends Zikula_Api {
                                      array('ftids' => array($ftid, $noutema)));
         //success
         return true;
+    }
+
+    /*
+      Copy the message to another destiny: forum or topic
+     */
+    public function copy($args) {
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'POST');
+        $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : null, 'POST');
+        $noutema = FormUtil::getPassedValue('noutema', isset($args['noutema']) ? $args['noutema'] : null, 'POST');
+        $nouforum = FormUtil::getPassedValue('nouforum', isset($args['nouforum']) ? $args['nouforum'] : null, 'POST');
+        $ftid = FormUtil::getPassedValue('ftid', isset($args['ftid']) ? $args['ftid'] : null, 'POST');
+        // Security check
+        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
+            return LogUtil::registerPermissionError();
+        }
+        //Comprovem que els valors han arribat
+        if (!isset($fmid) || !isset($noutema)) {
+            return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
+        }
+        //check if user can access the forum
+        $access = ModUtil::func('IWforums', 'user', 'access',
+                                 array('fid' => $fid));
+        if ($access < 4) {
+            return LogUtil::registerError($this->__('You can\'t access the forum'));
+        }
+        //check if user can access the forum where the messages are going to be moved
+        $access = ModUtil::func('IWforums', 'user', 'access',
+                                 array('fid' => $noutema));
+        if ($access < 4) {
+            return LogUtil::registerError($this->__('You can\'t access the forum'));
+        }
+        //get message
+        $message = ModUtil::apiFunc('IWforums', 'user', 'get_msg',
+                                  array('fmid' => $fmid));
+        if ($message == false) {
+            return LogUtil::registerError($this->__('No messages have been found'));
+        }
+
+        $item = array('fid' => $nouforum,
+                      'ftid' => $noutema,
+                      'titol' => $message['titol'],
+                      'usuari' => $message['usuari'],
+                      'missatge' => $message['missatge'],
+                      'llegit' => "$$" . UserUtil::getVar('uid') . "$",
+                      'data' => time(),
+                      'adjunt' => $message['adjunt'],
+                      'icon' => $message['icon'],
+                      'marcat' => '$',
+                      'idparent' => 0,
+                      'lastdate' => time());
+        if (!DBUtil::insertObject($item, 'IWforums_msg', 'fmid')) {
+            return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
+        }
+
+        print_r($message);
+        die('CONTINUAR AQUÍ');
+
+        if (isset($oid) && $oid != 0) {
+            $pntable = DBUtil::getTables();
+            $c = $pntable['IWforums_msg_column'];
+            $where = "$c[fmid]=$oid";
+            $items = array('lastdate' => time());
+            if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
+                return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+            }
+        }
+        //Update de last time and user in forum topic
+        $updated = ModUtil::apiFunc('IWforums', 'user', 'updateLast',
+                                     array('ftids' => array($ftid)));
+        //Retorna el id del nou registre que s'acaba d'introduir
+        return $item['fmid'];
+
+
+
+
+
+
+
+
+
     }
 
     /*
@@ -929,25 +1007,20 @@ class IWforums_Api_User extends Zikula_Api {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        $registres = array();
         $pntable = DBUtil::getTables();
         //$t = $pntable['IWforums_msg'];
         $c = $pntable['IWforums_msg_column'];
         $tema = ($tots != null && $tots == 1) ? "" : ' ' . $c['ftid'] . '=' . $ftid . ' AND ';
         $where = $tema . " $c[fid]=$fid";
-        $items = DBUtil::selectObjectArray('IWforums_msg', $where, '');
+        $items = DBUtil::selectObjectArray('IWforums_msg', $where, '', -1, -1, 'usuari');
 
         //Comprovem que la consulta hagi estat amb éxit
         if ($items === false) {
             return LogUtil::registerError($this->__('An error has occurred while reading records from the data base'));
         }
-        $usuaris1 = array();
-        foreach ($items as $item) {
-            $registres[] = array('usuari' => $item['usuari']);
-        }
 
         //Retornem la matriu plena de registres
-        return $registres;
+        return $items;
     }
 
     /*

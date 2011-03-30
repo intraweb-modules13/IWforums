@@ -12,7 +12,7 @@
                 <option value='0'>{gt text="Choose a gruop..."}</option>
                 <option value='-1'>{gt text="Unregistered"}</option>
                 {foreach item=group from=$groups}
-                {if $groupselect eq $group.id}
+                {if isset($groupselect) AND $groupselect eq $group.id}
                 {assign var=selected value="selected"}
                 {else}
                 {assign var=selected value=""}

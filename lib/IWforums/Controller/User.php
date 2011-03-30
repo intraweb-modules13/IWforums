@@ -188,7 +188,7 @@ class IWforums_Controller_User extends Zikula_Controller {
             }
         }
 
-        if ($access == 4) $moderator = true;
+        $moderator = ($access == 4) ? true : false;
 
         $adjunts = ($registre['adjunts'] == 1) ? true : false;
         (ModUtil::available('bbsmile') && ModUtil::isHooked('bbsmile', 'IWforums')) ? $view->assign('icons', true) : $view->assign('icons', false);
@@ -205,6 +205,7 @@ class IWforums_Controller_User extends Zikula_Controller {
         $usuaris_rem = ModUtil::apiFunc('IWforums', 'user', 'getremitents',
                                          array('ftid' => 0,
                                                'fid' => $registre['fid']));
+
         foreach ($usuaris_rem as $user) {
             $usersList .= $user['usuari'] . '$$';
         }
@@ -222,6 +223,7 @@ class IWforums_Controller_User extends Zikula_Controller {
                                    'name' => $users[$usuari_rem['usuari']]);
             }
         }
+
         $view->assign('users', $users);
         $view->assign('name', $registre['nom_forum']);
         $view->assign('adjunts', $adjunts);
@@ -405,6 +407,8 @@ class IWforums_Controller_User extends Zikula_Controller {
             $topic = ModUtil::apiFunc('IWforums', 'user', 'get_tema',
                                        array('fid' => $fid,
                                              'ftid' => $ftid));
+        } else {
+            $topic = array('titol' => '');
         }
         // check if user can moderate the forum
         $moderator = ($access == 4) ? true : false;
@@ -1480,6 +1484,8 @@ class IWforums_Controller_User extends Zikula_Controller {
         $nouforum = FormUtil::getPassedValue('nouforum', isset($args['nouforum']) ? $args['nouforum'] : null, 'POST');
         $noutema = FormUtil::getPassedValue('noutema', isset($args['noutema']) ? $args['noutema'] : null, 'REQUEST');
         $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'REQUEST');
+        $keepCopy = FormUtil::getPassedValue('keepCopy', isset($args['keepCopy']) ? $args['keepCopy'] : 0, 'POST');
+
         // security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
@@ -1557,6 +1563,7 @@ class IWforums_Controller_User extends Zikula_Controller {
             $view->assign('u', $u);
             return $view->fetch('IWforums_user_move_msg.htm');
         }
+
         // confirm authorisation code
         if (!SecurityUtil::confirmAuthKey('IWforums')) {
             return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'user', 'llista_msg',
@@ -1572,15 +1579,35 @@ class IWforums_Controller_User extends Zikula_Controller {
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
         }
         ($noutema == -1) ? $noutema = 0 : "";
-        // send the message to the new topic
-        if (ModUtil::apiFunc('IWforums', 'user', 'mou',
-                              array('fmid' => $fmid,
-                                    'noutema' => $noutema,
-                                    'nouforum' => $nouforum,
-                                    'fid' => $fid,
-                                    'ftid' => $ftid))) {
-            // success change of position
-            LogUtil::registerStatus($this->__('The message has been transferred'));
+
+        if ($keepCopy) {
+            // don't move the message and duplicate it in the new forum and topic
+            if ($nouforum == $fid && $noutema == $ftid) {
+                LogUtil::registerError($this->__('No action done because the source and destiny forum and topic are the same'));
+            }
+            // send the message to the new topic
+            if (ModUtil::apiFunc('IWforums', 'user', 'copy',
+                                  array('fmid' => $fmid,
+                                        'noutema' => $noutema,
+                                        'nouforum' => $nouforum,
+                                        'fid' => $fid,
+                                        'ftid' => $ftid))) {
+                // success change of position
+                LogUtil::registerStatus($this->__('The message has been copied to the new destiny.'));
+            } else {
+                LogUtil::registerError($this->__('Error triyng to copy the message to the new destiny.'));
+            }
+        } else {
+            // send the message to the new topic
+            if (ModUtil::apiFunc('IWforums', 'user', 'mou',
+                                  array('fmid' => $fmid,
+                                        'noutema' => $noutema,
+                                        'nouforum' => $nouforum,
+                                        'fid' => $fid,
+                                        'ftid' => $ftid))) {
+                // success change of position
+                LogUtil::registerStatus($this->__('The message has been transferred'));
+            }
         }
         // redirect user to messages list
         if ($ftid != 0) {
@@ -1724,7 +1751,9 @@ class IWforums_Controller_User extends Zikula_Controller {
                                  'fileIcon' => $fileIcon,
                                  'adjunt' => $missatge['adjunt'],
                                  'missatge' => $missatge['missatge'],
-                                 'photo' => $photo);
+                                 'photo' => $photo,
+                                 'fmid' => $missatge['fmid'],
+                );
             //set user as messages readed
             if (strpos($missatge['llegit'], '$' . UserUtil::getVar('uid') . '$') == 0) {
                 $llegit = ModUtil::apiFunc('IWforums', 'user', 'llegit',
@@ -1899,7 +1928,6 @@ class IWforums_Controller_User extends Zikula_Controller {
      * @return:	Return user to edit page
      */
     public function del_adjunt($args) {
-        
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'POST');
         $ftid = FormUtil::getPassedValue('ftid', isset($args['ftid']) ? $args['ftid'] : null, 'POST');
         $titol = FormUtil::getPassedValue('titol', isset($args['titol']) ? $args['titol'] : null, 'POST');
@@ -1961,18 +1989,30 @@ class IWforums_Controller_User extends Zikula_Controller {
                 $dades_missatge['adjunt'] = '';
             }
         }
+        // get forum information
+        $forum = ModUtil::apiFunc('IWforums', 'user', 'get',
+                                      array('fid' => $fid));
+        if ($forum == false) {
+            LogUtil::registerError($this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
+            return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
+        }
         $missatge = array('missatge' => $msg,
                           'titol' => $titol,
                           'fmid' => $fmid,
                           'icon' => $dades_missatge['icon'],
                           'adjunt' => $dades_missatge['adjunt']);
+        // Separate the message from the quotes
+        $quotes = stristr($missatge['missatge'], '[quote=');
+        $message = ($quotes != '') ? substr($missatge['missatge'], 0, - (strlen($quotes) + 6)) : $missatge['missatge'];
+        $missatge['quotes'] = $quotes;
+        $missatge['missatge'] = $message;
         $view->assign('fid', $fid);
         $view->assign('ftid', $ftid);
         $view->assign('missatge', $missatge);
-        $view->assign('menu', $menu);
         $view->assign('adjunts', $registre['adjunts']);
         $view->assign('extensions', ModUtil::getVar('IWmain', 'extensions'));
         $view->assign('u', $u);
+        $view->assign('name', $forum['nom_forum']);
         return $view->fetch('IWforums_user_edit_msg.htm');
     }
 

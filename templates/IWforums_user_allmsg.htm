@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" m10=1 fid=$fid ftid=$ftid}
+{include file="IWforums_user_menu.htm" m2=1 m3=1 m4=1 m10=1 fid=$fid ftid=$ftid}
 {userloggedin assign=userid}
 {foreach item=missatge from=$missatges}
 <table width="100%" style="border-color:#aaaaaa;border-width:2px; border-style:solid">
@@ -33,8 +33,7 @@
     {if $missatge.adjunt neq ""}
         <tr>
             <td colspan="2">
-                <br>
-                <img src="modules/IWmain/images/fileIcons/{$missatge.fileIcon}"/>
+                <img src="modules/IWmain/images/fileIcons/{$missatge.fileIcon}" alt="" />
                 <a href="{modurl modname="IWforums" func="download" fileName=$missatge.adjunt fmid=$missatge.fmid fid=$fid}">
                     {$missatge.adjunt|safetext}
                 </a>

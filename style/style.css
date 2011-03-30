@@ -27,10 +27,7 @@ table.usertable td  {
 	padding: 5px; /* top, right, bottom, left */
 }
 
-table.usertable th  {
-	background-color: #CFCFCF;
-	padding: 5px 5px 10px 5px; /* top, right, bottom, left */
-}
+
 
 div.usercontainer h2 {
 	text-align: left;
@@ -64,4 +61,14 @@ div.titleRowIcon{
 
 div.openMsg{
 	background-color: #ffffef;
+}
+
+table.z-datatable, table.z-admintable {
+    border-spacing: 0;
+}
+
+.lastPost {
+    font-size:0.9em;
+    font-style:italic;
+    color:#777;
 }
