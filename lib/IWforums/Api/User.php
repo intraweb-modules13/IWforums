@@ -764,32 +764,11 @@ class IWforums_Api_User extends Zikula_Api {
             return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
         }
 
-        print_r($message);
-        die('CONTINUAR AQUÍ');
-
-        if (isset($oid) && $oid != 0) {
-            $pntable = DBUtil::getTables();
-            $c = $pntable['IWforums_msg_column'];
-            $where = "$c[fmid]=$oid";
-            $items = array('lastdate' => time());
-            if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
-                return LogUtil::registerError($this->__('Error! Update attempt failed.'));
-            }
-        }
         //Update de last time and user in forum topic
         $updated = ModUtil::apiFunc('IWforums', 'user', 'updateLast',
                                      array('ftids' => array($ftid)));
         //Retorna el id del nou registre que s'acaba d'introduir
         return $item['fmid'];
-
-
-
-
-
-
-
-
-
     }
 
     /*
