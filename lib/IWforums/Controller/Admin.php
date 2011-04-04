@@ -1,5 +1,5 @@
 <?php
-class IWforums_Controller_Admin extends Zikula_Controller {
+class IWforums_Controller_Admin extends Zikula_AbstractController {
     /**
      * Show the manage module site
      * @author		Albert Pérez Monfort (aperezm@xtec.cat)

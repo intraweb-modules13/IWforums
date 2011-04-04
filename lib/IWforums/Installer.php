@@ -1,5 +1,5 @@
 <?php
-class IWforums_Installer extends Zikula_Installer {
+class IWforums_Installer extends Zikula_AbstractInstaller {
     /**
      * Initialise the IWforums module creating module tables and module vars
      * @author Albert Pérez Monfort (aperezm@xtec.cat)

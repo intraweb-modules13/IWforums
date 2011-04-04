@@ -1,6 +1,6 @@
 <?php
 
-class IWforums_Api_Admin extends Zikula_Api {
+class IWforums_Api_Admin extends Zikula_AbstractApi {
 
     /**
      * Create a new forum in database

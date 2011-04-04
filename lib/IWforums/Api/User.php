@@ -1,5 +1,5 @@
 <?php
-class IWforums_Api_User extends Zikula_Api {
+class IWforums_Api_User extends Zikula_AbstractApi {
     /**
      * Gets all the forums created
      * @author:	Albert Pérez Monfort (aperezm@xtec.cat)

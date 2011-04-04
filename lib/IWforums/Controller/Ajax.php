@@ -1,5 +1,5 @@
 <?php
-class IWforums_Controller_Ajax extends Zikula_Controller {
+class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     /**
      * Change the users in select list
      * @author:     Albert Pï¿œrez Monfort (aperezm@xtec.cat)

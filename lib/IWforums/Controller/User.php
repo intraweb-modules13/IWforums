@@ -1,5 +1,5 @@
 <?php
-class IWforums_Controller_User extends Zikula_Controller {
+class IWforums_Controller_User extends Zikula_AbstractController {
     /**
      * Show the forums where the users can access
      * @author		Albert Pérez Monfort (aperezm@xtec.cat)
