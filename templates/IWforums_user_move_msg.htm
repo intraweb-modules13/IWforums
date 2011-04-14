@@ -56,7 +56,7 @@
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="moutema" />
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+        <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="u" value="{$u}" />
         {if $modera|@count gt 1}
             {gt text="Move the message to the forum"} =>

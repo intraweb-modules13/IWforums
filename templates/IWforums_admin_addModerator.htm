@@ -3,7 +3,7 @@
     <div class="z-adminpageicon">{img modname='IWforums' src='add_user_large.gif' set='images'}</div>
     <h2>{gt text="Add a moderator"}</h2>
     <form id="newModerator" class="z-form" action="{modurl modname="IWforums" type="admin" func="addModerator"}" method="post" enctype="application/x-www-form-urlencoded">
-          <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+          <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
            <input type="hidden" name="fid" value="{$item.fid}" />
         <div class="z-formrow">
             <label for="group">{gt text="Group"}</label>

@@ -42,7 +42,7 @@
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="confirmation" value="true" />
-        <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+        <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <div class="z-center">
             <span class="z-buttons">
                 <a href="javascript:send()">

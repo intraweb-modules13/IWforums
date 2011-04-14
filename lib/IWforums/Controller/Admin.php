@@ -1,5 +1,11 @@
 <?php
+
 class IWforums_Controller_Admin extends Zikula_AbstractController {
+
+    public function postInitialize() {
+        $this->view->setCaching(false);
+    }
+
     /**
      * Show the manage module site
      * @author		Albert Pérez Monfort (aperezm@xtec.cat)
@@ -8,14 +14,11 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
     public function main() {
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
         // Checks if module IWmain is installed. If not returns error
         $modid = ModUtil::getIdFromName('IWmain');
         $modinfo = ModUtil::getInfo($modid);
-
-        // Create output object
-        $view = Zikula_View::getInstance('IWforums', false);
 
         //Cridem la funcié API anomenada getall i que retornaré la informacié de tots els férums creats
         $forums = ModUtil::apiFunc('IWforums', 'user', 'getall');
@@ -28,14 +31,14 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         //get all groups information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $groupsInfo = ModUtil::func('IWmain', 'user', 'getAllGroupsInfo',
-                                     array('sv' => $sv));
+                        array('sv' => $sv));
 
         //get all users information
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         $usersInfo = ModUtil::func('IWmain', 'user', 'getAllUsersInfo',
-                                    array('sv' => $sv,
-                                          'info' => 'ncc',
-                                          'list' => $moderators));
+                        array('sv' => $sv,
+                            'info' => 'ncc',
+                            'list' => $moderators));
         $forumsArray = array();
         foreach ($forums as $forum) {
             //prepare groups
@@ -46,8 +49,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                 $group1 = explode('|', $group);
                 $groupName = ($group1[0] == '-1') ? $this->__("Unregistered") : $groupsInfo[$group1[0]];
                 $groupsArray[] = array('id' => $group,
-                                       'groupName' => $groupName,
-                                       'accessType' => $group1[1]);
+                    'groupName' => $groupName,
+                    'accessType' => $group1[1]);
             }
 
             //prepare moderators
@@ -56,23 +59,23 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             $moderatorsArray = array();
             foreach ($moderators as $moderator) {
                 $moderatorsArray[] = array('id' => $moderator,
-                                           'name' => $usersInfo[$moderator]);
+                    'name' => $usersInfo[$moderator]);
             }
 
             $forumsArray[] = array('nom_forum' => $forum['nom_forum'],
-                                   'descriu' => $forum['descriu'],
-                                   'adjunts' => $forum['adjunts'],
-                                   'actiu' => $forum['actiu'],
-                                   'observacions' => $forum['observacions'],
-                                   'msgDelTime' => $forum['msgDelTime'],
-                                   'msgEditTime' => $forum['msgEditTime'],
-                                   'groups' => $groupsArray,
-                                   'mods' => $moderatorsArray,
-                                   'fid' => $forum['fid']);
+                'descriu' => $forum['descriu'],
+                'adjunts' => $forum['adjunts'],
+                'actiu' => $forum['actiu'],
+                'observacions' => $forum['observacions'],
+                'msgDelTime' => $forum['msgDelTime'],
+                'msgEditTime' => $forum['msgEditTime'],
+                'groups' => $groupsArray,
+                'mods' => $moderatorsArray,
+                'fid' => $forum['fid']);
         }
 
-        $view->assign('forums', $forumsArray);
-        return $view->fetch('IWforums_admin_main.htm');
+        return $this->view->assign('forums', $forumsArray)
+                ->fetch('IWforums_admin_main.htm');
     }
 
     /**
@@ -85,34 +88,31 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         $m = FormUtil::getPassedValue('m', isset($args['m']) ? $args['m'] : null, 'GET');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         $forum = array('fid' => '',
-                       'nom_forum' =>'',
-                       'descriu' => '',
-                       'msgEditTime' => '',
-                       'msgDelTime' => '',
-                       'observacions' => '',
-                       'adjunts' => '',
-                       'actiu' => '',
-                       );
-
-        // Create output object
-        $view = Zikula_View::getInstance('IWforums', false);
+            'nom_forum' => '',
+            'descriu' => '',
+            'msgEditTime' => '',
+            'msgDelTime' => '',
+            'observacions' => '',
+            'adjunts' => '',
+            'actiu' => '',
+        );
 
         if ($m != null && ($m == "e" || $m == "c") && is_numeric($fid)) {
             //get forum information
             $forum = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                       array('fid' => $fid));
+                            array('fid' => $fid));
             if ($forum == false) {
                 LogUtil::registerError($this->__('Forum not found'));
                 return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
             }
         }
-        $view->assign('forum', $forum);
-        $view->assign('m', $m);
-        return $view->fetch('IWforums_admin_newItem.htm');
+        return $this->view->assign('forum', $forum)
+                ->assign('m', $m)
+                ->fetch('IWforums_admin_newItem.htm');
     }
 
     /**
@@ -134,43 +134,42 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
-        if (!is_numeric($msgEditTime)) $msgEditTime = 0;
+        if (!is_numeric($msgEditTime))
+            $msgEditTime = 0;
 
-        if (!is_numeric($msgDelTime)) $msgDelTime = 0;
+        if (!is_numeric($msgDelTime))
+            $msgDelTime = 0;
 
         switch ($m) {
             case 'e':
                 $items = array('nom_forum' => $nom_forum,
-                               'descriu' => $descriu,
-                               'actiu' => $actiu,
-                               'observacions' => $observacions,
-                               'adjunts' => $adjunts,
-                               'msgDelTime' => $msgDelTime,
-                               'msgEditTime' => $msgEditTime);
+                    'descriu' => $descriu,
+                    'actiu' => $actiu,
+                    'observacions' => $observacions,
+                    'adjunts' => $adjunts,
+                    'msgDelTime' => $msgDelTime,
+                    'msgEditTime' => $msgEditTime);
                 if (ModUtil::apiFunc('IWforums', 'admin', 'update',
-                                      array('items' => $items,
-                                            'fid' => $fid))) {
+                                array('items' => $items,
+                                    'fid' => $fid))) {
                     //modified successfully
                     LogUtil::registerStatus($this->__('The forum has been modified'));
                 }
                 break;
             default:
                 if (ModUtil::apiFunc('IWforums', 'admin', 'create',
-                                      array('nom_forum' => $nom_forum,
-                                            'descriu' => $descriu,
-                                            'actiu' => $actiu,
-                                            'observacions' => $observacions,
-                                            'adjunts' => $adjunts,
-                                            'msgDelTime' => $msgDelTime,
-                                            'msgEditTime' => $msgEditTime))) {
+                                array('nom_forum' => $nom_forum,
+                                    'descriu' => $descriu,
+                                    'actiu' => $actiu,
+                                    'observacions' => $observacions,
+                                    'adjunts' => $adjunts,
+                                    'msgDelTime' => $msgDelTime,
+                                    'msgEditTime' => $msgEditTime))) {
                     //created successfully
                     LogUtil::registerStatus($this->__('A new forum has been created'));
                 }
@@ -193,12 +192,12 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get item
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
@@ -207,20 +206,15 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         if (!$confirm) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $groups = ModUtil::func('IWmain', 'user', 'getAllGroups',
-                                     array('sv' => $sv,
-                                           'less' => ModUtil::getVar('IWmyrole', 'rolegroup')));
+                            array('sv' => $sv,
+                                'less' => ModUtil::getVar('IWmyrole', 'rolegroup')));
 
-            // Create output object
-            $view = Zikula_View::getInstance('IWforums', false);
-            $view->assign('groups', $groups);
-            $view->assign('item', $item);
-            return $view->fetch('IWforums_admin_addGroup.htm');
+            return $this->view->assign('groups', $groups)
+                    ->assign('item', $item)
+                    ->fetch('IWforums_admin_addGroup.htm');
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
         // Needed argument
         if (!isset($group) || !is_numeric($group) || $group == 0) {
@@ -228,7 +222,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
         }
 
-        if ($group == '-1') $accessType = 1;
+        if ($group == '-1')
+            $accessType = 1;
 
         $groupString = ($item['grup'] == '') ? '$' : $item['grup'];
         $groupString .= '$' . $group . '|' . $accessType . '$';
@@ -237,8 +232,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         //add the group in database and send automatic message if it is necessary
         if (ModUtil::apiFunc('IWforums', 'admin', 'update',
-                              array('fid' => $fid,
-                                    'items' => $items))) {
+                        array('fid' => $fid,
+                            'items' => $items))) {
             //Success
             LogUtil::registerStatus($this->__('Group added'));
         }
@@ -259,12 +254,12 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get item
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
@@ -280,20 +275,13 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
             $groupName = ($vals[0] != '-1') ? $groupsInfo[$vals[0]] : $this->__('Unregistered');
 
-            // Create output object
-            $view = Zikula_View::getInstance('IWforums', false);
-
-            $view->assign('groupName', $groupName);
-            $view->assign('item', $item);
-            $view->assign('id', $id);
-
-            return $view->fetch('IWforums_admin_deleteGroup.htm');
+            return $this->view->assign('groupName', $groupName)
+                    ->assign('item', $item)
+                    ->assign('id', $id)
+                    ->fetch('IWforums_admin_deleteGroup.htm');
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
         // Needed argument
         if (!isset($id) || $id == '') {
@@ -306,8 +294,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         $items = array('grup' => $groupString);
 
         if (ModUtil::apiFunc('IWforums', 'admin', 'update',
-                              array('fid' => $fid,
-                                    'items' => $items))) {
+                        array('fid' => $fid,
+                            'items' => $items))) {
             //Success
             LogUtil::registerStatus($this->__('The access has been deleted'));
         }
@@ -328,12 +316,12 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get item
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
@@ -344,29 +332,24 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         if (!$confirm) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $groups = ModUtil::func('IWmain', 'user', 'getAllGroups',
-                                     array('sv' => $sv,
-                                           'plus' => $this->__('Choose a gruop...'),
-                                           'less' => ModUtil::getVar('IWmyrole', 'rolegroup')));
+                            array('sv' => $sv,
+                                'plus' => $this->__('Choose a gruop...'),
+                                'less' => ModUtil::getVar('IWmyrole', 'rolegroup')));
 
 
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $groupMembers = ModUtil::func('IWmain', 'user', 'getMembersGroup',
-                                           array('sv' => $sv,
-                                                 'gid' => $group));
+                            array('sv' => $sv,
+                                'gid' => $group));
 
-            // Create output object
-            $view = Zikula_View::getInstance('IWforums', false);
-            $view->assign('groupselect', $group);
-            $view->assign('groups', $groups);
-            $view->assign('groupMembers', $groupMembers);
-            $view->assign('item', $item);
-            return $view->fetch('IWforums_admin_addModerator.htm');
+            return $this->view->assign('groupselect', $group)
+                    ->assign('groups', $groups)
+                    ->assign('groupMembers', $groupMembers)
+                    ->assign('item', $item)
+                    ->fetch('IWforums_admin_addModerator.htm');
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
         // Needed argument
         if (!isset($uid) || !is_numeric($uid) || $uid == 0) {
@@ -381,8 +364,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         //add the group in database and send automatic message if it is necessary
         if (ModUtil::apiFunc('IWforums', 'admin', 'update',
-                              array('fid' => $fid,
-                                    'items' => $items))) {
+                        array('fid' => $fid,
+                            'items' => $items))) {
             //Success
             LogUtil::registerStatus($this->__('Moderador added'));
         }
@@ -403,12 +386,12 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get item
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
@@ -417,23 +400,17 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         if (!$confirm) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $userName = ModUtil::func('IWmain', 'user', 'getUserInfo',
-                                       array('sv' => $sv,
-                                             'uid' => $id,
-                                             'info' => 'ncc'));
-            // Create output object
-            $view = Zikula_View::getInstance('IWforums', false);
+                            array('sv' => $sv,
+                                'uid' => $id,
+                                'info' => 'ncc'));
 
-            $view->assign('userName', $userName);
-            $view->assign('item', $item);
-            $view->assign('id', $id);
-
-            return $view->fetch('IWforums_admin_deleteModerator.htm');
+            return $this->view->assign('userName', $userName)
+                    ->assign('item', $item)
+                    ->assign('id', $id)
+                    ->fetch('IWforums_admin_deleteModerator.htm');
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
         // Needed argument
         if (!isset($id) || $id == '') {
@@ -445,8 +422,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         $items = array('mod' => $respString);
         if (ModUtil::apiFunc('IWforums', 'admin', 'update',
-                              array('fid' => $fid,
-                                    'items' => $items))) {
+                        array('fid' => $fid,
+                            'items' => $items))) {
             //Success
             LogUtil::registerStatus($this->__("Moderator deleted,$dom"));
         }
@@ -466,31 +443,26 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get item
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
         }
 
         if (!$confirm) {
-            // Create output object
-            $view = Zikula_View::getInstance('IWforums', false);
-            $view->assign('item', $item);
-            return $view->fetch('IWforums_admin_delete.htm');
+            return $this->view->assign('item', $item)
+                    ->fetch('IWforums_admin_delete.htm');
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
         if (ModUtil::apiFunc('IWforums', 'admin', 'delete',
-                              array('fid' => $fid))) {
+                        array('fid' => $fid))) {
             //Success
             LogUtil::registerStatus($this->__('The forum has been deleted'));
         }
@@ -506,7 +478,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
     public function conf() {
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
         $noFolder = false;
         $noWriteable = false;
@@ -518,15 +490,14 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             }
         }
         $multizk = (isset($GLOBALS['PNConfig']['Multisites']['multi']) && $GLOBALS['PNConfig']['Multisites']['multi'] == 1) ? 1 : 0;
-        $view = Zikula_View::getInstance('IWforums', false);
-        $view->assign('noFolder', $noFolder);
-        $view->assign('noWriteable', $noWriteable);
-        $view->assign('multizk', $multizk);
-        $view->assign('urladjunts', ModUtil::getVar('IWforums', 'urladjunts'));
-        $view->assign('directoriroot', ModUtil::getVar('IWmain', 'documentRoot'));
-        $view->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'));
 
-        return $view->fetch('IWforums_admin_configura.htm');
+        return $this->view->assign('noFolder', $noFolder)
+                ->assign('noWriteable', $noWriteable)
+                ->assign('multizk', $multizk)
+                ->assign('urladjunts', ModUtil::getVar('IWforums', 'urladjunts'))
+                ->assign('directoriroot', ModUtil::getVar('IWmain', 'documentRoot'))
+                ->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'))
+                ->fetch('IWforums_admin_configura.htm');
     }
 
     /**
@@ -541,16 +512,13 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
-        // Confirm authorisation code
-        if (!SecurityUtil::confirmAuthKey()) {
-            return LogUtil::registerAuthidError(ModUtil::url('IWforums', 'admin', 'main'));
-        }
+        $this->checkCsrfToken();
 
-        ModUtil::setVar('IWforums', 'urladjunts', $urladjunts);
-        ModUtil::setVar('IWforums', 'avatarsVisible', $avatarsVisible);
+        $this->setVar('urladjunts', $urladjunts)
+                ->setVar('avatarsVisible', $avatarsVisible);
 
         LogUtil::registerStatus($this->__('The configuration of the module has been modified'));
 
@@ -568,17 +536,17 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Get field information
         $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
+                        array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__('Forum not found'));
             return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
         }
-
         return $item;
     }
+
 }

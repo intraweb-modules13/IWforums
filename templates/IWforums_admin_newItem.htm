@@ -21,7 +21,7 @@
         <!--[/if]-->
     </h2>
     <form  class="z-form" method="post" name="new_forum" id="new_forum" action="{modurl modname="IWforums" type="admin" func="create"}" enctype="application/x-www-form-urlencoded" onSubmit="return send()">
-           <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+           <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
            <input type="hidden" name="m" value="{$m}" />
         <input type="hidden" name="fid" value="{$forum.fid}" />
         <div class="z-formrow">

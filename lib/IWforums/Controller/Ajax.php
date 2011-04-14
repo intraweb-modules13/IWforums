@@ -8,7 +8,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      */
     public function chgUsers($args) {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $gid = FormUtil::getPassedValue('gid', -1, 'GET');
@@ -44,7 +44,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      */
     public function modifyForum($args) {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
@@ -89,7 +89,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
      */
     public function changeContent($args) {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
@@ -122,11 +122,11 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function mark($args) {
         
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         if (!UserUtil::isLoggedIn()) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML(_IWFORUMSNOTALLOWEDTODOTHISACTION));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
@@ -201,7 +201,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function deleteGroup($args) {
         
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
@@ -242,7 +242,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function deleteModerator($args) {
         
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
 
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
@@ -283,7 +283,7 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     public function openMsg($args) {
         
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Sorry! No authorization to access this module.')));
+            throw new Zikula_Exception_Forbidden();
         }
         $fid = FormUtil::getPassedValue('fid', -1, 'GET');
         if ($fid == -1) {

@@ -34,7 +34,7 @@
         <tr>
             <td colspan="2">
                 <img src="modules/IWmain/images/fileIcons/{$missatge.fileIcon}" alt="" />
-                <a href="{modurl modname="IWforums" func="download" fileName=$missatge.adjunt fmid=$missatge.fmid fid=$fid}">
+                <a href="{modurl modname="IWforums" type="user" func="download" fileName=$missatge.adjunt fmid=$missatge.fmid fid=$fid}">
                     {$missatge.adjunt|safetext}
                 </a>
             </td>

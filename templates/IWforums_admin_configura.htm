@@ -3,7 +3,7 @@
     <div class="z-adminpageicon">{img modname='core' src='configure.png' set='icons/large'}</div>
     <h2>{gt text="Create a new forum"}</h2>
     <form  class="z-form" method="post" id="configura" action="{modurl modname="IWforums" type="admin" func="update_conf"}" >
-           <input type="hidden" name="authid" value="{insert name="generateauthkey" module="IWforums"}" />
+           <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
            <div style="height:40px;">&nbsp;</div>
         {if not $multizk}
         <div class="z-formrow">

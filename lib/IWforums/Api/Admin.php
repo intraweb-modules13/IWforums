@@ -19,7 +19,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         //Needed arguments
@@ -59,7 +59,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         $items = FormUtil::getPassedValue('items', isset($args['items']) ? $args['items'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         // Needed argument
@@ -96,7 +96,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
-            return LogUtil::registerError($this->__('Sorry! No authorization to access this module.'), 403);
+            throw new Zikula_Exception_Forbidden();
         }
 
         // Needed argument

@@ -40,7 +40,7 @@
                     <div>
                         {gt text="Attached file"}:
                         <img src="modules/IWmain/images/fileIcons/{$fileIcon}"/>
-                        <a href="{modurl modname="IWforums" func="download" fileName=$adjunt fmid=$fmid fid=$fid}">
+                        <a href="{modurl modname="IWforums" type="user" func="download" fileName=$adjunt fmid=$fmid fid=$fid}">
                             {$adjunt|safetext}
                         </a>
                     </div>
@@ -109,13 +109,13 @@
                 {/if}
                 {if $userid neq ''}
                     <td style="text-align:center;" width="10">
-                        <a href="{modurl modname=IWforums func=msg fmid=$messageList.fmid ftid=$ftid fid=$fid u=$u oid=$messageList.oid inici=$inici}">
+                        <a href="{modurl modname=IWforums type="user" func=msg fmid=$messageList.fmid ftid=$ftid fid=$fid u=$u oid=$messageList.oid inici=$inici}">
                             {img modname='IWforums' src=$messageList.imatge set='images'}
                         </a>
                     </td>
                 {/if}
                 <td style="padding-left:{$messageList.indent}px;">
-                    <a href="{modurl modname=IWforums func=msg fmid=$messageList.fmid ftid=$ftid fid=$fid u=$u oid=$messageList.oid inici=$inici}">
+                    <a href="{modurl modname=IWforums type="user" func=msg fmid=$messageList.fmid ftid=$ftid fid=$fid u=$u oid=$messageList.oid inici=$inici}">
                         {$messageList.title}
                     </a>
                 </td>

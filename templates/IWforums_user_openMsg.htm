@@ -14,7 +14,7 @@
                     <div>
                         {gt text="Attached file"}:
                         <img src="modules/IWmain/images/fileIcons/{$fileIcon}"/>
-                        <a href="{modurl modname="IWforums" func="download" fileName=$adjunt fmid=$fmid fid=$fid}">
+                        <a href="{modurl modname="IWforums" type="user" func="download" fileName=$adjunt fmid=$fmid fid=$fid}">
                             {$adjunt|safetext}
                         </a>
                 </div>
@@ -32,7 +32,7 @@
             <td colspan="3" align="right">
                 {if $access > 1}
                     <div class="titleRowTitle">
-                        <a href="{modurl modname=IWforums func=nou_msg fmid=$fmid ftid=$ftid fid=$fid u=$u inici=$inici oid=$oid}" title="{gt text="Move the message"}">
+                        <a href="{modurl modname=IWforums type="user" func=nou_msg fmid=$fmid ftid=$ftid fid=$fid u=$u inici=$inici oid=$oid}" title="{gt text="Move the message"}">
                             {gt text="Reply to the message"}
                         </a>
                     </div>
