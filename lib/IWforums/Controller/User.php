@@ -1185,7 +1185,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                 ->assign('fmid', $fmid)
                 ->assign('oid', $oid)
                 ->assign('u', $u)
-        > fetch('IWforums_user_readers.htm');
+        ->fetch('IWforums_user_readers.htm');
     }
 
     /**
