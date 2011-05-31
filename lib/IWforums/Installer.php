@@ -18,8 +18,7 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
 
         // Check if the version needed is correct
         $versionNeeded = '3.0.0';
-        if (!ModUtil::func('IWmain', 'admin', 'checkVersion',
-                        array('version' => $versionNeeded))) {
+        if (!ModUtil::func('IWmain', 'admin', 'checkVersion', array('version' => $versionNeeded))) {
             return false;
         }
 
@@ -74,10 +73,51 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
     /**
      * Update the IWforums module
      * @author Albert Pérez Monfort (aperezm@xtec.cat)
+     * @author Jaume Fernàndez Valiente (jfern343@xtec.cat)
      * @return bool true if successful, false otherwise
      */
     public function upgrade($oldversion) {
-        //success
+
+        $prefix = $GLOBALS['ZConfig']['System']['prefix'];
+
+        //Rename tables
+        if (!DBUtil::renameTable('iw_forums_def', 'IWforums_definition'))
+            return false;
+
+        if (!DBUtil::renameTable('iw_forums_msg', 'IWforums_msg'))
+            return false;
+
+        if (!DBUtil::renameTable('iw_forums_temes', 'IWforums_temes'))
+            return false;
+        
+        // Update module_vars table
+
+        //Update the name (keeps old var value)
+        $c = "UPDATE {$prefix}_module_vars SET z_modname = 'IWforums' WHERE z_bkey = 'iw_forums'";
+        if (!DBUtil::executeSQL($c)) {
+            return false;
+        }
+
+        //Array de noms
+        $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`z_modname` = 'iw_forums'", '', false, '');
+
+        $newVarsNames = Array('urladjunts', 'avatarsVisible');
+
+        $newVars = Array('urladjunts' => 'forums',
+            'avatarsVisible' => '1');
+
+        // Delete unneeded vars
+        $del = array_diff($oldVarsNames, $newVarsNames);
+        foreach ($del as $i) {
+            $this->delVar($i);
+        }
+
+        // Add new vars
+        $add = array_diff($newVarsNames, $oldVarsNames);
+        foreach ($add as $i) {
+            $this->setVar($i, $newVars[$i]);
+        }    
+        
         return true;
     }
 
