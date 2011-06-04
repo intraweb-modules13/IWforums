@@ -17,6 +17,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             throw new Zikula_Exception_Forbidden();
         }
 
+        $forums = array();
         $registres = ModUtil::apiFunc('IWforums', 'user', 'getall',
                         array('filter' => '1'));
         foreach ($registres as $registre) {
@@ -60,6 +61,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'POST');
         $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid'), 'POST');
         $sv = FormUtil::getPassedValue('sv', isset($args['sv']) ? $args['sv'] : null, 'POST');
+        $requestByCron = false;
         if (!ModUtil::func('IWmain', 'user', 'checkSecurityValue',
                         array('sv' => $sv))) {
             // security check

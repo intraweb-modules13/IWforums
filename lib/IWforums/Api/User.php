@@ -9,6 +9,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $filter = FormUtil::getPassedValue('filter', isset($args['filter']) ? $args['filter'] : null, 'POST');
         $sv = FormUtil::getPassedValue('sv', isset($args['sv']) ? $args['sv'] : null, 'POST');
         $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid'), 'POST');
+        $requestByCron = false;
         if (!ModUtil::func('IWmain', 'user', 'checkSecurityValue',
                             array('sv' => $sv))) {
             // Security check

@@ -1,20 +1,20 @@
 <script language="javascript">
     function send(){
-        if(document.new_msg.titol.value==""){
+        var f = document.forms['new_msg'];
+        if(f.titol.value==""){
             alert("{{gt text="You didn't write a title for the message."}}");
             var error=true;
         }
         {{if $adjunts neq "0"}}
-        if(document.new_msg.adjunt.value!="" && "{{$extensions}}".indexOf(document.new_msg.adjunt.value.substring(document.new_msg.adjunt.value.length-3,document.new_msg.adjunt.value.length))==-1  && !error){
+        if(f.adjunt.value!="" && "{{$extensions}}".indexOf(f.adjunt.value.substring(f.adjunt.value.length-3,f.adjunt.value.length))==-1  && !error){
             alert("{{gt text="The extension of the attached file isn't correct. The valid extensions are: "}}{{$extensions}}");
             var error=true;
         }
         {{/if}}
         if(!error){resposta=confirm("{{gt text="Do you really want to send the message?"}}");}
         if(!error && resposta){
-            document.new_msg.submit();
+            f.submit();
         }
-
     }
 </script>
 
@@ -22,68 +22,58 @@
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Add a new message"}</h2>
-    <div style="height:15px;">&nbsp;</div>
-    <form  method="post" name="new_msg" id="new_msg" action="{modurl modname="IWforums" type="user" func="crear_msg"}" enctype="multipart/form-data">
+    <form  method="post" class="z-form" id="new_msg" action="{modurl modname='IWforums' type='user' func='crear_msg'}" enctype="multipart/form-data">
         <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="fid" value="{$fid}" />
         <input type="hidden" name="ftid" value="{$ftid}" />
         <input type="hidden" name="fmid" value="{$fmid}" />
         <input type="hidden" name="oid" value="{$oid}" />
         <input type="hidden" name="u" value="{$u}" />
-        <table class="usertable">
-            <tr>
-                <td width="150">{gt text="Title of the message"}</td>
-                <td><input type="text" name="titol" maxlength="100" size="60" value="{$title}"></td>
-            </tr>
+        <fieldset>
+            <legend>{gt text="Message content"}</legend>
+            <div class="z-formrow">
+                <label for="titol">{gt text="Title of the message"}</label>
+                <input type="text" id ="titol" name="titol" maxlength="100" size="60" value="{$title}" />
+            </div>
             {if $adjunts neq "0"}
-                <tr>
-                    <td>{gt text="Attached file"}</td>
-                    <td><input type="file" name="adjunt" size="50"></td>
-                </tr>
+            <div class="z-formrow">
+                <label for="adjunt">{gt text="Attached file"}</label>
+                <input type="file" id="adjunt" name="adjunt" size="50" />
+            </div>
             {/if}
-            <tr>
-                {if $icons neq ''}
-                    <td>{gt text="Icon"}</td>
-                    <td>
-                        <input type="radio" name="icon" value="" checked />
-                        {section name=icons loop=$icons}
-                            <input type="radio" name="icon" value="{$icons[icons].imgsrc}" /><img src="images/smilies/{$icons[icons].imgsrc}" alt="" />
-                        {/section}
-                    </td>
+            {if $icons neq ''}
+            <div class="z-formrow">
+                <label for="icon">{gt text="Icon"}</label>
+                <input type="radio" id="icon" name="icon" value="" checked />
+                {section name=icons loop=$icons}
+                <input type="radio" name="icon" value="{$icons[icons].imgsrc}" /><img src="images/smilies/{$icons[icons].imgsrc}" alt="" />
+                {/section}
+            </div>
+            {else}
+            <input type="hidden" name="icon" value="" />
+            {/if}
+            <div class="z-formrow">
+                <label for="adjunt">{gt text="Message"}</label>
+                <textarea name="msg" cols="80" rows="10" id="intraweb"></textarea>
+            </div>
+        </fieldset>
+        <div class="z-center">
+            <span class="z-buttons">
+                <a href="javascript:send()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Create the message" __title="Create the message"} {gt text="Create the message"}</a>
+            </span>
+            <span class="z-buttons">
+                {if $ftid neq 0}
+                <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
                 {else}
-                    <td colspan="2"><input type="hidden" name="icon" value="" /></td>
+                <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
                 {/if}
-            </tr>
-            <tr>
-                <td colspan="2">{gt text="Message"}</td>
-            </tr>
-            <tr>
-                <td colspan="2"><textarea name="msg" cols="80" rows="10" id="intraweb"></textarea></td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div class="z-center">
-                        <span class="z-buttons">
-                            <a href="javascript:send()">{img modname='core' src='button_ok.png' set='icons/small'   __alt="Create the message" __title="Create the message"} {gt text="Create the message"}</a>
-                        </span>
-                        <span class="z-buttons">
-                            {if $ftid neq 0}
-                                <a href="{modurl modname="IWforums" type="user" func="llista_msg" fid=$fid ftid=$ftid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
-                            {else}
-                                <a href="{modurl modname="IWforums" type="user" func="forum" fid=$fid}">{img modname='core' src='button_cancel.png' set='icons/small'   __alt="Cancel" __title="Cancel"} {gt text="Cancel"}</a>
-                            {/if}
-                        </span>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <div style="margin:30px;">
-                        {$msg|nl2br}
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <div style="visibility:hidden;"><textarea name="oldmsg" cols="80" rows="10" id="oldintraweb">{$msg}</textarea></div>
+            </span>
+        </div>
+        <div style="margin:30px;">
+            {$msg|nl2br}
+        </div>
+        <div style="visibility:hidden;">
+            <textarea name="oldmsg" cols="80" rows="10" id="oldintraweb">{$msg}</textarea>
+        </div>
     </form>
 </div>
