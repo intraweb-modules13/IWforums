@@ -77,29 +77,9 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
      * @return bool true if successful, false otherwise
      */
     public function upgrade($oldversion) {
-
-        $prefix = $GLOBALS['ZConfig']['System']['prefix'];
-
-        //Rename tables
-        if (!DBUtil::renameTable('iw_forums_def', 'IWforums_definition'))
-            return false;
-
-        if (!DBUtil::renameTable('iw_forums_msg', 'IWforums_msg'))
-            return false;
-
-        if (!DBUtil::renameTable('iw_forums_temes', 'IWforums_temes'))
-            return false;
-        
-        // Update module_vars table
-
-        //Update the name (keeps old var value)
-        $c = "UPDATE {$prefix}_module_vars SET z_modname = 'IWforums' WHERE z_bkey = 'iw_forums'";
-        if (!DBUtil::executeSQL($c)) {
-            return false;
-        }
-
+       
         //Array de noms
-        $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`z_modname` = 'iw_forums'", '', false, '');
+        $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`modname` = 'IWforums'", '', false, '');
 
         $newVarsNames = Array('urladjunts', 'avatarsVisible');
 
