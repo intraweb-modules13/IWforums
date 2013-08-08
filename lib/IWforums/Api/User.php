@@ -849,6 +849,10 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if (!isset($titol) || !isset($msg)) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
+
+        if ($access > 4)
+            $onTop = 0;
+
         $item = array('fid' => $fid,
             'ftid' => $ftid,
             'titol' => $titol,
@@ -1033,6 +1037,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $adjunt = FormUtil::getPassedValue('fadjunt', isset($args['fadjunt']) ? $args['fadjunt'] : null, 'POST');
         $icon = FormUtil::getPassedValue('icon', isset($args['icon']) ? $args['icon'] : null, 'POST');
         $idparent = FormUtil::getPassedValue('idparent', isset($args['idparent']) ? $args['idparent'] : null, 'POST');
+        $onTop = FormUtil::getPassedValue('onTop', isset($args['onTop']) ? $args['onTop'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
@@ -1048,6 +1053,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if ($access < 2) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
+        if ($access > 4)
+            $onTop = 0;
         //Agafem les dades del missatge
         $missatge = ModUtil::apiFunc('IWforums', 'user', 'get_msg', array('fmid' => $fmid));
         if ($missatge == false) {
@@ -1070,7 +1077,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $items = array('titol' => $titol,
             'missatge' => $msg,
             'icon' => $icon,
-            'adjunt' => $adjunt);
+            'adjunt' => $adjunt,
+            'onTop' => $onTop,
+            );
 
         if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('Error! Update attempt failed.'));

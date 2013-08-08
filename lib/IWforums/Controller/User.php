@@ -524,10 +524,13 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             throw new Zikula_Exception_Forbidden();
         }
         // check if user can access the forum
-        if (ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid)) < 2) {
+        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
+        if ($access < 2) {
             LogUtil::registerError($this->__('You can\'t access the forum'));
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
         }
+
+        $moderator = ($access == 4) ? true : false;
 
         // get forum information
         $registre = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
@@ -571,6 +574,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('u', $u)
                         ->assign('inici', $inici)
                         ->assign('oid', $oid)
+                        ->assign('moderator', $moderator)
                         ->fetch('IWforums_user_new_msg.htm');
     }
 
@@ -591,6 +595,8 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $adjunt = FormUtil::getPassedValue('adjunt', isset($args['adjunt']) ? $args['adjunt'] : null, 'POST');
         $icon = FormUtil::getPassedValue('icon', isset($args['icon']) ? $args['icon'] : null, 'POST');
         $oldmsg = FormUtil::getPassedValue('oldmsg', isset($args['oldmsg']) ? $args['oldmsg'] : null, 'POST');
+        $onTop = FormUtil::getPassedValue('onTop', isset($args['onTop']) ? $args['onTop'] : 0, 'POST');
+
         // gets the attached file array
         $fileName = $_FILES['adjunt']['name'];
         // security check
@@ -639,7 +645,9 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                     'adjunt' => $nom_fitxer,
                     'icon' => $icon,
                     'idparent' => $fmid,
-                    'oid' => $oid));
+                    'oid' => $oid,
+                    'onTop' => $onTop,
+                ));
         // check if user canmoderate the forum
         $moderator = false;
         if ($access == 4)
@@ -1293,6 +1301,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('adjunts', $registre['adjunts'])
                         ->assign('extensions', ModUtil::getVar('IWmain', 'extensions'))
                         ->assign('u', $u)
+                        ->assign('moderator', $moderator)
                         ->fetch('IWforums_user_edit_msg.htm');
     }
 
