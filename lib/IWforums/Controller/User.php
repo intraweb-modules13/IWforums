@@ -1952,7 +1952,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
     }
 
     /**
-     * Set a message as principal and maintain it on top
+     * Set a message as main message and maintain it on top
      * @author:     Albert Pérez Monfort (aperezm@xtec.cat)
      * @param:	message, topic and forum identities
      * @return:	Redirect user to readers page
@@ -1983,7 +1983,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
 
         // check if the message is parent
         if ($missatge['idparent'] != 0) {
-            LogUtil::registerError($this->__('The message can not be set as principal.'));
+            LogUtil::registerError($this->__('The message can not be set as main message.'));
             if ($ftid != 0) {
                 return System::redirect(ModUtil::url('IWforums', 'user', 'llista_msg', array('fid' => $fid,
                                     'ftid' => $ftid)));
@@ -1991,11 +1991,12 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                 return System::redirect(ModUtil::url('IWforums', 'user', 'forum', array('fid' => $fid)));
             }
         }
-        // set message as principal
+        // set message as main message
         if (ModUtil::apiFunc('IWforums', 'user', 'onTop', array('fmid' => $fmid,
                 ))) {
-            // deletion successfuly
-            LogUtil::registerStatus($this->__('The message has been set as principal.'));
+            $msg = ($missatge['onTop'] == 1) ? $this->__('The message has been set as not main message.'):$this->__('The message has been set as main message.');
+            // success
+            LogUtil::registerStatus($msg);
         }
 
         // redirect user to the list of messages

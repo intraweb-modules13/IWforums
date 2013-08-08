@@ -1238,7 +1238,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $items = array('onTop' => $onTop);
 
         if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
-            return LogUtil::registerError($this->__('An error has occurred while setting a message as principal.'));
+            return LogUtil::registerError($this->__('An error has occurred while setting a message as main message.'));
         }
 
         //Update de last time and user in forum topic

@@ -173,7 +173,7 @@
             <td style="padding-left:{$message.indent}px;">
                 <div class="titleRowTitle">
                     {if $message.onTop eq 1}
-                    <img src="modules/IWforums/images/onTop.gif" style="vertical-align: middle;" alt="{gt text='Principal message'}" title="{gt text='Principal message'}" />
+                    <img src="modules/IWforums/images/onTop.gif" style="vertical-align: middle;" alt="{gt text='Main message'}" title="{gt text='Main message'}" />
                     {/if}
                     <a href="{modurl modname='IWforums' type='user' func='msg' fmid=$message.fmid ftid=$ftid fid=$fid u=$u oid=$message.oid inici=$inici}">
                         {$message.title}
@@ -203,11 +203,11 @@
                     {img modname='IWforums' src='moumsg.gif' __alt="Move the message" __title="Move the message"}
                 </a>
                 {if $message.fmid eq $message.oid}
-                <a href="{modurl modname='IWforums' type='user' func='onTop' fmid=$message.fmid ftid=$ftid fid=$fid u=$u inici=$inici}" title="{if $message.onTop eq 0}{gt text='Set as principal'}{else}{gt text='Set as not principal'}{/if}">
+                <a href="{modurl modname='IWforums' type='user' func='onTop' fmid=$message.fmid ftid=$ftid fid=$fid u=$u inici=$inici}" title="{if $message.onTop eq 0}{gt text='Set as main message'}{else}{gt text='Set as not main message'}{/if}">
                     {if $message.onTop eq 1}
-                    {img modname='IWforums' src='onTop.gif' __alt="Move the message" __title="Set as not principal"}
+                    {img modname='IWforums' src='onTop.gif' __alt="Move the message" __title="Set as not main message"}
                     {else}
-                    {img modname='IWforums' src='noOnTop.gif' __alt="Move the message" __title="Set as principal"}
+                    {img modname='IWforums' src='noOnTop.gif' __alt="Move the message" __title="Set as main message"}
                     {/if}
                 </a>
                 {else}
