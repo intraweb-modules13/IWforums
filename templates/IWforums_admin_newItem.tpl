@@ -9,7 +9,7 @@
     document.forms['new_forum'].submit();
     }
 </script>
-{include file="IWforums_admin_menu.htm"}
+{include file="IWforums_admin_menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     <h2>

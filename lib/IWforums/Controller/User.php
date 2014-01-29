@@ -40,7 +40,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         }
 
         return $this->view->assign('forums', $forums)
-                        ->fetch('IWforums_user_main.htm');
+                        ->fetch('IWforums_user_main.tpl');
     }
 
     /**
@@ -238,7 +238,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('ftid', $ftid)
                         ->assign('pager', $pager)
                         ->assign('inici', $inici)
-                        ->fetch('IWforums_user_forum.htm');
+                        ->fetch('IWforums_user_forum.tpl');
     }
 
     /**
@@ -277,7 +277,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('ftid', 0)
                         ->assign('title', '')
                         ->assign('extensions', ModUtil::getVar('IWmain', 'extensions'))
-                        ->fetch('IWforums_user_new_tema.htm');
+                        ->fetch('IWforums_user_new_tema.tpl');
     }
 
     /**
@@ -501,7 +501,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('pager', $pager)
                         ->assign('inici', $inici)
                         ->assign('hi_ha_temes', false)
-                        ->fetch('IWforums_user_forum.htm');
+                        ->fetch('IWforums_user_forum.tpl');
     }
 
     /**
@@ -575,7 +575,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('inici', $inici)
                         ->assign('oid', $oid)
                         ->assign('moderator', $moderator)
-                        ->fetch('IWforums_user_new_msg.htm');
+                        ->fetch('IWforums_user_new_msg.tpl');
     }
 
     /*
@@ -871,7 +871,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('urladjunts', ModUtil::getVar('IWforums', 'urladjunts'))
                         ->assign('usuari', $registre['usuari'])
                         ->assign('uid', $uid)
-                        ->fetch('IWforums_user_msg.htm');
+                        ->fetch('IWforums_user_msg.tpl');
     }
 
     /*
@@ -945,7 +945,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('fid', $fid)
                         ->assign('oid', $oid)
                         ->assign('access', $access)
-                        ->fetch('IWforums_user_openMsg.htm');
+                        ->fetch('IWforums_user_openMsg.tpl');
     }
 
     /**
@@ -1135,7 +1135,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('fmid', $fmid)
                         ->assign('oid', $oid)
                         ->assign('u', $u)
-                        ->fetch('IWforums_user_readers.htm');
+                        ->fetch('IWforums_user_readers.tpl');
     }
 
     /**
@@ -1217,7 +1217,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                             ->assign('date', date('d/m/y', $missatge['data']))
                             ->assign('time', date('H.i', $missatge['data']))
                             ->assign('message', $missatge['missatge'])
-                            ->fetch('IWforums_user_del_msg.htm');
+                            ->fetch('IWforums_user_del_msg.tpl');
         }
         $this->checkCsrfToken();
         // delete message
@@ -1302,7 +1302,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('extensions', ModUtil::getVar('IWmain', 'extensions'))
                         ->assign('u', $u)
                         ->assign('moderator', $moderator)
-                        ->fetch('IWforums_user_edit_msg.htm');
+                        ->fetch('IWforums_user_edit_msg.tpl');
     }
 
     /**
@@ -1481,7 +1481,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                             ->assign('message', $missatge['missatge'])
                             ->assign('temes', $temes)
                             ->assign('u', $u)
-                            ->fetch('IWforums_user_move_msg.htm');
+                            ->fetch('IWforums_user_move_msg.tpl');
         }
 
         $this->checkCsrfToken();
@@ -1666,7 +1666,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('fid', $fid)
                         ->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'))
                         ->assign('ftid', $ftid)
-                        ->fetch('IWforums_user_allmsg.htm');
+                        ->fetch('IWforums_user_allmsg.tpl');
     }
 
     /**
@@ -1707,7 +1707,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                             ->assign('tema', $tema['titol'])
                             ->assign('ftid', $ftid)
                             ->assign('fid', $fid)
-                            ->fetch('IWforums_user_del_tema.htm');
+                            ->fetch('IWforums_user_del_tema.tpl');
         }
         $this->checkCsrfToken();
         // delete record
@@ -1880,7 +1880,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('extensions', ModUtil::getVar('IWmain', 'extensions'))
                         ->assign('u', $u)
                         ->assign('name', $forum['nom_forum'])
-                        ->fetch('IWforums_user_edit_msg.htm');
+                        ->fetch('IWforums_user_edit_msg.tpl');
     }
 
     /**
@@ -1948,7 +1948,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
 
         $items[] = array('text' => $text);
         return $this->view->assign('items', $items)
-                        ->fetch('IWforums_user_pager.htm');
+                        ->fetch('IWforums_user_pager.tpl');
     }
 
     /**

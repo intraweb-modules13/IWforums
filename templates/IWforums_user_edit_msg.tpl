@@ -19,7 +19,7 @@
             if (!error){document.new_msg.submit(); }
     }
 </script>
-{include file="IWforums_user_menu.htm" m2=1 m7=1 fid=$fid ftid=$ftid}
+{include file="IWforums_user_menu.tpl" m2=1 m7=1 fid=$fid ftid=$ftid}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='edit.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Edit the message"}</h2>

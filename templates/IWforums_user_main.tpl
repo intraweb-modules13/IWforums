@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" start="" end=""}
+{include file="IWforums_user_menu.tpl" start="" end=""}
 {userloggedin assign=userid}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>

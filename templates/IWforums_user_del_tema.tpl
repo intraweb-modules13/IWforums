@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" m1=1 m2=1 m4=1 m3=1 m9=1 fid=$fid}
+{include file="IWforums_user_menu.tpl" m1=1 m2=1 m4=1 m3=1 m9=1 fid=$fid}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='editdelete.png' set='icons/large'}</div>
     <h2>{$name} => {if $ftid neq 0}{$tema} => {/if}{gt text="Topic and messages deletion"}</h2>

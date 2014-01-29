@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" m2=1 m3=1 m4=1 m10=1 fid=$fid ftid=$ftid}
+{include file="IWforums_user_menu.tpl" m2=1 m3=1 m4=1 m10=1 fid=$fid ftid=$ftid}
 {userloggedin assign=userid}
 {foreach item=missatge from=$missatges}
 <div width="100%" class="msgBox">

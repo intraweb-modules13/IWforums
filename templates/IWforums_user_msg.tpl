@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" m5=1 m6=1 m7=1 m11=1 m12=1 m13=1 oid=$oid fid=$fid ftid=$ftid fmid=$fmid u=$u inici=$inici}
+{include file="IWforums_user_menu.tpl" m5=1 m6=1 m7=1 m11=1 m12=1 m13=1 oid=$oid fid=$fid ftid=$ftid fmid=$fmid u=$u inici=$inici}
 {userloggedin assign=userid}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='reminders.png' set='icons/large'}</div>

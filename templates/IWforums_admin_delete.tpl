@@ -1,4 +1,4 @@
-{include file="IWforums_admin_menu.htm"}
+{include file="IWforums_admin_menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' src='editdelete.png' set='icons/large'}</div>
     <h2>{gt text="Delete the forum"}</h2>

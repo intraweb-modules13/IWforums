@@ -179,38 +179,38 @@ msgstr " minuts pot editar el missatge."
 msgid " minutes you can delete the message"
 msgstr " minuts pot esborrar el missatge."
 
-#: pnuser.php:743 pntemplates/iw_forums_user_move_msg.htm:26
-#: pntemplates/iw_forums_user_allmsg.htm:19
-#: pntemplates/iw_forums_user_msg.htm:24
-#: pntemplates/iw_forums_user_del_msg.htm:14
-#: pntemplates/iw_forums_user_printallmsg.htm:14
+#: pnuser.php:743 pntemplates/iw_forums_user_move_msg.tpl:26
+#: pntemplates/iw_forums_user_allmsg.tpl:19
+#: pntemplates/iw_forums_user_msg.tpl:24
+#: pntemplates/iw_forums_user_del_msg.tpl:14
+#: pntemplates/iw_forums_user_printallmsg.tpl:14
 msgid "From: "
 msgstr "De: "
 
-#: pnuser.php:744 pntemplates/iw_forums_user_move_msg.htm:32
-#: pntemplates/iw_forums_user_forum.htm:128
-#: pntemplates/iw_forums_user_allmsg.htm:25
-#: pntemplates/iw_forums_user_msg.htm:30 pntemplates/iw_forums_user_msg.htm:81
-#: pntemplates/iw_forums_user_del_msg.htm:20
-#: pntemplates/iw_forums_user_printallmsg.htm:20
+#: pnuser.php:744 pntemplates/iw_forums_user_move_msg.tpl:32
+#: pntemplates/iw_forums_user_forum.tpl:128
+#: pntemplates/iw_forums_user_allmsg.tpl:25
+#: pntemplates/iw_forums_user_msg.tpl:30 pntemplates/iw_forums_user_msg.tpl:81
+#: pntemplates/iw_forums_user_del_msg.tpl:20
+#: pntemplates/iw_forums_user_printallmsg.tpl:20
 msgid "Date"
 msgstr "Data"
 
-#: pnuser.php:745 pntemplates/iw_forums_user_move_msg.htm:37
-#: pntemplates/iw_forums_user_forum.htm:129
-#: pntemplates/iw_forums_user_allmsg.htm:30
-#: pntemplates/iw_forums_user_msg.htm:35 pntemplates/iw_forums_user_msg.htm:82
-#: pntemplates/iw_forums_user_del_msg.htm:25
-#: pntemplates/iw_forums_user_printallmsg.htm:25
+#: pnuser.php:745 pntemplates/iw_forums_user_move_msg.tpl:37
+#: pntemplates/iw_forums_user_forum.tpl:129
+#: pntemplates/iw_forums_user_allmsg.tpl:30
+#: pntemplates/iw_forums_user_msg.tpl:35 pntemplates/iw_forums_user_msg.tpl:82
+#: pntemplates/iw_forums_user_del_msg.tpl:25
+#: pntemplates/iw_forums_user_printallmsg.tpl:25
 msgid "Time"
 msgstr "Hora"
 
-#: pnuser.php:747 pntemplates/iw_forums_user_new_tema.htm:51
-#: pntemplates/iw_forums_user_new_msg.htm:40
-#: pntemplates/iw_forums_user_edit_msg.htm:40
-#: pntemplates/iw_forums_user_msg.htm:42
-#: pntemplates/iw_forums_user_openMsg.htm:15
-#: pntemplates/iw_forums_user_printallmsg.htm:32
+#: pnuser.php:747 pntemplates/iw_forums_user_new_tema.tpl:51
+#: pntemplates/iw_forums_user_new_msg.tpl:40
+#: pntemplates/iw_forums_user_edit_msg.tpl:40
+#: pntemplates/iw_forums_user_msg.tpl:42
+#: pntemplates/iw_forums_user_openMsg.tpl:15
+#: pntemplates/iw_forums_user_printallmsg.tpl:32
 msgid "Attached file"
 msgstr "Fitxer adjunt"
 
@@ -251,7 +251,7 @@ msgid "The topic has been deleted."
 msgstr "S'ha esborrat el tema"
 
 #: pntemplates/plugins/function.iwforumsusermenulinks.php:41
-#: pntemplates/iw_forums_user_openMsg.htm:34
+#: pntemplates/iw_forums_user_openMsg.tpl:34
 msgid "Reply to the message"
 msgstr "Respon el missatge"
 
@@ -289,8 +289,8 @@ msgid "Check all messages as read"
 msgstr "Marca com a llegits tots els missatges"
 
 #: pntemplates/plugins/function.iwforumsadminmenulinks.php:27
-#: pntemplates/iw_forums_admin_new.htm:15
-#: pntemplates/iw_forums_admin_configura.htm:5
+#: pntemplates/iw_forums_admin_new.tpl:15
+#: pntemplates/iw_forums_admin_configura.tpl:5
 msgid "Create a new forum"
 msgstr "Crea un fòrum nou"
 
@@ -308,7 +308,7 @@ msgstr "Configura el mòdul"
 msgid "Forum not found"
 msgstr "Fòrum no trobat"
 
-#: pnadmin.php:57 pnadmin.php:307 pntemplates/iw_forums_admin_addGroup.htm:13
+#: pnadmin.php:57 pnadmin.php:307 pntemplates/iw_forums_admin_addGroup.tpl:13
 msgid "Unregistered"
 msgstr "No registrats"
 
@@ -328,7 +328,7 @@ msgstr "S'ha afegit un grup al fòrum"
 msgid "The access has been deleted"
 msgstr "S'ha esborrat l'accés del grup"
 
-#: pnadmin.php:372 pntemplates/iw_forums_admin_addGroup.htm:12
+#: pnadmin.php:372 pntemplates/iw_forums_admin_addGroup.tpl:12
 msgid "Choose a gruop..."
 msgstr "Tria un grup..."
 
@@ -356,103 +356,103 @@ msgstr "Creació, gestió i ús de fòrums"
 msgid "IWForums"
 msgstr "IWForums"
 
-#: pntemplates/iw_forums_user_new_tema.htm:4
+#: pntemplates/iw_forums_user_new_tema.tpl:4
 msgid "You didn't write a title for the topic"
 msgstr "El títol del tema està buit"
 
-#: pntemplates/iw_forums_user_new_tema.htm:8
-#: pntemplates/iw_forums_user_new_msg.htm:4
-#: pntemplates/iw_forums_user_edit_msg.htm:10
+#: pntemplates/iw_forums_user_new_tema.tpl:8
+#: pntemplates/iw_forums_user_new_msg.tpl:4
+#: pntemplates/iw_forums_user_edit_msg.tpl:10
 msgid "You didn't write a title for the message."
 msgstr "El títol del missatge està buit."
 
-#: pntemplates/iw_forums_user_new_tema.htm:14
-#: pntemplates/iw_forums_user_new_msg.htm:9
-#: pntemplates/iw_forums_user_edit_msg.htm:15
+#: pntemplates/iw_forums_user_new_tema.tpl:14
+#: pntemplates/iw_forums_user_new_msg.tpl:9
+#: pntemplates/iw_forums_user_edit_msg.tpl:15
 msgid ""
 "The extension of the attached file isn't correct. The valid extensions are: "
 msgstr ""
 "L'extensió del fitxer adjunt no és admesa. Les extensions possibles són: "
 
-#: pntemplates/iw_forums_user_new_tema.htm:18
-#: pntemplates/iw_forums_user_new_msg.htm:13
+#: pntemplates/iw_forums_user_new_tema.tpl:18
+#: pntemplates/iw_forums_user_new_msg.tpl:13
 msgid "Do you really want to send the message?"
 msgstr "Vols realment enviar el missatge?"
 
-#: pntemplates/iw_forums_user_new_tema.htm:25
+#: pntemplates/iw_forums_user_new_tema.tpl:25
 msgid "Add a new topic"
 msgstr "Afegeix un tema nou"
 
-#: pntemplates/iw_forums_user_new_tema.htm:33
+#: pntemplates/iw_forums_user_new_tema.tpl:33
 msgid "Title of the topic"
 msgstr "Títol del tema"
 
-#: pntemplates/iw_forums_user_new_tema.htm:37
-#: pntemplates/iw_forums_admin_new.htm:25
-#: pntemplates/iw_forums_user_main.htm:14
-#: pntemplates/iw_forums_admin_main.htm:10
+#: pntemplates/iw_forums_user_new_tema.tpl:37
+#: pntemplates/iw_forums_admin_new.tpl:25
+#: pntemplates/iw_forums_user_main.tpl:14
+#: pntemplates/iw_forums_admin_main.tpl:10
 msgid "Description"
 msgstr "Descripció"
 
-#: pntemplates/iw_forums_user_new_tema.htm:40
+#: pntemplates/iw_forums_user_new_tema.tpl:40
 msgid "First message of the topic (optional)"
 msgstr "Primer missatge del tema (opcional)"
 
-#: pntemplates/iw_forums_user_new_tema.htm:42
-#: pntemplates/iw_forums_user_new_msg.htm:35
-#: pntemplates/iw_forums_user_edit_msg.htm:35
+#: pntemplates/iw_forums_user_new_tema.tpl:42
+#: pntemplates/iw_forums_user_new_msg.tpl:35
+#: pntemplates/iw_forums_user_edit_msg.tpl:35
 msgid "Title of the message"
 msgstr "Títol del missatge"
 
-#: pntemplates/iw_forums_user_new_tema.htm:46
-#: pntemplates/iw_forums_user_new_msg.htm:58
-#: pntemplates/iw_forums_user_edit_msg.htm:70
+#: pntemplates/iw_forums_user_new_tema.tpl:46
+#: pntemplates/iw_forums_user_new_msg.tpl:58
+#: pntemplates/iw_forums_user_edit_msg.tpl:70
 msgid "Message"
 msgstr "Missatge"
 
-#: pntemplates/iw_forums_user_new_tema.htm:57
-#: pntemplates/iw_forums_admin_deleteModerator.htm:14
-#: pntemplates/iw_forums_admin_addModerator.htm:27
-#: pntemplates/iw_forums_admin_addGroup.htm:30
-#: pntemplates/iw_forums_admin_deleteGroup.htm:14
+#: pntemplates/iw_forums_user_new_tema.tpl:57
+#: pntemplates/iw_forums_admin_deleteModerator.tpl:14
+#: pntemplates/iw_forums_admin_addModerator.tpl:27
+#: pntemplates/iw_forums_admin_addGroup.tpl:30
+#: pntemplates/iw_forums_admin_deleteGroup.tpl:14
 msgid "Add"
 msgstr "Addició"
 
-#: pntemplates/iw_forums_user_new_tema.htm:59
-#: pntemplates/iw_forums_admin_new.htm:50
-#: pntemplates/iw_forums_admin_deleteModerator.htm:15
-#: pntemplates/iw_forums_user_new_msg.htm:68
-#: pntemplates/iw_forums_user_new_msg.htm:70
-#: pntemplates/iw_forums_user_edit_msg.htm:82
-#: pntemplates/iw_forums_user_edit_msg.htm:84
-#: pntemplates/iw_forums_user_del_tema.htm:15
-#: pntemplates/iw_forums_admin_addModerator.htm:28
-#: pntemplates/iw_forums_admin_configura.htm:35
-#: pntemplates/iw_forums_admin_addGroup.htm:31
-#: pntemplates/iw_forums_admin_deleteGroup.htm:15
+#: pntemplates/iw_forums_user_new_tema.tpl:59
+#: pntemplates/iw_forums_admin_new.tpl:50
+#: pntemplates/iw_forums_admin_deleteModerator.tpl:15
+#: pntemplates/iw_forums_user_new_msg.tpl:68
+#: pntemplates/iw_forums_user_new_msg.tpl:70
+#: pntemplates/iw_forums_user_edit_msg.tpl:82
+#: pntemplates/iw_forums_user_edit_msg.tpl:84
+#: pntemplates/iw_forums_user_del_tema.tpl:15
+#: pntemplates/iw_forums_admin_addModerator.tpl:28
+#: pntemplates/iw_forums_admin_configura.tpl:35
+#: pntemplates/iw_forums_admin_addGroup.tpl:31
+#: pntemplates/iw_forums_admin_deleteGroup.tpl:15
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: pntemplates/iw_forums_admin_menu.htm:5
-#: pntemplates/iw_forums_user_menu.htm:3
+#: pntemplates/iw_forums_admin_menu.tpl:5
+#: pntemplates/iw_forums_user_menu.tpl:3
 msgid "Forums"
 msgstr "Fòrums"
 
-#: pntemplates/iw_forums_admin_new.htm:5
+#: pntemplates/iw_forums_admin_new.tpl:5
 msgid "You haven't writte the name of the forum "
 msgstr "No heu indicat el nom del fòrum."
 
-#: pntemplates/iw_forums_admin_new.htm:21
-#: pntemplates/iw_forums_user_main.htm:13
-#: pntemplates/iw_forums_admin_main.htm:9
+#: pntemplates/iw_forums_admin_new.tpl:21
+#: pntemplates/iw_forums_user_main.tpl:13
+#: pntemplates/iw_forums_admin_main.tpl:9
 msgid "Forum name"
 msgstr "Nom del fòrum"
 
-#: pntemplates/iw_forums_admin_new.htm:29
+#: pntemplates/iw_forums_admin_new.tpl:29
 msgid "Attached files are allowed"
 msgstr "Admet fitxers adjunts als missatges"
 
-#: pntemplates/iw_forums_admin_new.htm:33
+#: pntemplates/iw_forums_admin_new.tpl:33
 msgid ""
 "Minutes, after the submission, during which the messages can be edited by "
 "theirs authors"
@@ -460,7 +460,7 @@ msgstr ""
 "Minuts, després de l'enviament, durant els quals els missatges són editables "
 "pels seus remitents"
 
-#: pntemplates/iw_forums_admin_new.htm:37
+#: pntemplates/iw_forums_admin_new.tpl:37
 msgid ""
 "Minutes, after the submission, during which the messages can be deleted by "
 "theirs authors"
@@ -468,393 +468,393 @@ msgstr ""
 "Minuts, després de l'enviament, durant els quals els missatges són "
 "esborrables pels seus remitents"
 
-#: pntemplates/iw_forums_admin_new.htm:41
-#: pntemplates/iw_forums_admin_main.htm:14
+#: pntemplates/iw_forums_admin_new.tpl:41
+#: pntemplates/iw_forums_admin_main.tpl:14
 msgid "Observations"
 msgstr "Observacions"
 
-#: pntemplates/iw_forums_admin_new.htm:45
+#: pntemplates/iw_forums_admin_new.tpl:45
 msgid "Active?"
 msgstr "Actiu?"
 
-#: pntemplates/iw_forums_admin_new.htm:49
-#: pntemplates/iw_forums_admin_configura.htm:34
+#: pntemplates/iw_forums_admin_new.tpl:49
+#: pntemplates/iw_forums_admin_configura.tpl:34
 msgid "Create"
 msgstr "Crea"
 
-#: pntemplates/iw_forums_user_pager.htm:1
+#: pntemplates/iw_forums_user_pager.tpl:1
 msgid "Pages:"
 msgstr "Pàgines:"
 
-#: pntemplates/iw_forums_user_main.htm:5
-#: pntemplates/iw_forums_admin_main.htm:5
+#: pntemplates/iw_forums_user_main.tpl:5
+#: pntemplates/iw_forums_admin_main.tpl:5
 msgid "Forums list"
 msgstr "Llista de fòrums"
 
-#: pntemplates/iw_forums_user_main.htm:16
-#: pntemplates/iw_forums_admin_addGroup.htm:20
+#: pntemplates/iw_forums_user_main.tpl:16
+#: pntemplates/iw_forums_admin_addGroup.tpl:20
 msgid "Access type"
 msgstr "Tipus d'accés"
 
-#: pntemplates/iw_forums_user_main.htm:18
+#: pntemplates/iw_forums_user_main.tpl:18
 msgid "N. topics"
 msgstr "N. temes"
 
-#: pntemplates/iw_forums_user_main.htm:19
+#: pntemplates/iw_forums_user_main.tpl:19
 msgid "N. messages"
 msgstr "N. missatges"
 
-#: pntemplates/iw_forums_user_main.htm:52
-#: pntemplates/iw_forums_admin_addGroup.htm:25
-#: pntemplates/iw_forums_admin_main.htm:32
+#: pntemplates/iw_forums_user_main.tpl:52
+#: pntemplates/iw_forums_admin_addGroup.tpl:25
+#: pntemplates/iw_forums_admin_main.tpl:32
 msgid "Moderation"
 msgstr "Moderació"
 
-#: pntemplates/iw_forums_user_main.htm:54
-#: pntemplates/iw_forums_admin_addGroup.htm:24
-#: pntemplates/iw_forums_admin_main.htm:30
+#: pntemplates/iw_forums_user_main.tpl:54
+#: pntemplates/iw_forums_admin_addGroup.tpl:24
+#: pntemplates/iw_forums_admin_main.tpl:30
 msgid "Read, write and topics creation"
 msgstr "Lectura, escriptura i creació de temes"
 
-#: pntemplates/iw_forums_user_main.htm:56
-#: pntemplates/iw_forums_admin_addGroup.htm:23
-#: pntemplates/iw_forums_admin_main.htm:28
+#: pntemplates/iw_forums_user_main.tpl:56
+#: pntemplates/iw_forums_admin_addGroup.tpl:23
+#: pntemplates/iw_forums_admin_main.tpl:28
 msgid "Read and write"
 msgstr "Lectura i escriptura"
 
-#: pntemplates/iw_forums_user_main.htm:58
-#: pntemplates/iw_forums_admin_addGroup.htm:22
-#: pntemplates/iw_forums_admin_main.htm:34
+#: pntemplates/iw_forums_user_main.tpl:58
+#: pntemplates/iw_forums_admin_addGroup.tpl:22
+#: pntemplates/iw_forums_admin_main.tpl:34
 msgid "Read only"
 msgstr "Només lectura"
 
-#: pntemplates/iw_forums_user_main.htm:84
-#: pntemplates/iw_forums_admin_main.htm:79
+#: pntemplates/iw_forums_user_main.tpl:84
+#: pntemplates/iw_forums_admin_main.tpl:79
 msgid "There are no forum created"
 msgstr "No hi ha cap fòrum definit"
 
-#: pntemplates/iw_forums_user_main.htm:89
-#: pntemplates/iw_forums_admin_main.htm:86
+#: pntemplates/iw_forums_user_main.tpl:89
+#: pntemplates/iw_forums_admin_main.tpl:86
 msgid "About this module"
 msgstr "Pel que fa a aquest mòdul"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:1
-#: pntemplates/iw_forums_admin_mainChars.htm:10
+#: pntemplates/iw_forums_admin_mainChars.tpl:1
+#: pntemplates/iw_forums_admin_mainChars.tpl:10
 msgid "Modify"
 msgstr "Modifica"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:2
+#: pntemplates/iw_forums_admin_mainChars.tpl:2
 msgid "Attachments?"
 msgstr "Adjunts?"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:4
-#: pntemplates/iw_forums_admin_mainChars.htm:13
+#: pntemplates/iw_forums_admin_mainChars.tpl:4
+#: pntemplates/iw_forums_admin_mainChars.tpl:13
 msgid "Yes"
 msgstr "Sí"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:6
-#: pntemplates/iw_forums_admin_mainChars.htm:15
-#: pntemplates/iw_forums_admin_mainChars.htm:23
-#: pntemplates/iw_forums_admin_mainChars.htm:29
+#: pntemplates/iw_forums_admin_mainChars.tpl:6
+#: pntemplates/iw_forums_admin_mainChars.tpl:15
+#: pntemplates/iw_forums_admin_mainChars.tpl:23
+#: pntemplates/iw_forums_admin_mainChars.tpl:29
 msgid "No"
 msgstr "No"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:11
+#: pntemplates/iw_forums_admin_mainChars.tpl:11
 msgid "Status"
 msgstr "Estat:"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:21
-#: pntemplates/iw_forums_admin_mainChars.htm:23
+#: pntemplates/iw_forums_admin_mainChars.tpl:21
+#: pntemplates/iw_forums_admin_mainChars.tpl:23
 msgid "Editable"
 msgstr "Editable"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:21
-#: pntemplates/iw_forums_admin_mainChars.htm:27
+#: pntemplates/iw_forums_admin_mainChars.tpl:21
+#: pntemplates/iw_forums_admin_mainChars.tpl:27
 msgid "minutes"
 msgstr "minuts"
 
-#: pntemplates/iw_forums_admin_mainChars.htm:27
-#: pntemplates/iw_forums_admin_mainChars.htm:29
+#: pntemplates/iw_forums_admin_mainChars.tpl:27
+#: pntemplates/iw_forums_admin_mainChars.tpl:29
 msgid "Deletable"
 msgstr "Esborrable"
 
-#: pntemplates/iw_forums_admin_del.htm:5
-#: pntemplates/iw_forums_admin_delete.htm:4
+#: pntemplates/iw_forums_admin_del.tpl:5
+#: pntemplates/iw_forums_admin_delete.tpl:4
 msgid "Delete the forum"
 msgstr "Esborra el fòrum"
 
-#: pntemplates/iw_forums_admin_del.htm:7
-#: pntemplates/iw_forums_user_del_msg.htm:47
-#: pntemplates/iw_forums_admin_delete.htm:9
+#: pntemplates/iw_forums_admin_del.tpl:7
+#: pntemplates/iw_forums_user_del_msg.tpl:47
+#: pntemplates/iw_forums_admin_delete.tpl:9
 msgid "Confirm the deletion of the forum"
 msgstr "Confirma l'esborrament del fòrum."
 
-#: pntemplates/iw_forums_admin_del.htm:13
+#: pntemplates/iw_forums_admin_del.tpl:13
 msgid "Confirm"
 msgstr "Confirma"
 
-#: pntemplates/iw_forums_admin_del.htm:16
-#: pntemplates/iw_forums_user_del_msg.htm:50
-#: pntemplates/iw_forums_user_del_msg.htm:53
-#: pntemplates/iw_forums_admin_delete.htm:12
+#: pntemplates/iw_forums_admin_del.tpl:16
+#: pntemplates/iw_forums_user_del_msg.tpl:50
+#: pntemplates/iw_forums_user_del_msg.tpl:53
+#: pntemplates/iw_forums_admin_delete.tpl:12
 msgid "Cancel the deletion of the forum"
 msgstr "Cancel·la l'esborrament"
 
-#: pntemplates/iw_forums_user_move_msg.htm:16
-#: pntemplates/iw_forums_user_forum.htm:194
-#: pntemplates/iw_forums_user_forum.htm:195
-#: pntemplates/iw_forums_user_openMsg.htm:33
+#: pntemplates/iw_forums_user_move_msg.tpl:16
+#: pntemplates/iw_forums_user_forum.tpl:194
+#: pntemplates/iw_forums_user_forum.tpl:195
+#: pntemplates/iw_forums_user_openMsg.tpl:33
 msgid "Move the message"
 msgstr "Mou el missatge"
 
-#: pntemplates/iw_forums_user_move_msg.htm:52
-#: pntemplates/iw_forums_user_move_msg.htm:83
+#: pntemplates/iw_forums_user_move_msg.tpl:52
+#: pntemplates/iw_forums_user_move_msg.tpl:83
 msgid "Confirm the transfer"
 msgstr "Confirma el desplaçament"
 
-#: pntemplates/iw_forums_user_move_msg.htm:62
+#: pntemplates/iw_forums_user_move_msg.tpl:62
 msgid "Move the message to the forum"
 msgstr "Mou el missatge al fòrum"
 
-#: pntemplates/iw_forums_user_move_msg.htm:71
+#: pntemplates/iw_forums_user_move_msg.tpl:71
 msgid "Move the message to the topic"
 msgstr "Mou el missatge al tema"
 
-#: pntemplates/iw_forums_user_move_msg.htm:73
+#: pntemplates/iw_forums_user_move_msg.tpl:73
 msgid "Without topic"
 msgstr "Sense tema"
 
-#: pntemplates/iw_forums_user_move_msg.htm:86
-#: pntemplates/iw_forums_user_move_msg.htm:89
+#: pntemplates/iw_forums_user_move_msg.tpl:86
+#: pntemplates/iw_forums_user_move_msg.tpl:89
 msgid "Cancel the transfer of the message"
 msgstr "Cancel·la el desplaçament del missatge."
 
-#: pntemplates/iw_forums_admin_deleteModerator.htm:4
-#: pntemplates/iw_forums_admin_main.htm:91
+#: pntemplates/iw_forums_admin_deleteModerator.tpl:4
+#: pntemplates/iw_forums_admin_main.tpl:91
 msgid "Delete moderator"
 msgstr "Esborra el moderador"
 
-#: pntemplates/iw_forums_admin_deleteModerator.htm:11
+#: pntemplates/iw_forums_admin_deleteModerator.tpl:11
 msgid "Confirm que deletion of the moderator"
 msgstr "Confirma que vols esborrar el moderador"
 
-#: pntemplates/iw_forums_user_new_msg.htm:24
+#: pntemplates/iw_forums_user_new_msg.tpl:24
 msgid "Add a new message"
 msgstr "Afegeix un missatge nou"
 
-#: pntemplates/iw_forums_user_new_msg.htm:46
-#: pntemplates/iw_forums_user_edit_msg.htm:57
+#: pntemplates/iw_forums_user_new_msg.tpl:46
+#: pntemplates/iw_forums_user_edit_msg.tpl:57
 msgid "Icon"
 msgstr "Icona"
 
-#: pntemplates/iw_forums_user_new_msg.htm:66
+#: pntemplates/iw_forums_user_new_msg.tpl:66
 msgid "Create the message"
 msgstr "Crea el missatge"
 
-#: pntemplates/iw_forums_user_forum.htm:7
+#: pntemplates/iw_forums_user_forum.tpl:7
 msgid "List of topics"
 msgstr "Llista de temes"
 
-#: pntemplates/iw_forums_user_forum.htm:39
+#: pntemplates/iw_forums_user_forum.tpl:39
 msgid "topic created by:"
 msgstr "Tema iniciat per"
 
-#: pntemplates/iw_forums_user_forum.htm:39
-#: pntemplates/iw_forums_user_forum.htm:53
+#: pntemplates/iw_forums_user_forum.tpl:39
+#: pntemplates/iw_forums_user_forum.tpl:53
 msgid "on"
 msgstr "el"
 
-#: pntemplates/iw_forums_user_forum.htm:39
-#: pntemplates/iw_forums_user_forum.htm:53
+#: pntemplates/iw_forums_user_forum.tpl:39
+#: pntemplates/iw_forums_user_forum.tpl:53
 msgid "at"
 msgstr "a les"
 
-#: pntemplates/iw_forums_user_forum.htm:44
+#: pntemplates/iw_forums_user_forum.tpl:44
 msgid "Messages:"
 msgstr "Missatges:"
 
-#: pntemplates/iw_forums_user_forum.htm:48
+#: pntemplates/iw_forums_user_forum.tpl:48
 msgid " Unread messages:"
 msgstr "Missatges per llegir:"
 
-#: pntemplates/iw_forums_user_forum.htm:53
+#: pntemplates/iw_forums_user_forum.tpl:53
 msgid "Last post by"
 msgstr "Darrera intervenció per"
 
-#: pntemplates/iw_forums_user_forum.htm:60
+#: pntemplates/iw_forums_user_forum.tpl:60
 msgid "Delete the topic"
 msgstr "Esborra el tema"
 
-#: pntemplates/iw_forums_user_forum.htm:61
-#: pntemplates/iw_forums_user_del_tema.htm:4
+#: pntemplates/iw_forums_user_forum.tpl:61
+#: pntemplates/iw_forums_user_del_tema.tpl:4
 msgid "Topic and messages deletion"
 msgstr "Esborrament del tema i els seus misssatges"
 
-#: pntemplates/iw_forums_user_forum.htm:65
-#: pntemplates/iw_forums_user_forum.htm:66
+#: pntemplates/iw_forums_user_forum.tpl:65
+#: pntemplates/iw_forums_user_forum.tpl:66
 msgid "Up"
 msgstr "Puja"
 
-#: pntemplates/iw_forums_user_forum.htm:70
-#: pntemplates/iw_forums_user_forum.htm:71
+#: pntemplates/iw_forums_user_forum.tpl:70
+#: pntemplates/iw_forums_user_forum.tpl:71
 msgid "Down"
 msgstr "Baixa"
 
-#: pntemplates/iw_forums_user_forum.htm:86
-#: pntemplates/iw_forums_user_forum.htm:88
+#: pntemplates/iw_forums_user_forum.tpl:86
+#: pntemplates/iw_forums_user_forum.tpl:88
 msgid "List of messages"
 msgstr "Llista de missatges"
 
-#: pntemplates/iw_forums_user_forum.htm:114
+#: pntemplates/iw_forums_user_forum.tpl:114
 msgid "All the messages of the list"
 msgstr "Obre tots els missatges de la llista"
 
-#: pntemplates/iw_forums_user_forum.htm:126
-#: pntemplates/iw_forums_user_msg.htm:79
+#: pntemplates/iw_forums_user_forum.tpl:126
+#: pntemplates/iw_forums_user_msg.tpl:79
 msgid "Title"
 msgstr "Títol"
 
-#: pntemplates/iw_forums_user_forum.htm:127
-#: pntemplates/iw_forums_user_msg.htm:80
+#: pntemplates/iw_forums_user_forum.tpl:127
+#: pntemplates/iw_forums_user_msg.tpl:80
 msgid "Sender"
 msgstr "Remitent"
 
-#: pntemplates/iw_forums_user_forum.htm:131
+#: pntemplates/iw_forums_user_forum.tpl:131
 msgid "Actions"
 msgstr "Accions"
 
-#: pntemplates/iw_forums_user_forum.htm:184
-#: pntemplates/iw_forums_user_forum.htm:185
-#: pntemplates/iw_forums_user_del_msg.htm:4
+#: pntemplates/iw_forums_user_forum.tpl:184
+#: pntemplates/iw_forums_user_forum.tpl:185
+#: pntemplates/iw_forums_user_del_msg.tpl:4
 msgid "Delete the message"
 msgstr "Esborra el missatge"
 
-#: pntemplates/iw_forums_user_forum.htm:189
-#: pntemplates/iw_forums_user_forum.htm:190
-#: pntemplates/iw_forums_user_edit_msg.htm:25
+#: pntemplates/iw_forums_user_forum.tpl:189
+#: pntemplates/iw_forums_user_forum.tpl:190
+#: pntemplates/iw_forums_user_edit_msg.tpl:25
 msgid "Edit the message"
 msgstr "Edita el missatge"
 
-#: pntemplates/iw_forums_user_forum.htm:213
+#: pntemplates/iw_forums_user_forum.tpl:213
 msgid "This subjet has no messages."
 msgstr "Aquest tema no té missatges."
 
-#: pntemplates/iw_forums_user_forum.htm:217
+#: pntemplates/iw_forums_user_forum.tpl:217
 msgid "The user "
 msgstr "L'usuari/ària "
 
-#: pntemplates/iw_forums_user_forum.htm:217
+#: pntemplates/iw_forums_user_forum.tpl:217
 msgid " you haven't sent any message to this topic"
 msgstr " no ha enviat cap missatge a aquest tema"
 
-#: pntemplates/iw_forums_user_forum.htm:223
+#: pntemplates/iw_forums_user_forum.tpl:223
 msgid "This forum has no messages."
 msgstr "Aquest fòrum no té missatges"
 
-#: pntemplates/iw_forums_user_edit_msg.htm:48
+#: pntemplates/iw_forums_user_edit_msg.tpl:48
 msgid "Delete the attached file"
 msgstr "Esborra el fitxer adjunt"
 
-#: pntemplates/iw_forums_user_edit_msg.htm:50
+#: pntemplates/iw_forums_user_edit_msg.tpl:50
 msgid "I'm sure"
 msgstr "N'estic segur"
 
-#: pntemplates/iw_forums_user_edit_msg.htm:80
+#: pntemplates/iw_forums_user_edit_msg.tpl:80
 msgid "Modify the message"
 msgstr "Modifica el missatge"
 
-#: pntemplates/iw_forums_user_del_tema.htm:6
+#: pntemplates/iw_forums_user_del_tema.tpl:6
 msgid "Confirmation of deletion of the topic and its messages"
 msgstr "Confirmació de l'esborrament del tema i els seus misssatges"
 
-#: pntemplates/iw_forums_user_del_tema.htm:14
+#: pntemplates/iw_forums_user_del_tema.tpl:14
 msgid "Confirm the deletion of the topic"
 msgstr "Confirma l'esborrament del tema."
 
-#: pntemplates/iw_forums_admin_addModerator.htm:4
-#: pntemplates/iw_forums_admin_main.htm:60
+#: pntemplates/iw_forums_admin_addModerator.tpl:4
+#: pntemplates/iw_forums_admin_main.tpl:60
 msgid "Add a moderator"
 msgstr "Afegeix un moderador"
 
-#: pntemplates/iw_forums_admin_addModerator.htm:9
-#: pntemplates/iw_forums_admin_addGroup.htm:10
-#: pntemplates/iw_forums_admin_main.htm:11
+#: pntemplates/iw_forums_admin_addModerator.tpl:9
+#: pntemplates/iw_forums_admin_addGroup.tpl:10
+#: pntemplates/iw_forums_admin_main.tpl:11
 msgid "Group"
 msgstr "Grup"
 
-#: pntemplates/iw_forums_admin_addModerator.htm:17
+#: pntemplates/iw_forums_admin_addModerator.tpl:17
 msgid "Choose a moderator"
 msgstr "Tria un moderador"
 
-#: pntemplates/iw_forums_admin_configura.htm:11
+#: pntemplates/iw_forums_admin_configura.tpl:11
 msgid "Root of the file folder"
 msgstr "Inici del directori de fitxers"
 
-#: pntemplates/iw_forums_admin_configura.htm:16
+#: pntemplates/iw_forums_admin_configura.tpl:16
 msgid "Server folder where will be save the attached files"
 msgstr ""
 "Directori del servidor on s'emmagatzemen els fitxers adjunts a les notes"
 
-#: pntemplates/iw_forums_admin_configura.htm:21
+#: pntemplates/iw_forums_admin_configura.tpl:21
 msgid "The attached files folder have not been found"
 msgstr "No s'ha trobat el directori per als fitxers adjunts"
 
-#: pntemplates/iw_forums_admin_configura.htm:26
+#: pntemplates/iw_forums_admin_configura.tpl:26
 msgid "(This folder needs writting atributes)"
 msgstr "Aquest directori ha de tenir permisos d'escriptura"
 
-#: pntemplates/iw_forums_admin_configura.htm:30
+#: pntemplates/iw_forums_admin_configura.tpl:30
 msgid "The unregistered users can view messages writers avatars"
 msgstr ""
 "Els usuaris no registrats poden veure els avatars del remitents dels "
 "missatges"
 
-#: pntemplates/iw_forums_admin_addGroup.htm:4
-#: pntemplates/iw_forums_admin_main.htm:44
+#: pntemplates/iw_forums_admin_addGroup.tpl:4
+#: pntemplates/iw_forums_admin_main.tpl:44
 msgid "Add a group with access to the forum"
 msgstr "Afegeix un grup amb accés al fòrum"
 
-#: pntemplates/iw_forums_admin_deleteGroup.htm:4
+#: pntemplates/iw_forums_admin_deleteGroup.tpl:4
 msgid "Delete the access to the group "
 msgstr "Esborra l'accés del grup "
 
-#: pntemplates/iw_forums_admin_deleteGroup.htm:11
-#: pntemplates/iw_forums_admin_main.htm:90
+#: pntemplates/iw_forums_admin_deleteGroup.tpl:11
+#: pntemplates/iw_forums_admin_main.tpl:90
 msgid "Confirm the deletion"
 msgstr "Confirma que vols esborrar l\\'accés del grup"
 
-#: pntemplates/iw_forums_user_readers.htm:2
+#: pntemplates/iw_forums_user_readers.tpl:2
 msgid "The message has been read by:"
 msgstr "Han llegit el missatge:"
 
-#: pntemplates/iw_forums_admin_main.htm:12
+#: pntemplates/iw_forums_admin_main.tpl:12
 msgid "Moderators"
 msgstr "Moderadors"
 
-#: pntemplates/iw_forums_admin_main.htm:13
+#: pntemplates/iw_forums_admin_main.tpl:13
 msgid "Features"
 msgstr "Característiques"
 
-#: pntemplates/iw_forums_admin_main.htm:15
+#: pntemplates/iw_forums_admin_main.tpl:15
 msgid "Options"
 msgstr "Opcions"
 
-#: pntemplates/iw_forums_admin_main.htm:38
-#: pntemplates/iw_forums_admin_main.htm:54
-#: pntemplates/iw_forums_admin_main.htm:72
-#: pntemplates/iw_forums_admin_delete.htm:11
+#: pntemplates/iw_forums_admin_main.tpl:38
+#: pntemplates/iw_forums_admin_main.tpl:54
+#: pntemplates/iw_forums_admin_main.tpl:72
+#: pntemplates/iw_forums_admin_delete.tpl:11
 msgid "Delete"
 msgstr "Esborrament"
 
-#: pntemplates/iw_forums_admin_main.htm:71
+#: pntemplates/iw_forums_admin_main.tpl:71
 msgid "Edit"
 msgstr "Edició"
 
-#: pntemplates/iw_forums_admin_main.htm:73
+#: pntemplates/iw_forums_admin_main.tpl:73
 msgid "Copy"
 msgstr "Copia"
 
-#: pntemplates/iw_forums_admin_main.htm:89
+#: pntemplates/iw_forums_admin_main.tpl:89
 msgid "...modifying..."
 msgstr "...modificant..."
 

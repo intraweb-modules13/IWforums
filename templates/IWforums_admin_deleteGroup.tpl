@@ -1,20 +1,20 @@
-{include file="IWforums_admin_menu.htm"}
+{include file="IWforums_admin_menu.tpl"}
 <div class="z-admincontainer">
-    <div class="z-adminpageicon">{img modname='IWforums' src='delete_user_large.gif'}</div>
-    <h2>{gt text="Delete moderator"} -> {$item.nom_forum}</h2>
-    <form id="deleteModerator" class="z-form" action="{modurl modname='IWforums' type='admin' func='deleteModerator'}" method="post" enctype="application/x-www-form-urlencoded">
+    <div class="z-adminpageicon">{img modname='IWforums' src='delete_group_large.gif'}</div>
+    <h2>{gt text="Delete the access to the group "} -> {$item.nom_forum}</h2>
+    <form id="deleteGroup" class="z-form" action="{modurl modname='IWforums' type='admin' func='deleteGroup'}" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="fid" value="{$item.fid}" />
         <input type="hidden" name="id" value="{$id}" />
         <input type="hidden" name="confirm" value="1" />
         <div>
-            {gt text="Confirm que deletion of the moderator"} <strong>{$userName}</strong>
+            {gt text="Confirm the deletion"} <strong>{$groupName}</strong>
         </div>
         <div class="z-center">
             <span class="z-buttons">
-                <a onClick="javascript:forms['deleteModerator'].submit()">
-                    {img modname='core' src='button_ok.png' set='icons/small' __alt="Delete" __title="Delete"}
-                    {gt text="Delete"}
+                <a onclick="javascript: forms['deleteGroup'].submit();">
+                    {img modname='core' src='button_ok.png' set='icons/small' __alt="Add" __title="Add"}
+                    {gt text="Add"}
                 </a>
             </span>
             <span class="z-buttons">

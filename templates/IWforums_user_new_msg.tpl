@@ -18,7 +18,7 @@
     }
 </script>
 
-{include file="IWforums_user_menu.htm" fid=$fid fmid=$fmid ftid=$ftid m2=1 m7=1}
+{include file="IWforums_user_menu.tpl" fid=$fid fmid=$fmid ftid=$ftid m2=1 m7=1}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Add a new message"}</h2>

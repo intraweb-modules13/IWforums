@@ -1,7 +1,7 @@
 <script>
     window.open("modules/IWforums/printall.php?printer={{$printer}}&error={{$error}}","_blank","menubar=no,location=no,resizable=no,scrollbars=yes,status=no,width=600, height=600");
 </script>
-{include file="IWforums_user_menu.htm" m7=1 m10=1 fid=$fid ftid=$ftid printer=$printer}
+{include file="IWforums_user_menu.tpl" m7=1 m10=1 fid=$fid ftid=$ftid printer=$printer}
 {section name=missatge loop=$missatges}
 <table width="100%" style="border-color:#aaaaaa;border-width:2px; border-style:solid">
     <tr>

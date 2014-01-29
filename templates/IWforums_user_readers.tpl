@@ -1,4 +1,4 @@
-{include file="IWforums_user_menu.htm" m5=1 m7=1 m8=1 fid=$fid ftid=$ftid fmid=$fmid u=$u}
+{include file="IWforums_user_menu.tpl" m5=1 m7=1 m8=1 fid=$fid ftid=$ftid fmid=$fmid u=$u}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='info.png' set='icons/large'}</div>
 <h2>

@@ -19,7 +19,7 @@
         if(!error && resposta){document.new_tema.submit();}
     }
 </script>
-{include file="IWforums_user_menu.htm" m3=1 m4=1}
+{include file="IWforums_user_menu.tpl" m3=1 m4=1}
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     <h2>{$name} => {gt text="Add a new topic"}</h2>

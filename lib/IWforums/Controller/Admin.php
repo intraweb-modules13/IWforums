@@ -78,7 +78,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         }
 
         return $this->view->assign('forums', $forumsArray)
-                        ->fetch('IWforums_admin_main.htm');
+                        ->fetch('IWforums_admin_main.tpl');
     }
 
     /**
@@ -116,7 +116,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         }
         return $this->view->assign('forum', $forum)
                         ->assign('m', $m)
-                        ->fetch('IWforums_admin_newItem.htm');
+                        ->fetch('IWforums_admin_newItem.tpl');
     }
 
     /**
@@ -235,7 +235,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
             return $this->view->assign('groups', $groups)
                             ->assign('item', $item)
-                            ->fetch('IWforums_admin_addGroup.htm');
+                            ->fetch('IWforums_admin_addGroup.tpl');
         }
 
         $this->checkCsrfToken();
@@ -300,7 +300,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             return $this->view->assign('groupName', $groupName)
                             ->assign('item', $item)
                             ->assign('id', $id)
-                            ->fetch('IWforums_admin_deleteGroup.htm');
+                            ->fetch('IWforums_admin_deleteGroup.tpl');
         }
 
         $this->checkCsrfToken();
@@ -364,7 +364,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                             ->assign('groups', $groups)
                             ->assign('groupMembers', $groupMembers)
                             ->assign('item', $item)
-                            ->fetch('IWforums_admin_addModerator.htm');
+                            ->fetch('IWforums_admin_addModerator.tpl');
         }
 
         $this->checkCsrfToken();
@@ -422,7 +422,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             return $this->view->assign('userName', $userName)
                             ->assign('item', $item)
                             ->assign('id', $id)
-                            ->fetch('IWforums_admin_deleteModerator.htm');
+                            ->fetch('IWforums_admin_deleteModerator.tpl');
         }
 
         $this->checkCsrfToken();
@@ -469,7 +469,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         if (!$confirm) {
             return $this->view->assign('item', $item)
-                            ->fetch('IWforums_admin_delete.htm');
+                            ->fetch('IWforums_admin_delete.tpl');
         }
 
         $this->checkCsrfToken();
@@ -510,7 +510,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                         ->assign('directoriroot', ModUtil::getVar('IWmain', 'documentRoot'))
                         ->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'))
                         ->assign('smiliesActive', ModUtil::getVar('IWforums', 'smiliesActive'))
-                        ->fetch('IWforums_admin_configura.htm');
+                        ->fetch('IWforums_admin_configura.tpl');
     }
 
     /**

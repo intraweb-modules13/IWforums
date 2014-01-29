@@ -318,7 +318,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         if ($forum == false) {
             $view->assign('msg', $this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
-            return $view->fetch('IWforums_user_noacces.htm');
+            return $view->fetch('IWforums_user_noacces.tpl');
         }
         $itemsArray = array();
         $pntable = DBUtil::getTables();

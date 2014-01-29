@@ -1,4 +1,4 @@
-{include file="IWforums_admin_menu.htm"}
+{include file="IWforums_admin_menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>
     <div style="height:20px;">&nbsp;</div>
@@ -61,7 +61,7 @@
              </td>
              <td align="left" valign="top">
                  <div id="forumChars_{$forum.fid}" name="forumChars_{$forum.fid}">
-                     {include file="IWforums_admin_mainChars.htm" forum=$forum}
+                     {include file="IWforums_admin_mainChars.tpl" forum=$forum}
                  </div>
              </td>
              <td align="left" valign="top">{$forum.observacions|nl2br}</td>
