@@ -81,31 +81,37 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
      */
     public function upgrade($oldversion) {
 
-        //ADD new fields to tables
-        $c = "ALTER TABLE `IWforums_msg` ADD `iw_onTop` TINYINT (4) NOT NULL DEFAULT '0'";
-        if (!DBUtil::executeSQL($c)) {
-            return false;
-        }
+        switch ($oldversion) {
+            case '1.0.3':
+                //ADD new fields to tables
+                $c = "ALTER TABLE `IWforums_msg` ADD `iw_onTop` TINYINT (4) NOT NULL DEFAULT '0'";
+                if (!DBUtil::executeSQL($c)) {
+                    return false;
+                }
 
-        //Array de noms
-        $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`modname` = 'IWforums'", '', false, '');
+                //Array de noms
+                $oldVarsNames = DBUtil::selectFieldArray("module_vars", 'name', "`modname` = 'IWforums'", '', false, '');
 
-        $newVarsNames = Array('urladjunts', 'avatarsVisible', 'smiliesActive');
+                $newVarsNames = Array('urladjunts', 'avatarsVisible', 'smiliesActive');
 
-        $newVars = Array('urladjunts' => 'forums',
-            'avatarsVisible' => 1,
-            'smiliesActive' => 1);
+                $newVars = Array('urladjunts' => 'forums',
+                    'avatarsVisible' => 1,
+                    'smiliesActive' => 1);
 
-        // Delete unneeded vars
-        $del = array_diff($oldVarsNames, $newVarsNames);
-        foreach ($del as $i) {
-            $this->delVar($i);
-        }
+                // Delete unneeded vars
+                $del = array_diff($oldVarsNames, $newVarsNames);
+                foreach ($del as $i) {
+                    $this->delVar($i);
+                }
 
-        // Add new vars
-        $add = array_diff($newVarsNames, $oldVarsNames);
-        foreach ($add as $i) {
-            $this->setVar($i, $newVars[$i]);
+                // Add new vars
+                $add = array_diff($newVarsNames, $oldVarsNames);
+                foreach ($add as $i) {
+                    $this->setVar($i, $newVars[$i]);
+                }
+            case '3.0.0':
+                DBUtil::changeTable('IWforums_definition');
+                DBUtil::changeTable('IWforums_msg');
         }
 
         return true;

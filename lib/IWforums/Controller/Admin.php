@@ -102,6 +102,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             'observacions' => '',
             'adjunts' => '',
             'actiu' => '',
+            'subscriptions' => '0',
+            'sendByCron' => '0',
         );
 
         if ($m != null && ($m == "e" || $m == "c") && is_numeric($fid)) {
@@ -133,6 +135,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         $actiu = FormUtil::getPassedValue('actiu', isset($args['actiu']) ? $args['actiu'] : null, 'POST');
         $m = FormUtil::getPassedValue('m', isset($args['m']) ? $args['m'] : null, 'POST');
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'POST');
+        $subscriptions = FormUtil::getPassedValue('subscriptions', isset($args['subscriptions']) ? $args['subscriptions'] : 0, 'POST');
+        $sendByCron = FormUtil::getPassedValue('sendByCron', isset($args['sendByCron']) ? $args['sendByCron'] : 0, 'POST');
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
@@ -141,21 +145,40 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
 
         $this->checkCsrfToken();
 
-        if (!is_numeric($msgEditTime))
+        if (!is_numeric($msgEditTime)) {
             $msgEditTime = 0;
+        }
 
-        if (!is_numeric($msgDelTime))
+        if (!is_numeric($msgDelTime)) {
             $msgDelTime = 0;
+        }
 
         switch ($m) {
             case 'e':
+                // get forum
+                $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
+                if ($forum == false) {
+                    LogUtil::registerError($this->__('Forum not found'));
+                    return System::redirect(ModUtil::url('IWforums', 'admin', 'main'));
+                }
+                // set lastcron excution ti current time in case it is activited in this moment
+                if ($sendByCron == 1 && $forum['sendByCron'] == 0) {
+                    $this->setVar('lastCronExecution', time());
+                }
                 $items = array('nom_forum' => $nom_forum,
                     'descriu' => $descriu,
                     'actiu' => $actiu,
                     'observacions' => $observacions,
                     'adjunts' => $adjunts,
                     'msgDelTime' => $msgDelTime,
-                    'msgEditTime' => $msgEditTime);
+                    'msgEditTime' => $msgEditTime,
+                    'subscriptions' => $subscriptions,
+                    'sendByCron' => $sendByCron,
+                );
+                // set lastcron excution ti current time in case it is activited in this moment
+                if ($sendByCron == 1 && $forum['sendByCron'] == 0) {
+                    $items['lastCronExecution'] = time();
+                }
                 if (ModUtil::apiFunc('IWforums', 'admin', 'update', array('items' => $items,
                             'fid' => $fid))) {
                     //modified successfully
@@ -169,7 +192,10 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                             'observacions' => $observacions,
                             'adjunts' => $adjunts,
                             'msgDelTime' => $msgDelTime,
-                            'msgEditTime' => $msgEditTime))) {
+                            'msgEditTime' => $msgEditTime,
+                            'subscriptions' => $subscriptions,
+                            'sendByCron' => $sendByCron,
+                        ))) {
                     //created successfully
                     LogUtil::registerStatus($this->__('A new forum has been created'));
                 }

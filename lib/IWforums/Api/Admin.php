@@ -9,40 +9,34 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
      * @return	true if success
      */
     public function create($args) {
-        $nom_forum = FormUtil::getPassedValue('nom_forum', isset($args['nom_forum']) ? $args['nom_forum'] : null, 'POST');
-        $descriu = FormUtil::getPassedValue('descriu', isset($args['descriu']) ? $args['descriu'] : null, 'POST');
-        $adjunts = FormUtil::getPassedValue('adjunts', isset($args['adjunts']) ? $args['adjunts'] : null, 'POST');
-        $msgEditTime = FormUtil::getPassedValue('msgEditTime', isset($args['msgEditTime']) ? $args['msgEditTime'] : null, 'POST');
-        $msgDelTime = FormUtil::getPassedValue('msgDelTime', isset($args['msgDelTime']) ? $args['msgDelTime'] : null, 'POST');
-        $observacions = FormUtil::getPassedValue('observacions', isset($args['observacions']) ? $args['observacions'] : null, 'POST');
-        $actiu = FormUtil::getPassedValue('actiu', isset($args['actiu']) ? $args['actiu'] : null, 'POST');
-
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
             throw new Zikula_Exception_Forbidden();
         }
 
         //Needed arguments
-        if ((!isset($nom_forum))) {
+        if ((!isset($args['nom_forum']))) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
 
-        $item = array('nom_forum' => $nom_forum,
-            'descriu' => $descriu,
-            'adjunts' => $adjunts,
-            'observacions' => $observacions,
-            'msgEditTime' => $msgEditTime,
-            'msgDelTime' => $msgDelTime,
-            'actiu' => $actiu);
+        $item = array('nom_forum' => $args['nom_forum'],
+            'descriu' => $args['descriu'],
+            'adjunts' => $args['adjunts'],
+            'observacions' => $args['observacions'],
+            'msgEditTime' => $args['msgEditTime'],
+            'msgDelTime' => $args['msgDelTime'],
+            'actiu' => $args['actiu'],
+            'subscriptions' => $args['subscriptions'],
+            'sendByCron' => $args['sendByCron'],
+            'lastCronExecution' => time(),
+        );
 
         if (!DBUtil::insertObject($item, 'IWforums_definition', 'fid')) {
             return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
         }
 
-
         // Let any hooks know that we have created a new item
-        ModUtil::callHooks('item', 'create', $item['fid'],
-                        array('module' => 'IWforums'));
+        ModUtil::callHooks('item', 'create', $item['fid'], array('module' => 'IWforums'));
 
         return $item['fid'];
     }
@@ -68,8 +62,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         }
 
         //Get form information
-        $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                        array('fid' => $fid));
+        $item = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__("No valid forum"));
         }
@@ -105,8 +98,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         }
 
         //Get form information
-        $item = ModUtil::apiFunc('IWforums', 'user', 'get',
-                        array('fid' => $fid));
+        $item = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         if ($item == false) {
             LogUtil::registerError($this->__("No valid forum"));
         }
@@ -114,8 +106,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         $pntables = DBUtil::getTables();
 
         //Delete all the posts and attached files associated to the forum
-        $adjunts = ModUtil::apiFunc('IWforums', 'user', 'get_adjunts',
-                        array('fid' => $fid));
+        $adjunts = ModUtil::apiFunc('IWforums', 'user', 'get_adjunts', array('fid' => $fid));
 
         $c = $pntables['IWforums_msg_column'];
         $where = "$c[fid]=$fid";
@@ -147,4 +138,5 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         }
         return $links;
     }
+
 }

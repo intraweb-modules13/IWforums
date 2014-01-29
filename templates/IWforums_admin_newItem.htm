@@ -1,12 +1,12 @@
 <script language="javascript">
     function send(){
-        var error=false;
-        if(document.new_forum.nom_forum.value==""){
-            alert("{{gt text="You haven't writte the name of the forum "}}");
-            var error=true;
-        }
-        if(error){return false;}
-        document.forms['new_forum'].submit();
+    var error = false;
+            if (document.new_forum.nom_forum.value == ""){
+    alert("{{gt text="You haven't writte the name of the forum "}}");
+            var error = true;
+    }
+    if (error){return false; }
+    document.forms['new_forum'].submit();
     }
 </script>
 {include file="IWforums_admin_menu.htm"}
@@ -43,6 +43,23 @@
         <div class="z-formrow">
             <label for="msgDelTime">{gt text="Minutes, after the submission, during which the messages can be deleted by theirs authors"}</label>
             <input id="msgDelTime" name="msgDelTime" type="text" size="5" maxlength="3" value="{$forum.msgDelTime}"/>
+        </div>
+
+        <div class="z-formrow">
+            <label for="subscriptions">{gt text="Subscriptions to this forum"}</label>
+            <select name="subscriptions" id="subscriptions">
+                <option {if $forum.subscriptions eq 0}selected="selected"{/if} value="0">{gt text="Subscriptions are not available"}</option>
+                <option {if $forum.subscriptions eq 1}selected="selected"{/if} value="1">{gt text="Everybody who can access to this forum is subscribed to it by default"}</option>
+                <option {if $forum.subscriptions eq 2}selected="selected"{/if} value="2">{gt text="Users that have access to this forum can subscribe to it but they are not subscribed by default"}</option>
+                <option {if $forum.subscriptions eq 3}selected="selected"{/if} value="3">{gt text="The subscription to this forum is forced"}</option>
+            </select>
+        </div>
+        <div class="z-formrow">
+            <label for="sendByCron">{gt text="Can send notification because the subscription by cron"}</label>
+            <input id="sendByCron" name="sendByCron" type="checkbox" {if $forum.sendByCron eq 1}checked="checked"{/if} value="1" />
+                   <div class="z-formnote z-informationmsg">
+                {gt text="Check this option only if you will activate a cron that will send the messages to forum's subscriptors. In this case users will have the possibility to choose between receive an email for each new message in the forum or receive only a sumari every day. You can send messages calling the function called sendMails."}
+            </div>
         </div>
         <div class="z-formrow">
             <label for="observacions">{gt text="Observations"}</label>

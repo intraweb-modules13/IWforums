@@ -22,7 +22,12 @@ function IWforums_tables() {
         'mod' => 'iw_mod',
         'observacions' => 'iw_observacions',
         'msgDelTime' => 'iw_msgDelTime',
-        'msgEditTime' => 'iw_msgEditTime');
+        'msgEditTime' => 'iw_msgEditTime',
+        'subscriptions' => 'iw_subscriptions',
+        'sendByCron' => 'iw_sendByCron',
+        'subscriptors' => 'iw_subscriptors',
+        'lastCronExecution' => 'iw_lastCronExecution',
+        );
 
     $tables['IWforums_definition_column_def'] = array('fid' => "I NOTNULL AUTO PRIMARY",
         'nom_forum' => "C(50) NOTNULL DEFAULT ''",
@@ -33,7 +38,12 @@ function IWforums_tables() {
         'mod' => "C(255) NOTNULL DEFAULT ''",
         'observacions' => "C(255) NOTNULL DEFAULT ''",
         'msgDelTime' => "C(3) NOTNULL DEFAULT '0'",
-        'msgEditTime' => "C(3) NOTNULL DEFAULT '0'");
+        'msgEditTime' => "C(3) NOTNULL DEFAULT '0'",
+        'subscriptions' => "I(1) NOTNULL DEFAULT '0'",
+        'sendByCron' => "I(1) NOTNULL DEFAULT '0'",
+        'subscriptors' => "X NOTNULL",
+        'lastCronExecution' => "C(20) NOTNULL DEFAULT '0'",
+        );
 
     ObjectUtil::addStandardFieldsToTableDefinition($tables['IWforums_definition_column'], 'pn_');
     ObjectUtil::addStandardFieldsToTableDataDefinition($tables['IWforums_definition_column_def'], 'iw_');
@@ -84,6 +94,7 @@ function IWforums_tables() {
         'idparent' => 'iw_idparent',
         'lastdate' => 'iw_lastdate',
         'onTop' => 'iw_onTop',
+        'sended' => 'iw_sended',
         );
 
     $tables['IWforums_msg_column_def'] = array('fmid' => "I NOTNULL AUTO PRIMARY",
@@ -100,6 +111,7 @@ function IWforums_tables() {
         'idparent' => "I NOTNULL DEFAULT '0'",
         'lastdate' => "C(20) NOTNULL DEFAULT ''",
         'onTop' => "I(1) NOTNULL DEFAULT '0'",
+        'sended' => "X NOTNULL",
         );
 
     ObjectUtil::addStandardFieldsToTableDefinition($tables['IWforums_msg_column'], 'pn_');

@@ -8,206 +8,95 @@ msgstr ""
 "Project-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-01 10:44+0100\n"
-"PO-Revision-Date: 2013-08-08 11:05+0100\n"
+"PO-Revision-Date: 2014-01-29 08:58+0100\n"
 "Last-Translator: intraweb <intraweb@xtec.cat>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: pnuserapi.php:59
-#: pnuserapi.php:91
-#: pnuserapi.php:143
-#: pnuserapi.php:152
-#: pnuserapi.php:161
-#: pnuserapi.php:168
-#: pnuserapi.php:216
-#: pnuserapi.php:254
-#: pnuserapi.php:294
-#: pnuserapi.php:342
-#: pnuserapi.php:885
-#: pnuserapi.php:1251
+#: pnuserapi.php:59 pnuserapi.php:91 pnuserapi.php:143 pnuserapi.php:152
+#: pnuserapi.php:161 pnuserapi.php:168 pnuserapi.php:216 pnuserapi.php:254
+#: pnuserapi.php:294 pnuserapi.php:342 pnuserapi.php:885 pnuserapi.php:1251
 msgid "Error! Could not load items."
 msgstr "S'ha produït un error en carregar elements"
 
-#: pnuserapi.php:85
-#: pnuserapi.php:198
-#: pnuserapi.php:240
-#: pnuserapi.php:280
-#: pnuserapi.php:322
-#: pnuserapi.php:397
-#: pnuserapi.php:460
-#: pnuserapi.php:504
-#: pnuserapi.php:608
-#: pnuserapi.php:642
-#: pnuserapi.php:692
-#: pnuserapi.php:758
-#: pnuserapi.php:835
-#: pnuserapi.php:912
-#: pnuserapi.php:1016
-#: pnuserapi.php:1076
-#: pnuserapi.php:1196
-#: pnuser.php:92
-#: pnuser.php:982
-#: pnadminapi.php:26
-#: pnadminapi.php:66
-#: pnadminapi.php:103
-#: pnadmin.php:252
-#: pnadmin.php:326
-#: pnadmin.php:396
-#: pnadmin.php:462
+#: pnuserapi.php:85 pnuserapi.php:198 pnuserapi.php:240 pnuserapi.php:280
+#: pnuserapi.php:322 pnuserapi.php:397 pnuserapi.php:460 pnuserapi.php:504
+#: pnuserapi.php:608 pnuserapi.php:642 pnuserapi.php:692 pnuserapi.php:758
+#: pnuserapi.php:835 pnuserapi.php:912 pnuserapi.php:1016 pnuserapi.php:1076
+#: pnuserapi.php:1196 pnuser.php:92 pnuser.php:982 pnadminapi.php:26
+#: pnadminapi.php:66 pnadminapi.php:103 pnadmin.php:252 pnadmin.php:326
+#: pnadmin.php:396 pnadmin.php:462
 msgid "Error! Could not do what you wanted. Please check your input."
 msgstr "No s'ha pogut carregar el que volíeu. Reviseu les dades"
 
-#: pnuserapi.php:204
-#: pnuserapi.php:246
-#: pnuserapi.php:286
-#: pnuserapi.php:327
-#: pnuserapi.php:403
-#: pnuserapi.php:466
-#: pnuserapi.php:509
-#: pnuserapi.php:658
-#: pnuserapi.php:663
-#: pnuserapi.php:697
-#: pnuserapi.php:702
-#: pnuserapi.php:770
-#: pnuserapi.php:831
-#: pnuserapi.php:928
-#: pnuserapi.php:933
-#: pnuserapi.php:1062
-#: pnuserapi.php:1072
-#: pnuserapi.php:1207
-#: pnuser.php:159
-#: pnuser.php:287
-#: pnuser.php:340
-#: pnuser.php:409
-#: pnuser.php:538
-#: pnuser.php:618
-#: pnuser.php:710
-#: pnuser.php:901
-#: pnuser.php:1030
-#: pnuser.php:1101
-#: pnuser.php:1162
-#: pnuser.php:1194
-#: pnuser.php:1268
-#: pnuser.php:1285
-#: pnuser.php:1345
-#: pnuser.php:1365
-#: pnuser.php:1429
-#: pnuser.php:1498
-#: pnuser.php:1544
-#: pnuser.php:1600
-#: pnuser.php:1680
-#: pnuser.php:1741
-#: pnuser.php:1820
-#: pnuser.php:1840
-#: pnuser.php:1846
-#: pnajax.php:158
-#: pnajax.php:304
+#: pnuserapi.php:204 pnuserapi.php:246 pnuserapi.php:286 pnuserapi.php:327
+#: pnuserapi.php:403 pnuserapi.php:466 pnuserapi.php:509 pnuserapi.php:658
+#: pnuserapi.php:663 pnuserapi.php:697 pnuserapi.php:702 pnuserapi.php:770
+#: pnuserapi.php:831 pnuserapi.php:928 pnuserapi.php:933 pnuserapi.php:1062
+#: pnuserapi.php:1072 pnuserapi.php:1207 pnuser.php:159 pnuser.php:287
+#: pnuser.php:340 pnuser.php:409 pnuser.php:538 pnuser.php:618 pnuser.php:710
+#: pnuser.php:901 pnuser.php:1030 pnuser.php:1101 pnuser.php:1162
+#: pnuser.php:1194 pnuser.php:1268 pnuser.php:1285 pnuser.php:1345
+#: pnuser.php:1365 pnuser.php:1429 pnuser.php:1498 pnuser.php:1544
+#: pnuser.php:1600 pnuser.php:1680 pnuser.php:1741 pnuser.php:1820
+#: pnuser.php:1840 pnuser.php:1846 pnajax.php:158 pnajax.php:304
 msgid "You can't access the forum"
 msgstr "No podeu accedir a aquest fòrum"
 
-#: pnuserapi.php:332
-#: pnuserapi.php:652
-#: pnuserapi.php:922
-#: pnuserapi.php:1056
-#: pnuserapi.php:1202
-#: pnuser.php:99
-#: pnuser.php:167
-#: pnuser.php:295
-#: pnuser.php:334
-#: pnuser.php:419
-#: pnuser.php:546
-#: pnuser.php:558
-#: pnuser.php:626
-#: pnuser.php:716
-#: pnuser.php:723
-#: pnuser.php:764
-#: pnuser.php:907
-#: pnuser.php:914
-#: pnuser.php:1024
-#: pnuser.php:1113
-#: pnuser.php:1168
-#: pnuser.php:1274
-#: pnuser.php:1351
-#: pnuser.php:1436
-#: pnuser.php:1550
-#: pnuser.php:1606
-#: pnuser.php:1618
-#: pnuser.php:1686
-#: pnuser.php:1747
-#: pnuser.php:1783
-#: pnuser.php:1826
-#: pnajax.php:152
-#: pnajax.php:298
+#: pnuserapi.php:332 pnuserapi.php:652 pnuserapi.php:922 pnuserapi.php:1056
+#: pnuserapi.php:1202 pnuser.php:99 pnuser.php:167 pnuser.php:295
+#: pnuser.php:334 pnuser.php:419 pnuser.php:546 pnuser.php:558 pnuser.php:626
+#: pnuser.php:716 pnuser.php:723 pnuser.php:764 pnuser.php:907 pnuser.php:914
+#: pnuser.php:1024 pnuser.php:1113 pnuser.php:1168 pnuser.php:1274
+#: pnuser.php:1351 pnuser.php:1436 pnuser.php:1550 pnuser.php:1606
+#: pnuser.php:1618 pnuser.php:1686 pnuser.php:1747 pnuser.php:1783
+#: pnuser.php:1826 pnajax.php:152 pnajax.php:298
 msgid "The forum upon which the ation had to be carried out hasn't been found"
 msgstr "No s'ha trobat el fòrum sobre el qual fer l'acció sol·licitada"
 
-#: pnuserapi.php:424
-#: pnuserapi.php:985
-#: pnuserapi.php:1123
-#: pnuserapi.php:1128
+#: pnuserapi.php:424 pnuserapi.php:985 pnuserapi.php:1123 pnuserapi.php:1128
 #: pnuserapi.php:1167
 msgid "An error has occurred while reading records from the data base"
 msgstr "S'ha produït un error en la consulta de les taules a la base de dades."
 
-#: pnuserapi.php:476
-#: pnuserapi.php:850
-#: pnadminapi.php:38
+#: pnuserapi.php:476 pnuserapi.php:850 pnadminapi.php:38
 msgid "Error! Creation attempt failed."
 msgstr "L'intent de creació ha fallat"
 
 #: pnuserapi.php:621
 msgid "The modification of the users who have read the message has failed"
-msgstr "La modificació dels usuaris i usuàries que han llegit el missatge ha fallat."
+msgstr ""
+"La modificació dels usuaris i usuàries que han llegit el missatge ha fallat."
 
-#: pnuserapi.php:647
-#: pnuserapi.php:765
-#: pnuserapi.php:917
-#: pnuserapi.php:1067
-#: pnuser.php:1036
-#: pnuser.php:1107
-#: pnuser.php:1174
-#: pnuser.php:1187
-#: pnuser.php:1280
-#: pnuser.php:1361
-#: pnuser.php:1442
-#: pnuser.php:1450
-#: pnuser.php:1692
-#: pnuser.php:1753
-#: pnuser.php:1834
-#: pntemplates/plugins/function.iwforumsusermenulinks.php:26
-#: pnajax.php:164
+#: pnuserapi.php:647 pnuserapi.php:765 pnuserapi.php:917 pnuserapi.php:1067
+#: pnuser.php:1036 pnuser.php:1107 pnuser.php:1174 pnuser.php:1187
+#: pnuser.php:1280 pnuser.php:1361 pnuser.php:1442 pnuser.php:1450
+#: pnuser.php:1692 pnuser.php:1753 pnuser.php:1834
+#: pntemplates/plugins/function.iwforumsusermenulinks.php:26 pnajax.php:164
 #: pnajax.php:310
 msgid "No messages have been found"
 msgstr "No s'ha trobat el missatge."
 
-#: pnuserapi.php:667
-#: pnadminapi.php:125
-#: pnadminapi.php:132
-#: pnadminapi.php:137
+#: pnuserapi.php:667 pnadminapi.php:125 pnadminapi.php:132 pnadminapi.php:137
 msgid "Error! Sorry! Deletion attempt failed."
 msgstr "L'intent d'esborrament ha fallat"
 
-#: pnuserapi.php:716
-#: pnuserapi.php:733
+#: pnuserapi.php:716 pnuserapi.php:733
 msgid "The transfer of the message has failed"
 msgstr "El desplaçament del missatge ha fallat."
 
-#: pnuserapi.php:789
-#: pnuserapi.php:795
+#: pnuserapi.php:789 pnuserapi.php:795
 msgid "An error has occurred while deleting the message"
 msgstr "S'ha produït un error en esborrar el missatge."
 
-#: pnuserapi.php:858
-#: pnuserapi.php:893
-#: pninit.php:120
-#: pnadminapi.php:80
+#: pnuserapi.php:858 pnuserapi.php:893 pninit.php:120 pnadminapi.php:80
 msgid "Error! Update attempt failed."
 msgstr "No s'ha pogut actualitzar"
 
-#: pnuserapi.php:950
-#: pnuserapi.php:1091
+#: pnuserapi.php:950 pnuserapi.php:1091
 msgid "An error has occurred while editing the message"
 msgstr "S'ha produït un error en editar el missatge."
 
@@ -215,58 +104,34 @@ msgstr "S'ha produït un error en editar el missatge."
 msgid "An error has occurred while checking/unchecking a message"
 msgstr "S'ha produït un error en el marcatge/desmarcatge d'un missatge"
 
-#: pninit.php:26
-#: pnadmin.php:20
-msgid "Module iw_main is required. You have to install the iw_main module previously to install it."
-msgstr "El mòdul iw_main ha d'estar instal·lat. Instal·leu-lo per poder instal·lar aquest mòdul."
+#: pninit.php:26 pnadmin.php:20
+msgid ""
+"Module iw_main is required. You have to install the iw_main module "
+"previously to install it."
+msgstr ""
+"El mòdul iw_main ha d'estar instal·lat. Instal·leu-lo per poder instal·lar "
+"aquest mòdul."
 
-#: pnuser.php:12
-#: pnuser.php:56
-#: pnadminapi.php:21
-#: pnadminapi.php:61
-#: pnadminapi.php:98
-#: pnajax.php:12
-#: pnajax.php:50
-#: pnajax.php:98
-#: pnajax.php:132
-#: pnajax.php:197
-#: pnajax.php:238
-#: pnajax.php:279
-#: pnadmin.php:12
-#: pnadmin.php:97
-#: pnadmin.php:120
-#: pnadmin.php:160
-#: pnadmin.php:223
-#: pnadmin.php:289
-#: pnadmin.php:357
-#: pnadmin.php:430
-#: pnadmin.php:492
-#: pnadmin.php:533
-#: pnadmin.php:574
-#: pnadmin.php:602
+#: pnuser.php:12 pnuser.php:56 pnadminapi.php:21 pnadminapi.php:61
+#: pnadminapi.php:98 pnajax.php:12 pnajax.php:50 pnajax.php:98 pnajax.php:132
+#: pnajax.php:197 pnajax.php:238 pnajax.php:279 pnadmin.php:12 pnadmin.php:97
+#: pnadmin.php:120 pnadmin.php:160 pnadmin.php:223 pnadmin.php:289
+#: pnadmin.php:357 pnadmin.php:430 pnadmin.php:492 pnadmin.php:533
+#: pnadmin.php:574 pnadmin.php:602
 msgid "Sorry! No authorization to access this module."
 msgstr "No teniu autorització per accedir a aquest mòdul"
 
-#: pnuser.php:193
-#: pnuser.php:442
-#: pnuser.php:773
-#: pnuser.php:811
-#: pntemplates/plugins/function.iwforumsusermenulinks.php:155
-#: pnajax.php:178
+#: pnuser.php:193 pnuser.php:442 pnuser.php:773 pnuser.php:811
+#: pntemplates/plugins/function.iwforumsusermenulinks.php:155 pnajax.php:178
 msgid "Check the message"
 msgstr "Marca el missatge"
 
-#: pnuser.php:193
-#: pnuser.php:446
-#: pnuser.php:773
-#: pnuser.php:811
-#: pntemplates/plugins/function.iwforumsusermenulinks.php:159
-#: pnajax.php:178
+#: pnuser.php:193 pnuser.php:446 pnuser.php:773 pnuser.php:811
+#: pntemplates/plugins/function.iwforumsusermenulinks.php:159 pnajax.php:178
 msgid "Uncheck the message"
 msgstr "Desmarca el missatge"
 
-#: pnuser.php:242
-#: pnuser.php:482
+#: pnuser.php:242 pnuser.php:482
 msgid "Choose the sender..."
 msgstr "Tots els remitents"
 
@@ -274,9 +139,7 @@ msgstr "Tots els remitents"
 msgid "A new topic has been created."
 msgstr "S'ha creat un tema nou."
 
-#: pnuser.php:352
-#: pnuser.php:665
-#: pnuser.php:668
+#: pnuser.php:352 pnuser.php:665 pnuser.php:668
 msgid "During the next "
 msgstr "Durant els propers"
 
@@ -288,13 +151,15 @@ msgstr " minuts pot esborrar el tema."
 msgid "An error has occurred while creating a new topic"
 msgstr "S'ha produït un error en la creació d'un tema nou."
 
-#: pnuser.php:369
-#: pnuser.php:640
-msgid "An error has occurred in the attachment of the file. The message has been sent without the attached file."
-msgstr "S'ha produït un error en pujar el fitxer al servidor. El missatge s'ha enviat sense el fitxer adjunt."
+#: pnuser.php:369 pnuser.php:640
+msgid ""
+"An error has occurred in the attachment of the file. The message has been "
+"sent without the attached file."
+msgstr ""
+"S'ha produït un error en pujar el fitxer al servidor. El missatge s'ha "
+"enviat sense el fitxer adjunt."
 
-#: pnuser.php:384
-#: pnuser.php:672
+#: pnuser.php:384 pnuser.php:672
 msgid "An error has occurred while creating a new message"
 msgstr "S'ha produït un error en la creació d'un missatge nou."
 
@@ -314,8 +179,7 @@ msgstr " minuts pot editar el missatge."
 msgid " minutes you can delete the message"
 msgstr " minuts pot esborrar el missatge."
 
-#: pnuser.php:743
-#: pntemplates/iw_forums_user_move_msg.htm:26
+#: pnuser.php:743 pntemplates/iw_forums_user_move_msg.htm:26
 #: pntemplates/iw_forums_user_allmsg.htm:19
 #: pntemplates/iw_forums_user_msg.htm:24
 #: pntemplates/iw_forums_user_del_msg.htm:14
@@ -323,30 +187,25 @@ msgstr " minuts pot esborrar el missatge."
 msgid "From: "
 msgstr "De: "
 
-#: pnuser.php:744
-#: pntemplates/iw_forums_user_move_msg.htm:32
+#: pnuser.php:744 pntemplates/iw_forums_user_move_msg.htm:32
 #: pntemplates/iw_forums_user_forum.htm:128
 #: pntemplates/iw_forums_user_allmsg.htm:25
-#: pntemplates/iw_forums_user_msg.htm:30
-#: pntemplates/iw_forums_user_msg.htm:81
+#: pntemplates/iw_forums_user_msg.htm:30 pntemplates/iw_forums_user_msg.htm:81
 #: pntemplates/iw_forums_user_del_msg.htm:20
 #: pntemplates/iw_forums_user_printallmsg.htm:20
 msgid "Date"
 msgstr "Data"
 
-#: pnuser.php:745
-#: pntemplates/iw_forums_user_move_msg.htm:37
+#: pnuser.php:745 pntemplates/iw_forums_user_move_msg.htm:37
 #: pntemplates/iw_forums_user_forum.htm:129
 #: pntemplates/iw_forums_user_allmsg.htm:30
-#: pntemplates/iw_forums_user_msg.htm:35
-#: pntemplates/iw_forums_user_msg.htm:82
+#: pntemplates/iw_forums_user_msg.htm:35 pntemplates/iw_forums_user_msg.htm:82
 #: pntemplates/iw_forums_user_del_msg.htm:25
 #: pntemplates/iw_forums_user_printallmsg.htm:25
 msgid "Time"
 msgstr "Hora"
 
-#: pnuser.php:747
-#: pntemplates/iw_forums_user_new_tema.htm:51
+#: pnuser.php:747 pntemplates/iw_forums_user_new_tema.htm:51
 #: pntemplates/iw_forums_user_new_msg.htm:40
 #: pntemplates/iw_forums_user_edit_msg.htm:40
 #: pntemplates/iw_forums_user_msg.htm:42
@@ -360,8 +219,12 @@ msgid "You are not allowed to do this action"
 msgstr "No estàs autoritzat a fer aquesta acció"
 
 #: pnuser.php:1199
-msgid "The message can not be deleted because have answers. You can move the answers to an other theme or forum."
-msgstr "El missatge no es pot esborrar perquè té respostes. Podràs esborrar el missatge si mous les respostes a un altre fòrum o a un altre tema"
+msgid ""
+"The message can not be deleted because have answers. You can move the "
+"answers to an other theme or forum."
+msgstr ""
+"El missatge no es pot esborrar perquè té respostes. Podràs esborrar el "
+"missatge si mous les respostes a un altre fòrum o a un altre tema"
 
 #: pnuser.php:1229
 msgid "The message has been deleted."
@@ -439,22 +302,13 @@ msgstr "Mostra els fòrums creats"
 msgid "Configure the module"
 msgstr "Configura el mòdul"
 
-#: pnajax.php:69
-#: pnajax.php:212
-#: pnajax.php:253
-#: pnadmin.php:130
-#: pnadmin.php:229
-#: pnadmin.php:295
-#: pnadmin.php:363
-#: pnadmin.php:436
-#: pnadmin.php:498
+#: pnajax.php:69 pnajax.php:212 pnajax.php:253 pnadmin.php:130 pnadmin.php:229
+#: pnadmin.php:295 pnadmin.php:363 pnadmin.php:436 pnadmin.php:498
 #: pnadmin.php:608
 msgid "Forum not found"
 msgstr "Fòrum no trobat"
 
-#: pnadmin.php:57
-#: pnadmin.php:307
-#: pntemplates/iw_forums_admin_addGroup.htm:13
+#: pnadmin.php:57 pnadmin.php:307 pntemplates/iw_forums_admin_addGroup.htm:13
 msgid "Unregistered"
 msgstr "No registrats"
 
@@ -474,8 +328,7 @@ msgstr "S'ha afegit un grup al fòrum"
 msgid "The access has been deleted"
 msgstr "S'ha esborrat l'accés del grup"
 
-#: pnadmin.php:372
-#: pntemplates/iw_forums_admin_addGroup.htm:12
+#: pnadmin.php:372 pntemplates/iw_forums_admin_addGroup.htm:12
 msgid "Choose a gruop..."
 msgstr "Tria un grup..."
 
@@ -491,8 +344,7 @@ msgstr "S'ha esborrat el fòrum."
 msgid "The configuration of the module has been modified"
 msgstr "S'ha modificat la configuració del mòdul"
 
-#: pnversion.php:9
-#: pnversion.php:13
+#: pnversion.php:9 pnversion.php:13
 msgid "iw_forums"
 msgstr "iw_forums"
 
@@ -517,8 +369,10 @@ msgstr "El títol del missatge està buit."
 #: pntemplates/iw_forums_user_new_tema.htm:14
 #: pntemplates/iw_forums_user_new_msg.htm:9
 #: pntemplates/iw_forums_user_edit_msg.htm:15
-msgid "The extension of the attached file isn't correct. The valid extensions are: "
-msgstr "L'extensió del fitxer adjunt no és admesa. Les extensions possibles són: "
+msgid ""
+"The extension of the attached file isn't correct. The valid extensions are: "
+msgstr ""
+"L'extensió del fitxer adjunt no és admesa. Les extensions possibles són: "
 
 #: pntemplates/iw_forums_user_new_tema.htm:18
 #: pntemplates/iw_forums_user_new_msg.htm:13
@@ -599,12 +453,20 @@ msgid "Attached files are allowed"
 msgstr "Admet fitxers adjunts als missatges"
 
 #: pntemplates/iw_forums_admin_new.htm:33
-msgid "Minutes, after the submission, during which the messages can be edited by theirs authors"
-msgstr "Minuts, després de l'enviament, durant els quals els missatges són editables pels seus remitents"
+msgid ""
+"Minutes, after the submission, during which the messages can be edited by "
+"theirs authors"
+msgstr ""
+"Minuts, després de l'enviament, durant els quals els missatges són editables "
+"pels seus remitents"
 
 #: pntemplates/iw_forums_admin_new.htm:37
-msgid "Minutes, after the submission, during which the messages can be deleted by theirs authors"
-msgstr "Minuts, després de l'enviament, durant els quals els missatges són esborrables pels seus remitents"
+msgid ""
+"Minutes, after the submission, during which the messages can be deleted by "
+"theirs authors"
+msgstr ""
+"Minuts, després de l'enviament, durant els quals els missatges són "
+"esborrables pels seus remitents"
 
 #: pntemplates/iw_forums_admin_new.htm:41
 #: pntemplates/iw_forums_admin_main.htm:14
@@ -930,7 +792,8 @@ msgstr "Inici del directori de fitxers"
 
 #: pntemplates/iw_forums_admin_configura.htm:16
 msgid "Server folder where will be save the attached files"
-msgstr "Directori del servidor on s'emmagatzemen els fitxers adjunts a les notes"
+msgstr ""
+"Directori del servidor on s'emmagatzemen els fitxers adjunts a les notes"
 
 #: pntemplates/iw_forums_admin_configura.htm:21
 msgid "The attached files folder have not been found"
@@ -942,7 +805,9 @@ msgstr "Aquest directori ha de tenir permisos d'escriptura"
 
 #: pntemplates/iw_forums_admin_configura.htm:30
 msgid "The unregistered users can view messages writers avatars"
-msgstr "Els usuaris no registrats poden veure els avatars del remitents dels missatges"
+msgstr ""
+"Els usuaris no registrats poden veure els avatars del remitents dels "
+"missatges"
 
 #: pntemplates/iw_forums_admin_addGroup.htm:4
 #: pntemplates/iw_forums_admin_main.htm:44
@@ -1023,3 +888,37 @@ msgstr "S'ha produït un error en marcar el missatge com a principal."
 msgid "Main message"
 msgstr "Missatge principal"
 
+msgid "Subscriptions to this forum"
+msgstr "Subscripcions al fòrum"
+
+msgid "Subscriptions are not available"
+msgstr "Les subscripcions no estan disponibles"
+
+msgid "Everybody who can access to this forum is subscribed to it by default"
+msgstr "Tothom qui pot accedir a aquest fòrum hi està subscrit per defecte"
+
+msgid ""
+"Users that have access to this forum can subscribe to it but they are not "
+"subscribed by default"
+msgstr ""
+"Els usuaris que tenen accés a aquest fòrum s'hi poden subscriure, però no ho "
+"estan per defecte"
+
+msgid "The subscription to this forum is forced"
+msgstr "La subscripció a aquest fòrum és obligatòria"
+
+msgid "Can send notification because the subscription by cron"
+msgstr "Es poden enviar les notificacions als subscriptors per cron"
+
+msgid ""
+"Check this option only if you will activate a cron that will send the "
+"messages to forum's subscriptors. In this case users will have the "
+"possibility to choose between receive an email for each new message in the "
+"forum or receive only a sumari every day. You can send messages calling the "
+"function called sendMails."
+msgstr ""
+"Marqueu aquesta opció només si teniu previst activar un cron que enviarà "
+"missatges als subscriptors del fòrum. En aquest cas els usuaris tindran la "
+"possibilitat de triar entre rebre un missatge per cada entrada nova en el "
+"fòrum o rebre només un resum diari. Podeu fer l'enviament per cron si crideu "
+"la funció sendMail."
