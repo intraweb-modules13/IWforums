@@ -222,6 +222,35 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             }
         }
 
+        // calcs subscription level
+        // 0 - no subscribed
+        // 1 - subscribed with messages for each topic
+        // 2 - subscribed with messages summary
+        switch ($registre['subscriptions']) {
+            case 0:
+                $subscriptionLevel = 0;
+                break;
+            case 1:
+            case 2:
+            case 3:
+                $uid = UserUtil::getVar('uid');
+                $subscriptorsArray = unserialize($registre['subscriptors']);
+                // checks if user is in array array([uid1] => 0, [uid2] => 1,...);
+                $isInArray = (key_exists($uid, $subscriptorsArray)) ? true : false;
+                if ($registre['subscriptions'] == 1 && !$isInArray) {
+                    $subscriptionLevel = 1;
+                } elseif ($registre['subscriptions'] == 1 && $isInArray) {
+                    $subscriptionLevel = $subscriptorsArray[$uid];
+                } elseif ($registre['subscriptions'] == 2 && $isInArray) {
+                    $subscriptionLevel = $subscriptorsArray[$uid];
+                } elseif ($registre['subscriptions'] == 3) {
+                    $subscriptionLevel = (!$isInArray) ? 1 : $subscriptorsArray[$uid];
+                } else {
+                    $subscriptionLevel = 0;
+                }
+                break;
+        }
+
         return $this->view->assign('users', $users)
                         ->assign('icons', $icons)
                         ->assign('name', $registre['nom_forum'])
@@ -238,7 +267,11 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                         ->assign('ftid', $ftid)
                         ->assign('pager', $pager)
                         ->assign('inici', $inici)
-                        ->fetch('IWforums_user_forum.tpl');
+                        ->assign('subscriptions', $registre['subscriptions'])
+                        ->assign('sendByCron', $registre['sendByCron'])
+                        ->assign('subscriptionLevel', $subscriptionLevel)
+                        ->fetch('IWforums_user_forum.tpl'
+        );
     }
 
     /**
@@ -647,7 +680,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                     'idparent' => $fmid,
                     'oid' => $oid,
                     'onTop' => $onTop,
-                ));
+        ));
         // check if user canmoderate the forum
         $moderator = false;
         if ($access == 4)
@@ -763,8 +796,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                 LogUtil::registerError($this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
                 return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
             }
-        }
-        else
+        } else
             $origen = $registre;
         // process the first message
         $imatge = (strpos($origen['llegit'], '$' . $uid . '$') == 0) ? 'msgNo.gif' : 'msg.gif';
@@ -1831,12 +1863,6 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             LogUtil::registerError($this->__('No messages have been found'));
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
         }
-        // check if user can access the forum
-        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
-        if ($access < 2) {
-            LogUtil::registerError($this->__('You can\'t access the forum'));
-            return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
-        }
         // check if user is moderator and can edit the message
         $moderator = ($access == 4) ? true : false;
         if (!$moderator && (time() > $dades_missatge['data'] + 60 * $registre['msgDelTime'] || $dades_missatge['usuari'] != UserUtil::getVar('uid'))) {
@@ -1900,21 +1926,22 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         }
 
         // quick check to ensure that we have work to do
-        if ($total <= $rpp)
+        if ($total <= $rpp) {
             return;
-
-        if (!isset($inici) || empty($inici))
+        }
+        if (!isset($inici) || empty($inici)) {
             $inici = 1;
-
-        if (!isset($rpp) || empty($rpp))
+        }
+        if (!isset($rpp) || empty($rpp)) {
             $rpp = 10;
-
+        }
         // show startnum link
         if ($inici != 1) {
             $url = preg_replace('/%%/', 1, $urltemplate);
             $text = '<a href="' . $url . '"><<</a> | ';
-        } else
+        } else {
             $text = '<< | ';
+        }
 
         $items[] = array('text' => $text);
         // show following items
@@ -1994,7 +2021,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         // set message as main message
         if (ModUtil::apiFunc('IWforums', 'user', 'onTop', array('fmid' => $fmid,
                 ))) {
-            $msg = ($missatge['onTop'] == 1) ? $this->__('The message has been set as not main message.'):$this->__('The message has been set as main message.');
+            $msg = ($missatge['onTop'] == 1) ? $this->__('The message has been set as not main message.') : $this->__('The message has been set as main message.');
             // success
             LogUtil::registerStatus($msg);
         }
@@ -2006,6 +2033,32 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         } else {
             return System::redirect(ModUtil::url('IWforums', 'user', 'forum', array('fid' => $fid)));
         }
+    }
+
+    public function setSubscription($args) {
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : 0, 'GETPOST');
+        $subscriptionMethod = FormUtil::getPassedValue('subscriptionMethod', isset($args['subscriptionMethod']) ? $args['subscriptionMethod'] : 0, 'GETPOST');
+        // security check
+        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        //check if user can access the forum
+        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
+        if ($access < 1) {
+            LogUtil::registerError($this->__('You can\'t access the forum'));
+            return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
+        }
+
+        $subscription = ModUtil::apiFunc($this->name, 'user', 'subscription', array('fid' => $fid,
+                    'subscriptionMethod' => $subscriptionMethod));
+
+        if (!$subscription) {
+            LogUtil::registerError($this->__('Error! The subscription values have not been sent'));
+            return System::redirect(ModUtil::url('IWforums', 'user', 'forum', array('fid' => $fid)));
+        }
+        
+        LogUtil::registerStatus($this->__('Subscription changed correctly'));
+        return System::redirect(ModUtil::url('IWforums', 'user', 'forum', array('fid' => $fid)));
     }
 
 }

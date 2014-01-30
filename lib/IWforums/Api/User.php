@@ -543,7 +543,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                                 'oid' => $message['oid'],
                                 'onTop' => $message['onTop'],
                             );
-                    }else
+                    } else
                         $registres[] = array('fmid' => $message['fmid'],
                             'usuari' => $message['usuari'],
                             'titol' => $message['titol'],
@@ -1079,7 +1079,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             'icon' => $icon,
             'adjunt' => $adjunt,
             'onTop' => $onTop,
-            );
+        );
 
         if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('Error! Update attempt failed.'));
@@ -1313,6 +1313,43 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             $links[] = array('url' => "javascript:mark(" . $fid . "," . $fmid . ")", 'text' => $this->__('Check/uncheck the message'), 'id' => 'iwforums_mark', 'class' => 'z-icon-es-view');
         }
         return $links;
+    }
+
+    public function subscription($args) {
+        // Security check
+        if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_READ)) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        //check if user can access the forum as moderator
+        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $args['fid']));
+        if ($access < 1) {
+            return LogUtil::registerError($this->__('You can\'t access the forum'));
+        }
+
+        //Get form information
+        $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $args['fid']));
+        if ($forum == false) {
+            LogUtil::registerError($this->__("No valid forum"));
+        }
+        $uid = UserUtil::getVar('uid');
+        $subscriptorsArray = unserialize($forum['subscriptors']);
+        
+        if ($args['subscriptionMethod'] == 0) {
+            $args['subscriptionMethod'] = (!key_exists($uid,$subscriptorsArray) || $subscriptorsArray[$uid] == 0) ? 1:0;
+        }
+        
+        $subscriptorsArray[$uid] = $args['subscriptionMethod'];
+        $subscriptorsText = serialize($subscriptorsArray);
+        $table = DBUtil::getTables();
+        $c = $table['IWforums_definition_column'];
+        $where = "$c[fid] = $args[fid]";
+        $item = array('subscriptors' => $subscriptorsText);
+
+        if (!DBUTil::updateObject($item, 'IWforums_definition', $where)) {
+            return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+        }
+
+        return true;
     }
 
 }

@@ -4,6 +4,11 @@
     {if $hi_ha_temes}
         <div class="userpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>
         <h2>{$name} {if $u > 0}({$users[$u]|trim}){/if}</h2>
+        {if $subscriptions gt 0}
+            <div class="subscriptions">
+                {include file="IWforums_user_subscriptions.tpl"}
+            </div>
+        {/if}
         <strong>{gt text="List of topics"}</strong>
         <table class="z-datatable">
             <tbody>
@@ -83,6 +88,11 @@
     {if $hi_ha_missatges}
         {if !$hi_ha_temes}
             <div class="userpageicon">{img modname='core' src='windowlist.png' set='icons/large'}</div>
+            {if $subscriptions gt 0}
+                <div class="subscriptions">
+                    {include file="IWforums_user_subscriptions.tpl"}
+                </div>
+            {/if}
         {/if}
         {if $ftid eq 0}
             {if $hi_ha_temes}

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-01 10:44+0100\n"
-"PO-Revision-Date: 2014-01-29 08:58+0100\n"
+"PO-Revision-Date: 2014-01-29 16:53+0100\n"
 "Last-Translator: intraweb <intraweb@xtec.cat>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -922,3 +922,18 @@ msgstr ""
 "possibilitat de triar entre rebre un missatge per cada entrada nova en el "
 "fòrum o rebre només un resum diari. Podeu fer l'enviament per cron si crideu "
 "la funció sendMail."
+
+msgid "Subscriptions"
+msgstr "Subscripcions"
+
+msgid "Not allowed"
+msgstr "No estan permeses"
+
+msgid "By default"
+msgstr "Tothom per defecte"
+
+msgid "Not by default"
+msgstr "No per defecte"
+
+msgid "Forced"
+msgstr "Forçades"

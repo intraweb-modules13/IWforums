@@ -29,6 +29,7 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
             'subscriptions' => $args['subscriptions'],
             'sendByCron' => $args['sendByCron'],
             'lastCronExecution' => time(),
+            'subscriptors' => serialize(array()),
         );
 
         if (!DBUtil::insertObject($item, 'IWforums_definition', 'fid')) {

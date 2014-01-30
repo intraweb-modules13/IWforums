@@ -112,6 +112,14 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
             case '3.0.0':
                 DBUtil::changeTable('IWforums_definition');
                 DBUtil::changeTable('IWforums_msg');
+                $c = "UPDATE `IWforums_definition` SET `iw_subscriptors` = 'a:0:{}'";
+                if (!DBUtil::executeSQL($c)) {
+                    return false;
+                }
+                $c = "UPDATE `IWforums_msg` SET `iw_sended` = 'a:0:{}'";
+                if (!DBUtil::executeSQL($c)) {
+                    return false;
+                }
         }
 
         return true;

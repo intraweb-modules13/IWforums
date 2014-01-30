@@ -74,7 +74,9 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                 'msgEditTime' => $forum['msgEditTime'],
                 'groups' => $groupsArray,
                 'mods' => $moderatorsArray,
-                'fid' => $forum['fid']);
+                'fid' => $forum['fid'],
+                'subscriptions' => $forum['subscriptions'],
+                );
         }
 
         return $this->view->assign('forums', $forumsArray)
@@ -175,9 +177,19 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                     'subscriptions' => $subscriptions,
                     'sendByCron' => $sendByCron,
                 );
-                // set lastcron excution ti current time in case it is activited in this moment
+                // set lastcron execution to current time in case it is activited in this moment
                 if ($sendByCron == 1 && $forum['sendByCron'] == 0) {
                     $items['lastCronExecution'] = time();
+                }
+                                // set all the subscriptions methods that are to 2 to 1 in case the cron option is unchecked
+                if ($sendByCron == 0 && $forum['sendByCron'] == 1) {
+                    $subscriptionsArray = unserialize($forum['subscriptors']);
+                    foreach ($subscriptionsArray as $key => $subs) {
+                        if ($subs == 2) {
+                            $subscriptionsArray[$key] = 1;
+                        }
+                    }
+                    $items['subscriptors']= serialize($subscriptionsArray);
                 }
                 if (ModUtil::apiFunc('IWforums', 'admin', 'update', array('items' => $items,
                             'fid' => $fid))) {
