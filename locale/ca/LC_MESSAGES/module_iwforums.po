@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2010-02-01 10:44+0100\n"
-"PO-Revision-Date: 2014-01-29 16:53+0100\n"
+"PO-Revision-Date: 2014-02-01 19:12+0100\n"
 "Last-Translator: intraweb <intraweb@xtec.cat>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -937,3 +937,58 @@ msgstr "No per defecte"
 
 msgid "Forced"
 msgstr "Forçades"
+
+msgid "Subscription changed correctly"
+msgstr "La subscripció ha canviat correctament"
+
+msgid "Error! The subscription values have not been sent"
+msgstr "Els valors de la subscripció no s'han pogut enviar"
+
+msgid "You are not subscribed to this forum."
+msgstr "No esteu subscrit/a a aquest fòrum."
+
+msgid "You are subscribed to this forum."
+msgstr "Esteu subscrit/a a aquest fòrum."
+
+msgid "Subscribe to it"
+msgstr "Subscriure-m'hi"
+
+msgid "Unsubscribe from it"
+msgstr "Eliminar la subscripció"
+
+msgid "Send me a message for each new entry"
+msgstr "Envia'm un missatge per cada entrada nova"
+
+msgid "Send me daily summary of messages"
+msgstr "Envia'm un resum diari dels missatges"
+
+#, php-format
+msgid ""
+"A new message has been sent to the forum by %s on %s at %s. The content of "
+"the message is:"
+msgstr ""
+"S'ha enviat un missatge nou al fòrum per part de/d' %s el dia %s a les %s. "
+"El contingut del missatge és el següent:"
+
+msgid "You can access to the original content from"
+msgstr "Podeu accedir al contingut original del missatge des"
+
+msgid "this link"
+msgstr "d'aquest enllaç"
+
+msgid ""
+"If you do not want to receive automatic notifications from this forum you "
+"can remove your subscription from"
+msgstr ""
+"Si no desitgeu rebre notificacions automàtiques dels missatges d'aquest "
+"fòrum podeu eliminar la vostra subscripció des del"
+
+msgid "the forum"
+msgstr "mateix fòrum"
+
+#, php-format
+msgid "You have a new message in forum '%s'."
+msgstr "Teniu un missatge nou en el fòrum '%s'."
+
+msgid "Confirm the deletion of the message"
+msgstr "Confirmeu l'esborrament del missatge"

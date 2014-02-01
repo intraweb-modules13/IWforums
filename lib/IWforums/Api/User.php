@@ -17,9 +17,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
                 return LogUtil::registerPermissionError();
             }
-        } else
+        } else {
             $requestByCron = true;
-
+        }
         $pntable = DBUtil::getTables();
         $c = $pntable['IWforums_definition_column'];
         $sqlWhere = '';
@@ -114,19 +114,18 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         } else {
             $requestByCron = true;
         }
-        $registres = array();
+
         if ($uid != UserUtil::getVar('uid') && !$requestByCron) {
-            return $registres;
+            return array();
         }
         //check if user can access the forum
-        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        $sv1 = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         if (ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid,
                     'uid' => $uid,
-                    'sv' => $sv)) < 1) {
+                    'sv' => $sv1)) < 1) {
             return LogUtil::registerPermissionError();
         }
         $pntable = DBUtil::getTables();
-        $c = $pntable['IWforums_msg_column'];
         $c = $pntable['IWforums_msg_column'];
         $userFilter = ($u > 0) ? " AND $c[usuari] = $u" : '';
         $temaFilter = ($tots == 1) ? '' : " AND $c[ftid]=$ftid";
@@ -148,9 +147,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                 return LogUtil::registerError($this->__('Error! Could not load items.'));
             }
             $nparent = count($topics);
-        } else
+        } else {
             $nparent = $nmsg;
-
+        }
         $uread = DBUtil::selectObjectArray('IWforums_msg', $where1, '', '-1', '-1', 'fmid');
         // error message and return
         if ($uread === false) {
@@ -259,6 +258,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     public function get_msg($args) {
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'REQUEST');
         $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : null, 'POST');
+        $fmid0 = FormUtil::getPassedValue('fmid0', isset($args['fmid0']) ? $args['fmid0'] : null, 'POST');
+
+        if ($fmid0 != null) {
+            $fmid = $fmid0;
+        }
 
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
@@ -317,8 +321,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         //get forum information
         $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         if ($forum == false) {
-            $view->assign('msg', $this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
-            return $view->fetch('IWforums_user_noacces.tpl');
+            return LogUtil::registerPermissionError();
         }
         $itemsArray = array();
         $pntable = DBUtil::getTables();
@@ -346,7 +349,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                         'u' => $u));
             $n_msg_no_llegits = $n_msg['nollegits'];
             $marcats = $n_msg['marcats'];
-            $n_msg = $n_msg['nmsg'];
+            $n_msg1 = $n_msg['nmsg'];
             $itemsArray[] = array('ftid' => $item['ftid'],
                 'titol' => $item['titol'],
                 'descriu' => $item['descriu'],
@@ -357,7 +360,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                 'lasttime' => $lasttime,
                 'lastuser' => $item['last_user'],
                 'last_post_exists' => $last_post_exists,
-                'n_msg' => $n_msg,
+                'n_msg' => $n_msg1,
                 'n_msg_no_llegits' => $n_msg_no_llegits,
                 'marcats' => $marcats,
             );
@@ -528,8 +531,10 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                             'tots' => $tots));
                 // Copy the replies to the all messages array
                 foreach ($listmessages as $message) {
-                    if ($filter_user != 0) { // Filtering
-                        if ($filter_user == $message['usuari']) // Show only when the message is written by the selected used
+                    if ($filter_user != 0) {
+                        // Filtering
+                        if ($filter_user == $message['usuari']) {
+                            // Show only when the message is written by the selected used
                             $registres[] = array('fmid' => $message['fmid'],
                                 'usuari' => $message['usuari'],
                                 'titol' => $message['titol'],
@@ -543,7 +548,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                                 'oid' => $message['oid'],
                                 'onTop' => $message['onTop'],
                             );
-                    } else
+                        }
+                    } else {
                         $registres[] = array('fmid' => $message['fmid'],
                             'usuari' => $message['usuari'],
                             'titol' => $message['titol'],
@@ -557,6 +563,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                             'oid' => $message['oid'],
                             'onTop' => $message['onTop'],
                         );
+                    }
                 }
             }
         }
@@ -565,7 +572,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     }
 
     /*
-      Funcié que posa a l'usuari com que ha llegit el missatge
+      Funció que posa a l'usuari com que ha llegit el missatge
      */
 
     public function llegit($args) {
@@ -727,8 +734,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
         //check if user can access the forum where the messages are going to be moved
-        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $noutema));
-        if ($access < 4) {
+        $access1 = ModUtil::func('IWforums', 'user', 'access', array('fid' => $noutema));
+        if ($access1 < 4) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
         //get message
@@ -756,7 +763,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
 
         //Update de last time and user in forum topic
-        $updated = ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($ftid)));
+        ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($ftid)));
+
         //Retorna el id del nou registre que s'acaba d'introduir
         return $item['fmid'];
     }
@@ -788,21 +796,19 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if ($access < 4) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_temes'];
-        $c = $pntable['IWforums_temes_column'];
-        $t2 = $pntable['IWforums_msg'];
-        $c2 = $pntable['IWforums_msg_column'];
+        $table = DBUtil::getTables();
+        $c = $table['IWforums_msg_column'];
         //get messages files
         $files = ModUtil::apiFunc('IWforums', 'user', 'get_adjunts', array('fid' => $fid));
         //delete messages files
         foreach ($files as $file) {
             $filePath = ModUtil::getVar('IWmain', 'documentRoot') . '/' . ModUtil::getVar('IWforums', 'urladjunts') . '/' . $file['adjunt'];
-            if (file_exists($filePath))
+            if (file_exists($filePath)) {
                 unlink($filePath);
+            }
         }
         // Messages deletion
-        $where = "$c2[ftid]=$ftid";
+        $where = "$c[ftid]=$ftid";
         if (!DBUtil::deleteWhere('IWforums_msg', $where)) {
             return LogUtil::registerError($this->__('An error has occurred while deleting the message'));
         }
@@ -832,10 +838,14 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $oid = FormUtil::getPassedValue('oid', isset($args['oid']) ? $args['oid'] : null, 'POST');
         $onTop = FormUtil::getPassedValue('onTop', isset($args['onTop']) ? $args['onTop'] : null, 'POST');
 
-        if ($ftid0 != null)
+        if ($ftid0 != null) {
             $ftid = $ftid0;
-        if ($titolmsg != null)
+        }
+
+        if ($titolmsg != null) {
             $titol = $titolmsg;
+        }
+
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
@@ -850,8 +860,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
 
-        if ($access > 4)
+        if ($access > 4) {
             $onTop = 0;
+        }
 
         $item = array('fid' => $fid,
             'ftid' => $ftid,
@@ -867,12 +878,13 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             'lastdate' => time(),
             'onTop' => $onTop,
         );
-        if (!DBUtil::insertObject($item, 'IWforums_msg', 'fmid')) {
+        $created = DBUtil::insertObject($item, 'IWforums_msg', 'fmid');
+        if (!$created) {
             return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
         }
         if (isset($oid) && $oid != 0) {
-            $pntable = DBUtil::getTables();
-            $c = $pntable['IWforums_msg_column'];
+            $table = DBUtil::getTables();
+            $c = $table['IWforums_msg_column'];
             $where = "$c[fmid]=$oid";
             $items = array('lastdate' => time());
             if (!DBUTil::updateObject($items, 'IWforums_msg', $where)) {
@@ -880,9 +892,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             }
         }
         //Update de last time and user in forum topic
-        $updated = ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($ftid)));
+        ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($ftid)));
         //Retorna el id del nou registre que s'acaba d'introduir
-        return $item['fmid'];
+        return $created['fmid'];
     }
 
     /*
@@ -893,9 +905,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     public function updateLast($args) {
         $ftids = FormUtil::getPassedValue('ftids', isset($args['ftids']) ? $args['ftids'] : null, 'POST');
         //get last message in topic
-        $pntable = DBUtil::getTables();
+        $table = DBUtil::getTables();
         foreach ($ftids as $ftid) {
-            $c = $pntable['IWforums_msg_column'];
+            $c = $table['IWforums_msg_column'];
             $where = "$c[ftid] = $ftid";
             $orderby = "$c[data] desc";
             // get the objects from the db
@@ -906,11 +918,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                 return LogUtil::registerError($this->__('Error! Could not load items.'));
             }
             //update topic last time and user information
-            $c = $pntable['IWforums_temes_column'];
-            $where = "$c[ftid]=$ftid";
-            $items = array('last_time' => $items[$ftid]['data'],
+            $c1 = $table['IWforums_temes_column'];
+            $where1 = "$c1[ftid]=$ftid";
+            $items1 = array('last_time' => $items[$ftid]['data'],
                 'last_user' => $items[$ftid]['usuari']);
-            if (!DBUTil::updateObject($items, 'IWforums_temes', $where)) {
+            if (!DBUTil::updateObject($items1, 'IWforums_temes', $where1)) {
                 return LogUtil::registerError($this->__('Error! Update attempt failed.'));
             }
         }
@@ -969,7 +981,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     }
 
     /*
-      Funcié que retorna una matriu amb la informacié de tots els usuaris que han participat en el férum
+      Funció que retorna una matriu amb la informacié de tots els usuaris que han participat en el fòrum
      */
 
     public function getremitents($args) {
@@ -997,7 +1009,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     }
 
     /*
-      Funcié que marca o treu la marca d'un missatge
+      Funció que marca o treu la marca d'un missatge
      */
 
     public function marcat($args) {
@@ -1036,7 +1048,6 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $fmid = FormUtil::getPassedValue('fmid', isset($args['fmid']) ? $args['fmid'] : null, 'POST');
         $adjunt = FormUtil::getPassedValue('fadjunt', isset($args['fadjunt']) ? $args['fadjunt'] : null, 'POST');
         $icon = FormUtil::getPassedValue('icon', isset($args['icon']) ? $args['icon'] : null, 'POST');
-        $idparent = FormUtil::getPassedValue('idparent', isset($args['idparent']) ? $args['idparent'] : null, 'POST');
         $onTop = FormUtil::getPassedValue('onTop', isset($args['onTop']) ? $args['onTop'] : null, 'POST');
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
@@ -1053,8 +1064,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if ($access < 2) {
             return LogUtil::registerError($this->__('You can\'t access the forum'));
         }
-        if ($access > 4)
+        if ($access > 4) {
             $onTop = 0;
+        }
         //Agafem les dades del missatge
         $missatge = ModUtil::apiFunc('IWforums', 'user', 'get_msg', array('fmid' => $fmid));
         if ($missatge == false) {
@@ -1071,11 +1083,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
         $pntable = DBUtil::getTables();
         $c = $pntable['IWforums_msg_column'];
-        $msg = str_replace("'", "&#039;", $msg);
-        $titol = str_replace("'", "&#039;", $titol);
+        $msg1 = str_replace("'", "&#039;", $msg);
+        $titol1 = str_replace("'", "&#039;", $titol);
         $where = "$c[fmid]=$fmid";
-        $items = array('titol' => $titol,
-            'missatge' => $msg,
+        $items = array('titol' => $titol1,
+            'missatge' => $msg1,
             'icon' => $icon,
             'adjunt' => $adjunt,
             'onTop' => $onTop,
@@ -1099,7 +1111,6 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             return LogUtil::registerPermissionError();
         }
         //Comprovacié de seguretat. Si falla retorna una matriu buida
-        $registres = array();
         $pntable = DBUtil::getTables();
         $c = $pntable['IWforums_msg_column'];
         $where = "$c[idparent]=$fmid";
@@ -1126,7 +1137,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-        $items = array();
+
         $pntable = DBUtil::getTables();
         $c = $pntable['IWforums_msg_column'];
         $where = "$c[fid]=$fid AND $c[llegit] NOT LIKE '%$" . UserUtil::getVar('uid') . "$%';";
@@ -1242,7 +1253,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
 
         //Update de last time and user in forum topic
-        $updated = ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($item['ftid'])));
+        ModUtil::apiFunc('IWforums', 'user', 'updateLast', array('ftids' => array($item['ftid'])));
         //success
         return true;
     }
@@ -1333,11 +1344,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
         $uid = UserUtil::getVar('uid');
         $subscriptorsArray = unserialize($forum['subscriptors']);
-        
+
         if ($args['subscriptionMethod'] == 0) {
-            $args['subscriptionMethod'] = (!key_exists($uid,$subscriptorsArray) || $subscriptorsArray[$uid] == 0) ? 1:0;
+            $args['subscriptionMethod'] = (!key_exists($uid, $subscriptorsArray) || $subscriptorsArray[$uid] == 0) ? 1 : 0;
         }
-        
+
         $subscriptorsArray[$uid] = $args['subscriptionMethod'];
         $subscriptorsText = serialize($subscriptorsArray);
         $table = DBUtil::getTables();

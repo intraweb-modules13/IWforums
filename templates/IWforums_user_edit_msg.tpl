@@ -86,12 +86,12 @@
                     {if $ftid neq 0}
                     <a href="{modurl modname='IWforums' type='user' func='llista_msg' fid=$fid ftid=$ftid}">
                         {img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"}
-                        {gt text="cancel"}
+                        {gt text="Cancel"}
                     </a>
                     {else}
                     <a href="{modurl modname='IWforums' type='user' func='forum' fid=$fid}">
                         {img modname='core' src='button_cancel.png' set='icons/small' __alt="Cancel" __title="Cancel"}
-                        {gt text="cancel"}
+                        {gt text="Cancel"}
                     </a>
                     {/if}
                 </span>

@@ -1,4 +1,4 @@
-{include file="IWforums_admin_menu.htm"}
+{include file="IWforums_admin_menu.tpl"}
 <div class="z-admincontainer">
     <div class="z-adminpageicon">{img modname='IWforums' src='add_user_large.gif'}</div>
     <h2>{gt text="Add a moderator"}</h2>
