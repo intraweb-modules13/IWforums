@@ -693,6 +693,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                     'adjunt' => $nom_fitxer,
                     'icon' => $icon,
                     'idparent' => $fmid,
+                    'oid' => $oid,
                     'onTop' => $onTop,
         ));
 
@@ -713,6 +714,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             if ($registre['subscriptions'] > 0) {
                 ModUtil::func($this->name, 'user', 'sendMsgsToSubscribers', array('fid' => $fid,
                     'lid' => $lid,
+                    'oid' => $oid,
                 ));
             }
             LogUtil::registerStatus($missatge);
@@ -732,6 +734,11 @@ class IWforums_Controller_User extends Zikula_AbstractController {
     public function sendMsgsToSubscribers($args) {
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : 0, 'POST');
         $fmid = FormUtil::getPassedValue('lid', isset($args['lid']) ? $args['lid'] : 0, 'POST');
+        $oid = FormUtil::getPassedValue('oid', isset($args['oid']) ? $args['oid'] : 0, 'POST');
+
+        if ($oid == 0) {
+            $oid = $fmid;
+        }
 
         // check if user can access the forum
         $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
@@ -746,13 +753,13 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             LogUtil::registerError($this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
         }
-                
+
         $message = ModUtil::apiFunc('IWforums', 'user', 'get_msg', array('fmid0' => $fmid));
-        
+
         // get all users who can access the forum
         $usersCanAccess = ModUtil::Func($this->name, 'user', 'usersCanAccess', array('grup' => $forum['grup'],
                     'mod' => $forum['mod']));
-        
+
         if (count($usersCanAccess) > 0) {
             $subject = $this->__f('You have a new message in forum \'%s\'.', array($forum['nom_forum']));
 
@@ -769,6 +776,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                     ->assign('fmid', $fmid)
                     ->assign('fid', $fid)
                     ->assign('ftid', $message['ftid'])
+                    ->assign('oid', $oid)
                     ->assign('subscriptions', $forum['subscriptions'])
                     ->fetch('IWforums_user_msgbody.tpl');
 
@@ -798,8 +806,6 @@ class IWforums_Controller_User extends Zikula_AbstractController {
     public function usersCanAccess($args) {
         $grup = FormUtil::getPassedValue('grup', isset($args['grup']) ? $args['grup'] : null, 'POST');
         $mod = FormUtil::getPassedValue('mod', isset($args['mod']) ? $args['mod'] : null, 'POST');
-
-        // print substr($grup, 0, -1) . ' - ' . substr($mod, 0, -1); die();
 
         $groups = explode('$$', substr($grup, 2, -1));
         $moderatorsArray = explode('$$', substr($mod, 2, -1));
@@ -853,8 +859,11 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         // check if user can access the forum
         $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
         if ($access < 1) {
-            LogUtil::registerError($this->__('You can\'t access the forum'));
-            return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
+            LogUtil::registerError($this->__('You can\'t access the forum. Try to validate'));
+            return ModUtil::func('users', 'user', 'login', array('returnpage' => ModUtil::url($this->name, 'user', 'msg', array('fid' => $fid,
+                            'fmid' => $fmid,
+                            'oid' => $oid,
+                            'ftid' => $ftid))));
         }
         // get forum information
         $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));

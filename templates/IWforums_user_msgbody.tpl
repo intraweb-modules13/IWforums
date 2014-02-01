@@ -3,7 +3,7 @@
 <p><strong>{$titol}</strong></p>
 <p>{$msg|nl2br}</p>
 <hr />
-<p>{gt text="You can access to the original content from"} <a href="{getbaseurl}{modurl modname='IWforums' type='user' func='msg' fid=$fid fmid=$fmid oid=$fmid ftid=$ftid}" target="_blank">{gt text="this link"}</a>.</p>
+<p>{gt text="You can access to the original content from"} <a href="{getbaseurl}{modurl modname='IWforums' type='user' func='msg' fid=$fid fmid=$fmid oid=$oid ftid=$ftid}" target="_blank">{gt text="this link"}</a>.</p>
 
 {if $subscriptions == 1 or $subscriptions == 2}
     <p>
