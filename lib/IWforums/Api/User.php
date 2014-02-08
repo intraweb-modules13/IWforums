@@ -20,8 +20,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         } else {
             $requestByCron = true;
         }
-        $pntable = DBUtil::getTables();
-        $c = $pntable['IWforums_definition_column'];
+        $table = DBUtil::getTables();
+        $c = $table['IWforums_definition_column'];
         $sqlWhere = '';
         $groupsList = '';
         if (SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN) && $filter != 1) {
@@ -50,6 +50,12 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             $sqlWhere .= ($uid != '-1') ? $or . "$c[mod] like '%$" . $uid . "$%')" : ')';
         }
         $where = $sqlWhere;
+
+        if (isset($args['sendByCron']) && $args['sendByCron'] == 1) {
+            $and = ($where == '') ? '' : " AND ";
+            $where .= $and . "$c[sendByCron]=1";
+        }
+
         $orderby = "$c[nom_forum]";
         // get the objects from the db
         $items = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
@@ -467,6 +473,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $indent = FormUtil::getPassedValue('indent', isset($args['indent']) ? $args['indent'] : null, 'POST');
         $rpp = FormUtil::getPassedValue('rpp', isset($args['rpp']) ? $args['rpp'] : null, 'POST');
         $oid = FormUtil::getPassedValue('oid', isset($args['oid']) ? $args['oid'] : null, 'POST');
+        $fromDate = FormUtil::getPassedValue('fromDate', isset($args['fromDate']) ? $args['fromDate'] : null, 'POST');
+        
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
@@ -482,29 +490,32 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
         $registres = array();
 
-        $pntable = DBUtil::getTables();
-        $t = $pntable['IWforums_msg'];
-        $c = $pntable['IWforums_msg_column'];
+        $table = DBUtil::getTables();
+        $c = $table['IWforums_msg_column'];
         // Filtering: only show the messages sent by $usuari
         //$filter_user = (isset($usuari) && $usuari != null) ? $usuari : 0;
         $filter_user = ($usuari != null && $usuari > 0) ? " AND $c[usuari]=$usuari" : '';
         // Condition to select the topic
         $tema = (isset($tots) && $tots == 1) ? "" : " $c[ftid] = $ftid AND ";
-        $inici = $inici - 1;
-        $ordre = ($idparent == 0) ? "$c[lastdate] desc, $c[data] desc limit $inici, $rpp" : "$c[data] asc";
+        $inici--;
         $parent = (!isset($idparent)) ? '' : " AND $c[idparent]=$idparent";
         if ($filter_user != '') {
             $parent = '';
         }
-        $where = $tema . "$c[fid]=$fid" . $parent . $filter_user;
+        if ($fromDate != null) {
+            $fromDateText = " AND $c[data] > $fromDate";
+        }
+        $where = $tema . "$c[fid]=$fid" . $parent . $filter_user . $fromDateText;
+ 
         $ordreby = ($idparent == 0) ? "$c[onTop] desc, $c[lastdate] desc, $c[data] desc" : "$c[onTop] desc, $c[data] asc";
         $registre = DBUtil::selectObjectArray('IWforums_msg', $where, $ordreby, $inici, $rpp, 'fmid');
 
         //Recorrem els registres i els posem dins de la matriu
         foreach ($registre as $r) {
             // Set the id of the origen of the thread
-            if ($idparent == 0)
+            if ($idparent == 0){
                 $oid = $r['fmid'];
+            }
             // Put the message in the array to be returned
             $indentValue = ($filter_user != '') ? 0 : $indent;
             $registres[] = array('fmid' => $r['fmid'],
@@ -520,7 +531,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                 'oid' => $oid,
                 'onTop' => $r['onTop'],
             );
-            if ($filter_user == '') {
+            if ($filter_user == '' && !isset($args['skipRecorsivity'])) {
                 // Recursive call to get all the replies to a message
                 $listmessages = ModUtil::apiFunc('IWforums', 'user', 'getall_msg', array('ftid' => $ftid,
                             'fid' => $fid,

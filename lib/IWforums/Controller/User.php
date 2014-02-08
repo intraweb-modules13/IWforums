@@ -808,7 +808,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $mod = FormUtil::getPassedValue('mod', isset($args['mod']) ? $args['mod'] : null, 'POST');
 
         $groups = explode('$$', substr($grup, 2, -1));
-        $moderatorsArray = explode('$$', substr($mod, 2, -1));
+        $moderatorsArray = (strlen(substr($mod, 2, -1)) == 0) ? array() : explode('$$', substr($mod, 2, -1));
 
         $groupsArray = array();
         foreach ($groups as $group) {
@@ -859,7 +859,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         // check if user can access the forum
         $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
         if ($access < 1) {
-            LogUtil::registerError($this->__('You can\'t access the forum. Try to validate'));
+            LogUtil::registerError($this->__('You can not access the forum. Try to validate.'));
             return ModUtil::func('users', 'user', 'login', array('returnpage' => ModUtil::url($this->name, 'user', 'msg', array('fid' => $fid,
                             'fmid' => $fmid,
                             'oid' => $oid,
@@ -2179,6 +2179,119 @@ class IWforums_Controller_User extends Zikula_AbstractController {
 
         LogUtil::registerStatus($this->__('Subscription changed correctly'));
         return System::redirect(ModUtil::url('IWforums', 'user', 'forum', array('fid' => $fid)));
+    }
+
+    public function sendMail() {
+        // security check
+        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
+            throw new Zikula_Exception_Forbidden();
+        }
+        // get forums where is checked send by cron
+        $forums = ModUtil::apiFunc($this->name, 'user', 'getall', array('sendByCron' => '1'));
+
+        if (count($forums) == 0) {
+            // not forums found
+            return true;
+        }
+
+        $usersMessages = array();
+        foreach ($forums as $forum) {
+            $usersCanAccess = ModUtil::func($this->name, 'user', 'usersCanAccess', array('grup' => $forum['grup'],
+                        'mod' => $forum['mod']));
+
+            // get messages of the forum that have been sended from the last cron execution
+            $messages = ModUtil::apiFunc('IWforums', 'user', 'getall_msg', array('tots' => 1,
+                        'fid' => $forum['fid'],
+                        'indent' => 0,
+                        'skipRecorsivity' => 1,
+                        'fromDate' => $forum['lastCronExecution'],
+            ));
+
+            foreach ($usersCanAccess as $oneUser) {
+                $subscriptionLevel = ModUtil::func($this->name, 'user', 'subscriptionLevel', array('subscriptions' => $forum['subscriptions'],
+                            'subscriptors' => $forum['subscriptors'],
+                            'uid' => $oneUser));
+                if ($subscriptionLevel == 2 && $messages) {
+                    foreach ($messages as $message) {
+                        if (strpos($message['llegit'], '$' . $oneUser . '$') == 0 && strpos($message['sended'], '$' . $oneUser . '$') == 0) {
+                            // user have not read the message. It includes that user is not the author and the mail has not been send
+                            $usersMessages[$oneUser] = array($forum['fid'] => array($message['fmid'] => array('title' => $message['titol'],
+                                        'msg' => $message['missatge'],
+                                        'uid' => $message['usuari'],
+                                        'date' => $message['data'],
+                            )));
+                        }
+                    }
+                }
+            }
+        }
+
+        // Join messages and send mails
+        if ($usersMessages) {
+            foreach ($usersMessages as $key => $message) {
+                // join messages for a user
+                // prepare message
+                // send message
+                $sended = true;
+                if ($sended) {
+                    // add user in $message['sended'] variable
+                }
+                
+            }
+            // update $message['sended'] with the new values
+        }
+        
+        
+
+
+        /*
+          // estructura de la matriu.
+          $usersMessages = array(
+          [uid1] => array(
+          [fid1] => array(
+          [fmid1] => array(
+          ['title'] => 'fsaff',
+          ['msg'] => 'fsfasf',
+          ['uid'] => 7,
+          ['date'] => '1454535235',
+          ),
+          [fmid2] => array(
+          ['title'] => 'fsaff',
+          ['msg'] => 'fsfasf',
+          ['uid'] => 7,
+          ['date'] => '1454535235',
+          ),
+          ),
+          [fid2] => array(
+          [fmid3] => array(
+          ['title'] => 'fsaff',
+          ['msg'] => 'fsfasf',
+          ['uid'] => 7,
+          ['date'] => '1454535235',
+          ),
+          ),
+          ),
+          [uid2] => array(
+          [fid2] => array(
+          [fmid3] => array(
+          ['title'] => 'fsaff',
+          ['msg'] => 'fsfasf',
+          ['uid'] => 7,
+          ['date'] => '1454535235',
+          ),
+          ),
+          [fid3] => array(
+          [fmid4] => array(
+          ['title'] => 'fsaff',
+          ['msg'] => 'fsfasf',
+          ['uid'] => 7,
+          ['date'] => '1454535235',
+          ),
+          )
+          ),
+          );
+         * 
+         */
     }
 
 }

@@ -253,6 +253,11 @@
         {/if}
     {/if}
     {if not $hi_ha_temes and not $hi_ha_missatges and $ftid eq 0}
+        {if $subscriptions gt 0}
+            <div class="subscriptions">
+                {include file="IWforums_user_subscriptions.tpl"}
+            </div>
+        {/if}
         <div style="height:15px;">&nbsp;</div>
         <div>{gt text="This forum has no messages."}</div>
     {/if}
