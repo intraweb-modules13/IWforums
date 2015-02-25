@@ -1,6 +1,8 @@
 IWforums module
 ============
-IWforums module 3.0.1 **for Zikula 1.3.x** from [Intraweb project](https://github.com/intraweb-modules13)
+IWforums module 3.1.x **for Zikula 1.3.x** from [Intraweb project](https://github.com/intraweb-modules13)
+
+In development!
 
   - IWforums is a discussion forum module for the Zikula Application Framework
 
