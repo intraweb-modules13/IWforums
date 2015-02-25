@@ -1387,7 +1387,31 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             return false;
         }
     }
-
+    
+    /* Check if a user has moderation rigths in a forum
+     * included in version 3.0.1
+     * @author:	Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * 
+     * @param $fid forum id
+     * @param $uid user id
+     * @return bool true if user is a moderator of fid forum, false otherwise
+     */
+    
+    public function isModerator($args) {
+         $fid = isset($args['fid']) ? $args['fid'] : null;
+         $uid = isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid');
+         $result = false;
+         if ($fid) {
+            $pntable = DBUtil::getTables();
+            $c = $pntable['IWforums_definition_column'];
+            $moderators = DBUtil::selectField('IWforums_definition', 'mod', "$c[fid]=$fid");
+            if (strpos($moderators, '$' . $uid . '$') !== false) 
+                    $result = true;
+         }
+         
+             return $result;         
+    }
+    
     /*
       Gets all the unread messages in a forum topic
       @param $fid:		forum id
