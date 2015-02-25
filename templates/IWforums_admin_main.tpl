@@ -95,11 +95,54 @@
         </tbody>
     </table>
 </div>
-
+        
+<!-- Modal for IWforums_admin_mainChars.tpl. Change forum subscription mode -->
+    <div class="modal fade" id="selectSubscriptionMode">
+        <div class="modal-dialog" style="top:25%">
+            <div class="modal-content">
+                <div class="modal-header" style=" height:40px">                            
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3 class="modal-title" style="line-height: 1;"></i>&nbsp;{gt text="Change subscription type"}</h3>                             
+                </div>
+                <div class="modal-body" style="padding-bottom: 8%;">
+                    <form>
+                        <input type="hidden" id="fid">
+                        <div class="form-group">
+                            <label class="control-label"  for="subscrType">{gt text="Select forum subscription type"} </label>           
+                            <select class="form-control" id="subscrMode" name="subscrMode">
+                                <option value="1" {if $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
+                                <option value="0" {if $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
+                                <option value="2" {if $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
+                                <option value="3" {if $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
+                            </select> 
+                        </div>
+                    </form>
+                    
+                <div class="modal-footer">
+                    <button id="btnDelete" type="button" class="btn btn-success" data-dismiss="modal" onclick="setSubscriptionMode()"><span class="white fs1em glyphicon glyphicon-ok"></span>&nbsp;{gt text="I'm sure"}</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="white fs1em glyphicon glyphicon-remove"></span>&nbsp;{gt text="Cancel"}</button>                            
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->         
 <script type="text/javascript">
     var modifyingfield = '{{gt text="...modifying..."}}';
     var deleteConfirmation = '{{gt text="Confirm the deletion"}}';
     var deleteModConfirmation = '{{gt text="Delete moderator"}}';
 
     jQuery('[data-toggle="tooltip"]').tooltip();
+    
+    jQuery(".subscriptionMode").click(function(){ 
+        jQuery("#fid").val(jQuery(this).data('fid'));
+        jQuery("#subscrMode option[value="+jQuery(this).data('mode')+"]").attr('selected', 'selected');
+        // Applies to modal
+        /*var ftid = jQuery(this).data('ftid');
+        jQuery('#fid').val(jQuery(this).data('fid'));
+        jQuery('#ftid').val(jQuery(this).data('ftid'));
+        jQuery("#UserInfo").html(jQuery('#startedBy').html());
+        jQuery("#MsgsInfo").html(jQuery('#totalMessages'+ftid).html()+'/'+jQuery('#totalUnread'+ftid).html());
+        
+        jQuery("#subscrMode").html(jQuery('#topicDesc'+ftid).html());*/
+
+    });
 </script>
