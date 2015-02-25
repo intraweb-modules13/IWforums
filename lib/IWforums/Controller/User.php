@@ -1546,7 +1546,6 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : null, 'REQUEST');
         $keepCopy = FormUtil::getPassedValue('keepCopy', isset($args['keepCopy']) ? $args['keepCopy'] : 0, 'POST');
         //$msg = FormUtil::getPassedValue('msg', isset($args['msg']) ? $args['msg'] : '', 'REQUEST');
-        
         // security check
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             throw new Zikula_Exception_Forbidden();
@@ -1559,9 +1558,8 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
         }
         // version 3.0.1
-        $restyled=ModUtil::getVar('IWforums', 'restyledTheme');
+        $restyled = ModUtil::getVar('IWforums', 'restyledTheme');
         
-        $forumtriat = ($moutema == 1) ? $nouforum : $fid;
         // get forum information
         $forum = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         if ($forum == false) {
@@ -1585,53 +1583,56 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         } else {
             $tema['titol'] = '';
         }
-        // get moderators list
-        $forums = ModUtil::apiFunc('IWforums', 'user', 'getall');
-        foreach ($forums as $forumlist) {
-            $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $forumlist['fid']));
-            if ($access == 4) {
-                $modera[] = array('fid' => $forumlist['fid'],
-                    'nom_forum' => $forumlist['nom_forum']);
-            }
-        }
-        // get list of topics
-        $temes = ModUtil::apiFunc('IWforums', 'user', 'get_temes', array('forumtriat' => $forumtriat));
+
         // ask for change position
         if ($moutema == "" || $moutema == 1) {
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => UserUtil::getVar('uname', $missatge['usuari']),'sv' => $sv));
+            $photo = ModUtil::func('IWmain', 'user', 'getUserPicture', array('uname' => UserUtil::getVar('uname', $missatge['usuari']), 'sv' => $sv));
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
             $userFullName = ModUtil::func('IWmain', 'user', 'getUserInfo', array('sv' => $sv,
                         'info' => 'ncc',
                         'uid' => $missatge['usuari']));
-
-            if (!isset($nouforum))
-                $nouforum = $fid;
             
+            if (!isset($nouforum)) $nouforum = $fid;
+            $forumtriat = ($moutema == 1) ? $nouforum : $fid;
+            // get moderators list
+            $forums = ModUtil::apiFunc('IWforums', 'user', 'getall');
+
+            foreach ($forums as $forumlist) {
+                //$access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $forumlist['fid']));
+                $access = ModUtil::apiFunc('IWforums', 'user', 'isModerator', array('fid' => $forumlist['fid']));               
+                //if ($access == 4) {
+                if ($access) {
+                    $modera[] = array('fid' => $forumlist['fid'],
+                        'nom_forum' => $forumlist['nom_forum']);
+                }
+            }
+            // get list of topics
+            $temes = ModUtil::apiFunc('IWforums', 'user', 'get_temes', array('forumtriat' => $forumtriat));
             $view = Zikula_View::getInstance($this->name, false);
             $view->assign('modera', $modera)
-                            ->assign('name', $forum['nom_forum'])
-                            ->assign('tema', $tema['titol'])
-                            ->assign('ftid', $ftid)
-                            ->assign('fid', $fid)
-                            ->assign('userid', UserUtil::getVar('uid'))
-                            ->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'))
-                            ->assign('nouforum', $nouforum)
-                            ->assign('fmid', $fmid)
-                            ->assign('msg_title', $missatge['titol'])
-                            ->assign('user', $userFullName)
-                            ->assign('date', date('d/m/y', $missatge['data']))
-                            ->assign('time', date('H.i', $missatge['data']))
-                            ->assign('message', $missatge['missatge'])
-                            ->assign('photo', $photo)
-                            ->assign('allMsgInfo', $missatge)
-                            ->assign('temes', $temes)
-                            //->assign('msg', $msg)
-                            ->assign('u', $u);
-            
+                    ->assign('name', $forum['nom_forum'])
+                    ->assign('tema', $tema['titol'])
+                    ->assign('ftid', $ftid)
+                    ->assign('fid', $fid)
+                    ->assign('userid', UserUtil::getVar('uid'))
+                    ->assign('avatarsVisible', ModUtil::getVar('IWforums', 'avatarsVisible'))
+                    ->assign('nouforum', $nouforum)
+                    ->assign('fmid', $fmid)
+                    ->assign('msg_title', $missatge['titol'])
+                    ->assign('user', $userFullName)
+                    ->assign('date', date('d/m/y', $missatge['data']))
+                    ->assign('time', date('H.i', $missatge['data']))
+                    ->assign('message', $missatge['missatge'])
+                    ->assign('photo', $photo)
+                    ->assign('allMsgInfo', $missatge)
+                    ->assign('temes', $temes)
+                    //->assign('msg', $msg)
+                    ->assign('u', $u);
+
             if ($restyled) {
                 return $view->fetch('user/IWforums_user_moveMessage.tpl');
-            }else {
+            } else {
                 return $view->fetch('IWforums_user_move_msg.htm');
             }
         }

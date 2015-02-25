@@ -3,7 +3,6 @@
 {pageaddvar name='javascript' value='jQuery-ui'}
 {pageaddvar name='stylesheet' value='vendor/bootstrap/css/bootstrap.css'}
 {pageaddvar name='stylesheet' value='modules/IWforums/style/bsRewrite.css'}
-{pageaddvar name='stylesheet' value='modules/IWforums/style/bsRewrite.css'}
 {pageaddvar name='stylesheet' value='vendor/font-awesome/css/font-awesome.min.css'}
 {ajaxheader modname=IWforums filename=IWforums.js}
 {pageaddvar name="jsgettext" value="module_iwforums_js:IWforums"}

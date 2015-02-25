@@ -2,7 +2,7 @@
 {pageaddvar name='stylesheet' value='modules/IWforums/style/bsRewrite.css'}
 <script language="javascript">
     function canviforum() {
-        document.move_msg.action = "index.php?module=IWforums&func=mou";
+        document.move_msg.action = "index.php?module=IWforums&func=mou&fid={{$fid}}";
         document.move_msg.moutema.value = 1;
         document.move_msg.submit();
     }
@@ -45,7 +45,6 @@
                             {/if}            
                         {/if}
                     </div>
-                    {$photo}
                     <div class="photo">                       
                         {if $photo neq '' AND ($userid neq '' OR $avatarsVisible eq 1)}
                             <img src="index.php?module=IWmain&type=user&func=getPhoto&fileName={$photo}" class="photoImg smallPhoto" />
