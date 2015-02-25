@@ -65,20 +65,22 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                     'name' => $usersInfo[$moderator]);
             }
 
-            $forumsArray[] = array('nom_forum' => $forum['nom_forum'],
-                'descriu' => $forum['descriu'],
-                'adjunts' => $forum['adjunts'],
-                'actiu' => $forum['actiu'],
-                'observacions' => $forum['observacions'],
-                'msgDelTime' => $forum['msgDelTime'],
-                'msgEditTime' => $forum['msgEditTime'],
-                'groups' => $groupsArray,
-                'mods' => $moderatorsArray,
-                'fid' => $forum['fid']);
+            $forumsArray[] = array(
+                'nom_forum'     => $forum['nom_forum'],
+                'descriu'       => $forum['descriu'],
+                'adjunts'       => $forum['adjunts'],
+                'actiu'         => $forum['actiu'],
+                'observacions'  => $forum['observacions'],
+                'msgDelTime'    => $forum['msgDelTime'],
+                'msgEditTime'   => $forum['msgEditTime'],
+                'subscrModeText'=> ModUtil::apiFunc($this->name, 'user', 'getSubscriptionModeText' , $forum['subscriptionMode']), //array('mode' => $forum['subscriptionMode'])),
+                'groups'        => $groupsArray,
+                'mods'          => $moderatorsArray,
+                'fid'           => $forum['fid']);
         }
 
         return $this->view->assign('forums', $forumsArray)
-                        ->fetch('IWforums_admin_main.htm');
+                        ->fetch('IWforums_admin_main.tpl');
     }
 
     /**
@@ -102,6 +104,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             'msgDelTime' => '',
             'observacions' => '',
             'adjunts' => '',
+            'subscriptionMode' => 1,
             'actiu' => '',
         );
 
@@ -116,7 +119,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         }
         return $this->view->assign('forum', $forum)
                         ->assign('m', $m)
-                        ->fetch('IWforums_admin_newItem.htm');
+                        ->fetch('IWforums_admin_newItem.tpl');
     }
 
     /**
@@ -134,6 +137,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         $mod = FormUtil::getPassedValue('mod', isset($args['mod']) ? $args['mod'] : null, 'POST');
         $msgEditTime = FormUtil::getPassedValue('msgEditTime', isset($args['msgEditTime']) ? $args['msgEditTime'] : null, 'POST');
         $msgDelTime = FormUtil::getPassedValue('msgDelTime', isset($args['msgDelTime']) ? $args['msgDelTime'] : null, 'POST');
+        $subscrMode = FormUtil::getPassedValue('subscrMode', isset($args['subscrMode']) ? $args['subscrMode'] : null, 'POST');
         $observacions = FormUtil::getPassedValue('observacions', isset($args['observacions']) ? $args['observacions'] : null, 'POST');
         $actiu = FormUtil::getPassedValue('actiu', isset($args['actiu']) ? $args['actiu'] : null, 'POST');
         $m = FormUtil::getPassedValue('m', isset($args['m']) ? $args['m'] : null, 'POST');
@@ -155,14 +159,15 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
         switch ($m) {
             case 'e': //Edit existing forum
                 $items = array(
-                    'nom_forum'    => $nom_forum,
-                    'descriu'      => $descriu,
-                    'longDescriu'  => $longDescriu,
-                    'actiu'        => $actiu,                    
-                    'observacions' => $observacions,
-                    'adjunts'      => $adjunts,
-                    'msgDelTime'   => $msgDelTime,
-                    'msgEditTime'  => $msgEditTime);
+                    'nom_forum'        => $nom_forum,
+                    'descriu'          => $descriu,
+                    'longDescriu'      => $longDescriu,
+                    'actiu'            => $actiu,                    
+                    'observacions'     => $observacions,
+                    'adjunts'          => $adjunts,
+                    'subscriptionMode' => $subscrMode,
+                    'msgDelTime'       => $msgDelTime,
+                    'msgEditTime'      => $msgEditTime);
                 if (ModUtil::apiFunc('IWforums', 'admin', 'update', array('items' => $items,
                             'fid' => $fid))) {
                     //modified successfully
@@ -172,16 +177,17 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
             default: // New forum or copy existing forum
                 if (ModUtil::apiFunc('IWforums', 'admin', 'create', 
                         array(
-                            'nom_forum'   => $nom_forum,
-                            'descriu'     => $descriu,
-                            'longDescriu' => $longDescriu,
-                            'actiu'       => $actiu,
-                            'observacions'=> $observacions,
-                            'adjunts'     => $adjunts,
-                            'grup'        => $grup,
-                            'mod'         => $mod,
-                            'msgDelTime'  => $msgDelTime,
-                            'msgEditTime' => $msgEditTime
+                            'nom_forum'        => $nom_forum,
+                            'descriu'          => $descriu,
+                            'longDescriu'      => $longDescriu,
+                            'actiu'            => $actiu,
+                            'observacions'     => $observacions,
+                            'adjunts'          => $adjunts,
+                            'subscriptionMode' => $subscrMode,
+                            'grup'             => $grup,
+                            'mod'              => $mod,
+                            'msgDelTime'       => $msgDelTime,
+                            'msgEditTime'      => $msgEditTime
                         ))) 
                 {
                     //created successfully

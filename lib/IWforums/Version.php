@@ -6,7 +6,7 @@ class IWforums_Version extends Zikula_AbstractVersion
         $meta['displayname'] = $this->__("IWforums");
         $meta['description'] = $this->__("Creation, managment and use of forums.");
         $meta['url'] = $this->__("IWforums");
-        $meta['version'] = '3.0.1';
+        $meta['version'] = '3.1.0';
         $meta['securityschema'] = array('IWforums::' => '::');
         $meta['capabilities'] = array(HookUtil::SUBSCRIBER_CAPABLE => array('enabled' => true));
 

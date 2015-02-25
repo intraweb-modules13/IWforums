@@ -297,7 +297,7 @@ function chgUsers_failure(){
 function chgUsers_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     show_info();
@@ -333,7 +333,7 @@ function modifyField(a,aa){
 function modifyField_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     changeContent(b.fid);
@@ -366,7 +366,7 @@ function changeContent(a){
 function changeContent_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     $('forumChars_' + b.fid).update(b.content);
@@ -389,7 +389,7 @@ function of_mark(fid,msgId){
 function of_mark_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     var icon = '<span data-toggle="tooltip" class="glyphicon glyphicon-flag" title="'+b.ofMarkText+'"></span>'; 
@@ -420,7 +420,7 @@ function mark(a,aa){
 function mark_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     if(b.m == 1){
@@ -457,10 +457,10 @@ function deleteGroup(a,aa){
 function deleteGroup_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
-    $('groupId_' + b.gid + '_' + b.fid).toggle()
+    $('groupId_' + b.gid + '_' + b.fid).toggle();
 }
 
 function deleteModerator(a,aa){
@@ -482,10 +482,10 @@ function deleteModerator(a,aa){
 function deleteModerador_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
-    $('mod_' + b.fid + '_' +b.id).toggle()
+    $('mod_' + b.fid + '_' +b.id).toggle();
 }
 
 function openMsg(a,aa,aaa,aaaa,aaaaa,aaaaaa){
@@ -508,7 +508,7 @@ function openMsg(a,aa,aaa,aaaa,aaaaa,aaaaaa){
 function openMsg_response(a){
     if(!a.isSuccess()){
         Zikula.showajaxerror(a.getMessage());
-        return
+        return;
     }
     var b=a.getData();
     $('openMsgRow_' + b.fmid).update(b.content);

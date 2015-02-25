@@ -368,10 +368,11 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
 
         $item = ModUtil::func('IWforums', 'admin', 'getCharsContent',
                                array('fid' => $fid));
-
+        $item['subscrModeText'] = ModUtil::apiFunc($this->name, 'user', 'getSubscriptionModeText' , $item['subscriptionMode']);
         $view = Zikula_View::getInstance('IWforums', false);
         $view->assign('forum', $item);
-        $content = $view->fetch('IWforums_admin_mainChars.htm');
+        
+        $content = $view->fetch('IWforums_admin_mainChars.tpl');
 
         return new Zikula_Response_Ajax(array('content' => $content,
                 'fid' => $fid,

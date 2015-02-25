@@ -2,7 +2,7 @@
 <div id="messageList">
 {foreach item=message from=$messages}
     <div style="padding-left:{$message.indent}px;">
-        <div id="msg_{$message.fmid}" class="panel panel-default">
+        <div class="panel panel-default">
             {if $userid neq ''}   
                 <div id="msgHeader{$message.fmid}" class="panel-heading {if not $message.llegit}unread{/if}" style="font-size:0.9em">
                     <div style="float:right">

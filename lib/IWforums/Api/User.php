@@ -173,7 +173,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         //Retornem la matriu plena de registres
         return $registres;
     }
-
+    
     /**
      * Get the number of topics into a forum
      * @author:	Albert Pérez Monfort (aperezm@xtec.cat)
@@ -1387,31 +1387,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             return false;
         }
     }
-    
-    /* Check if a user has moderation rigths in a forum
-     * included in version 3.0.1
-     * @author:	Josep Ferràndiz Farré (jferran6@xtec.cat)
-     * 
-     * @param $fid forum id
-     * @param $uid user id
-     * @return bool true if user is a moderator of fid forum, false otherwise
-     */
-    
-    public function isModerator($args) {
-         $fid = isset($args['fid']) ? $args['fid'] : null;
-         $uid = isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid');
-         $result = false;
-         if ($fid) {
-            $pntable = DBUtil::getTables();
-            $c = $pntable['IWforums_definition_column'];
-            $moderators = DBUtil::selectField('IWforums_definition', 'mod', "$c[fid]=$fid");
-            if (strpos($moderators, '$' . $uid . '$') !== false) 
-                    $result = true;
-         }
-         
-             return $result;         
-    }
-    
+
     /*
       Gets all the unread messages in a forum topic
       @param $fid:		forum id
@@ -1614,4 +1590,27 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $links;
     }
 
+    public function getSubscriptionModeText($mode){
+        $modeText = array();
+        switch ($mode) {
+            case 0:
+                $modeText['type'] = $this->__('Not allowed');  
+                $modeText['explanation'] = $this->__('Nobody can be subscribed to this forum');  
+                break;
+            case 1;
+                $modeText['type'] = $this->__('Voluntary');  
+                $modeText['explanation'] = $this->__('Users must subscribe to this forum and may unsubscribe');  
+                break;
+            case 2:
+                $modeText['type'] = $this->__('Optional');
+                $modeText['explanation'] = $this->__('All users are subscribed by default and may unsubscribe');  
+                break;
+            case 3: 
+                $modeText['type'] = $this->__('Compulsory');
+                $modeText['explanation'] = $this->__("All users are subscribed and can't unsubscribe");  
+                break;                             
+        }
+        $modeText['val'] = $mode; 
+        return $modeText;
+    }
 }

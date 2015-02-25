@@ -29,7 +29,7 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
             return false;
         if (!DBUtil::createTable('IWforums_msg'))
             return false;
-
+        
         //Create indexes
         $tables = DBUtil::getTables();
         $c = $tables['IWforums_msg_column'];
@@ -127,7 +127,22 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
                 }   
                 $this->setVar('restyledTheme', '1');
                 HookUtil::registerSubscriberBundles($this->version->getHookSubscriberBundles());
-         }
+                
+            case ($oldversion == '3.0.1'):                
+                $connection = $this->entityManager->getConnection();
+                $sqlStatements = array();
+                $sqlStatements[] = "ALTER TABLE `IWforums_definition` ADD `subscriptionMode` TINYINT(4) DEFAULT '1'";
+                $sqlStatements[] = "ALTER TABLE `IWforums_definition` ADD `subscribers` LONGTEXT";
+                $sqlStatements[] = "ALTER TABLE `IWforums_definition` ADD `noSubscribers` LONGTEXT";
+                foreach ($sqlStatements as $sql) {
+                    $stmt = $connection->prepare($sql);
+                    try {
+                        $stmt->execute();
+                    } catch (Exception $e) {
+                        
+                    }
+                }                
+            }
         return true;
     }
 

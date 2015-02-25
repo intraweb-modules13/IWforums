@@ -22,6 +22,9 @@ function IWforums_tables() {
         'grup' => 'iw_grup',
         'mod' => 'iw_mod',
         'observacions' => 'iw_observacions',
+        'subscriptionMode' => 'subscriptionMode',
+        'subscribers' => 'subscribers',
+        'noSubscribers' => 'noSubscribers',
         'msgDelTime' => 'iw_msgDelTime',
         'msgEditTime' => 'iw_msgEditTime');
 
@@ -34,6 +37,9 @@ function IWforums_tables() {
         'grup' => "C(255) NOTNULL DEFAULT ''",
         'mod' => "C(255) NOTNULL DEFAULT ''",
         'observacions' => "C(255) NOTNULL DEFAULT ''",
+        'subscriptionMode' => "'I(1) NOTNULL DEFAULT '1'", // 0: no subscription; 1:optional. Users must subscribe/unsubscribe; 2:subscription is default, allow unsubscriptions; 3:compulsory
+        'subscribers' => "X",
+        'noSubscribers' => "X",
         'msgDelTime' => "C(3) NOTNULL DEFAULT '0'",
         'msgEditTime' => "C(3) NOTNULL DEFAULT '0'");
 
