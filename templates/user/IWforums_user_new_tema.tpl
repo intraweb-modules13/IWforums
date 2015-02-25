@@ -1,7 +1,6 @@
 {ajaxheader modname=IWforums filename=IWforums.js}
 {pageaddvar name='javascript' value='jQuery'}
 {pageaddvar name='javascript' value='vendor/bootstrap/js/bootstrap.js'}
-{pageaddvar name='javascript' value='vendor/zikula1.4/bootstrap-zikula.js'}
 {pageaddvar name='stylesheet' value='vendor/bootstrap/css/bootstrap.css'}
 {pageaddvar name='stylesheet' value='modules/IWforums/style/bsRewrite.css'}
 {pageaddvar name='javascript' value='vendor/bootstrap/filestyle/bootstrap-filestyle.min.js'}
@@ -35,23 +34,18 @@
                     <textarea class="form-control" id="msg" name="msg" rows="5"></textarea>
                 </div>
             </div>
-            {if $adjunts neq "0"}
-                <div class="form-group">
-                    <label class="col-xs-2 control-label" for="adjunt">{gt text="Attached file"}</label>
-                    <div class="col-xs-6">
-                        {* bootstrap-filestyle*}
-                        <input type="file" class="filestyle" name='adjunt' data-buttonBefore="true" data-buttonText="{gt text="Browse..."}" data-iconName="glyphicon-paperclip">
-                    </div>
+            {if $adjunts neq "0"}    
+                <div id="attachment">
+                    {include file="ajax/IWforums_ajax_attachment.tpl"}
                 </div>
             {/if}
-
             <div class="form-group">
                 <div class="col-xs-12 z-center">
                     <button id="btnSend" class="btn btn-success" onclick="javascript:preSubmit();">
-                        <span class="glyphicon glyphicon-save tooltips"></span>&nbsp;{gt text='Post to forum'}
+                        <span class="glyphicon glyphicon-save"></span>&nbsp;{gt text='Post to forum'}
                     </button>
                     <button type="cancel" class="btn btn-danger" onclick='javascript:cancel()'>
-                        <span class="glyphicon glyphicon-remove tooltips"></span>&nbsp;{gt text='Cancel'}
+                        <span class="glyphicon glyphicon-remove"></span>&nbsp;{gt text='Cancel'}
                     </button>
                 </div>
             </div>
