@@ -1,45 +1,7 @@
 <?php
 
 class IWforums_Controller_User extends Zikula_AbstractController {
-
-    /*public function editForumDesc($args){
-        
-        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');
-        if (!$fid) {
-            throw new Zikula_Exception_Fatal($this->__('no forum id'));
-        }
-        
-        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
-            throw new Zikula_Exception_Fatal($this->__('Sorry! No authorization to access this module.'));
-        }
-
-        //check if user can access the forum
-        $access = ModUtil::func('IWforums', 'user', 'access', array('fid' => $fid));
-        if ($access < 4) {
-            throw new Zikula_Exception_Fatal($this->__('Sorry! No authorization to edit content forum.'));
-        }
-        
-        // Get forum fields
-        $forum = ModUtil::apiFunc('IWforums', 'user', 'get',
-                                  array('fid' => $fid));
-             
-        if ($forum == false) {
-            AjaxUtil::error(DataUtil::formatForDisplayHTML($this->__('Forum not found')));
-        }
-        
-        $view = Zikula_View::getInstance('IWforums', false);
-        //$view->assign('fid', $fid);
-        $view->assign('nom_forum', $forum['nom_forum']);
-        $view->assign('descriu', $forum['descriu']);
-        $view->assign('lDesc', $forum['longDescriu']);
-        $view->assign('observacions', $forum['observacions']);
-        $view->assign('forum', $forum);
-        $view->assign('mode', 'edit');
-
-        return $view->fetch('user/IWforums_user_forumDesc.tpl');
-        
-    }
-    */
+    
     public function postInitialize() {
         $this->view->setCaching(false);
     }

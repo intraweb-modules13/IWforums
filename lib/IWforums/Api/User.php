@@ -542,6 +542,51 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $ftid;
     }
     
+    /**
+     * Get user subscriptions
+     * 
+     * 
+     */
+ 
+    public function getUserSubscriptions($args){
+        $uid = $this->request->getPost()->get('uid', '');
+        if (is_null($uid)) {
+            $uid = UserUtil::getVar('uid');
+        }
+        // get all forums
+        $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );
+        $subscriptionInfo = array();
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        foreach ($forums as $forum){
+            // For each forum get access level
+            $access = ModUtil::func($this->name, 'user', 'access', array('fid' => $forum['fid'], 'uid' => $uid, 'sv' => $sv));
+            if ($access > IWforums_Constant::NONE) {
+                switch ($forum['subscriptionMode']) {
+                    case IWforums_Constant::OPTIONAL:
+                        // Subscribed by default. All users are subscribed if no have been canceled the subscription
+                        // Check unsubscriptors list
+                        $noSubsc = expand($forum['noSubscribers'], '$');
+                        // @TODO: if !in_array($noSubsc, $subscriptionInfo)
+                        $subscriptionInfo[$forum]['mode'] = IWforums_Constant::COMPULSORY;
+                        $subscriptionInfo[$forum]['subscribed'] = true;
+                        break;
+                    case IWforums_Constant::VOLUNTARY:
+                        // Unsubscribed by default.
+                        // Get subscriptors list
+                        break;
+                    case IWforums_Constant::COMPULSORY:
+                        $subscriptionInfo[$forum]['mode'] = IWforums_Constant::COMPULSORY;
+                        $subscriptionInfo[$forum]['subscribed'] = true;
+
+                        break;
+                }
+                
+            }
+            
+        }
+        return $subscriptionInfo;
+    }
+    
     /*
      * Update forum introduction vaalues
      */

@@ -154,4 +154,25 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
         }
         return $links;
     }
+    
+    /*
+     * Set forum subscription mode
+     */
+    public function setSubscriptionMode($args){
+        $fid  = $this->request->getPost()->get('fid', '');
+        $mode = $this->request->getPost()->get('mode', '');
+        
+        if (isset($fid) && $fid != 0 && isset($mode)) {
+            $pntable = DBUtil::getTables();
+            $c = $pntable['IWforums_definition_column'];
+            $where = "$c[fid]=$fid";
+            $item = array(
+                        'fid' => $fid,
+                        'subscriptionMode' => $mode);
+            if (!DBUTil::updateObject($item, 'IWforums_definition', $where)) {
+                return LogUtil::registerError($this->__('Error! Update attempt failed.'));
+            }
+        }       
+        return $ftid;
+    }
 }

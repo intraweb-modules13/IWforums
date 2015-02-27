@@ -100,26 +100,26 @@
     <div class="modal fade" id="selectSubscriptionMode">
         <div class="modal-dialog" style="top:25%">
             <div class="modal-content">
-                <div class="modal-header" style=" height:40px">                            
+                <div class="modal-header btn-primary" style=" padding-top:5px; height:35px;">                            
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title" style="line-height: 1;"></i>&nbsp;{gt text="Change subscription type"}</h3>                             
+                    <h4 class="modal-title"></i>&nbsp;{gt text="Change subscription type"}</h4>                             
                 </div>
-                <div class="modal-body" style="padding-bottom: 8%;">
+                <div class="modal-body">
                     <form>
                         <input type="hidden" id="fid">
                         <div class="form-group">
                             <label class="control-label"  for="subscrType">{gt text="Select forum subscription type"} </label>           
-                            <select class="form-control" id="subscrMode" name="subscrMode">
+                            <select class="form-control" id="subscrMode" id="subscrMode" name="subscrMode">
                                 <option value="1" {if $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
                                 <option value="0" {if $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
                                 <option value="2" {if $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
                                 <option value="3" {if $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
                             </select> 
                         </div>
-                    </form>
-                    
+                    </form>   
+                </div>
                 <div class="modal-footer">
-                    <button id="btnDelete" type="button" class="btn btn-success" data-dismiss="modal" onclick="setSubscriptionMode()"><span class="white fs1em glyphicon glyphicon-ok"></span>&nbsp;{gt text="I'm sure"}</button>
+                    <button id="btnDelete" type="button" class="btn btn-success" data-dismiss="modal" onclick="setSubscriptionMode()"><span class="white fs1em glyphicon glyphicon-ok"></span>&nbsp;{gt text="Ok"}</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="white fs1em glyphicon glyphicon-remove"></span>&nbsp;{gt text="Cancel"}</button>                            
                 </div>
             </div><!-- /.modal-content -->

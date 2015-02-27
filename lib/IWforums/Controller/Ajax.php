@@ -350,7 +350,30 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         
         return new Zikula_Response_Ajax(array('content' => $content,'id' => $ftid));
     }
+    
     /**
+     * Change forum subscription mode (added in module version 3.1.0)
+     * @author: Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * @param: fid forum id
+     * @param: mode integer subscription mode
+     * @return: fid forum id        
+     */
+    
+    public function changeForumMode($args){
+        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_ADMIN)) {
+            throw new Zikula_Exception_Fatal($this->__('Sorry! No authorization to access this module.'));
+        }
+        $fid  = $this->request->getPost()->get('fid', '');
+        if (!$fid) {
+            throw new Zikula_Exception_Fatal($this->__('No forum id'));
+        }
+        $mode  = $this->request->getPost()->get('mode', '');
+
+        ModUtil::apiFunc($this->name, 'admin', 'setSubscriptionMode', array('fid' => $fid, 'mode' => $mode));
+        
+        return new Zikula_Response_Ajax(array('fid' => $fid));
+    }
+    /**     
      * Change the characteristics of a forum definition
      * @author:     Albert Pï¿œrez Monfort (aperezm@xtec.cat)
      * @param:	args   Array with the id of the forum and the value to change

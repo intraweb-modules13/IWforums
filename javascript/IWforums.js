@@ -351,6 +351,28 @@ function showfieldinfo(fndid, infotext){
     }
 }
 
+function setSubscriptionMode(){
+    //alert(jQuery('#subscrMode').val()+" - "+ jQuery("#fid").val());   
+    var b={
+        fid : jQuery("#fid").val(),
+        mode: jQuery('#subscrMode').val()
+    }
+    var c=new Zikula.Ajax.Request(Zikula.Config.baseURL+"ajax.php?module=IWforums&func=changeForumMode",{
+        parameters: b,
+        onComplete: setSubscriptionMode_response,
+        onFailure: failure
+    });
+}
+
+function setSubscriptionMode_response(a){
+    if(!a.isSuccess()){
+        Zikula.showajaxerror(a.getMessage());
+        return;
+    }
+    var b=a.getData();
+    changeContent(b.fid);
+}
+
 function changeContent(a){
     var b={
         fid:a
@@ -370,6 +392,7 @@ function changeContent_response(a){
     }
     var b=a.getData();
     $('forumChars_' + b.fid).update(b.content);
+    jQuery('[data-toggle="tooltip"]').tooltip();
 }
 
 // Check or uncheck forum message
