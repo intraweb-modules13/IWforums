@@ -2,7 +2,7 @@
 
 class IWforums_Api_User extends Zikula_AbstractApi {
 
-    /**
+     /**
      * Gets all the forums created
      * @author:	Albert Pérez Monfort (aperezm@xtec.cat)
      * @return:	And array with the items information
@@ -541,52 +541,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
        
         return $ftid;
     }
-    
-    /**
-     * Get user subscriptions
-     * 
-     * 
-     */
- 
-    public function getUserSubscriptions($args){
-        $uid = $this->request->getPost()->get('uid', '');
-        if (is_null($uid)) {
-            $uid = UserUtil::getVar('uid');
-        }
-        // get all forums
-        $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );
-        $subscriptionInfo = array();
-        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-        foreach ($forums as $forum){
-            // For each forum get access level
-            $access = ModUtil::func($this->name, 'user', 'access', array('fid' => $forum['fid'], 'uid' => $uid, 'sv' => $sv));
-            if ($access > IWforums_Constant::NONE) {
-                switch ($forum['subscriptionMode']) {
-                    case IWforums_Constant::OPTIONAL:
-                        // Subscribed by default. All users are subscribed if no have been canceled the subscription
-                        // Check unsubscriptors list
-                        $noSubsc = expand($forum['noSubscribers'], '$');
-                        // @TODO: if !in_array($noSubsc, $subscriptionInfo)
-                        $subscriptionInfo[$forum]['mode'] = IWforums_Constant::COMPULSORY;
-                        $subscriptionInfo[$forum]['subscribed'] = true;
-                        break;
-                    case IWforums_Constant::VOLUNTARY:
-                        // Unsubscribed by default.
-                        // Get subscriptors list
-                        break;
-                    case IWforums_Constant::COMPULSORY:
-                        $subscriptionInfo[$forum]['mode'] = IWforums_Constant::COMPULSORY;
-                        $subscriptionInfo[$forum]['subscribed'] = true;
-
-                        break;
-                }
-                
-            }
-            
-        }
-        return $subscriptionInfo;
-    }
-    
+        
     /*
      * Update forum introduction vaalues
      */
@@ -1635,22 +1590,36 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $links;
     }
 
+    public function setSubscriptionState($args) {
+        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
+        $action = FormUtil::getPassedValue('action', isset($args['action']) ? $args['action'] : null, 'GET');  
+        
+        switch ($action) {
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+        //'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
+        
+    }
     public function getSubscriptionModeText($mode){
         $modeText = array();
         switch ($mode) {
-            case 0:
+            case IWforums_Constant::NONE:
                 $modeText['type'] = $this->__('Not allowed');  
                 $modeText['explanation'] = $this->__('Nobody can be subscribed to this forum');  
                 break;
-            case 1;
+            case IWforums_Constant::VOLUNTARY:
                 $modeText['type'] = $this->__('Voluntary');  
                 $modeText['explanation'] = $this->__('Users must subscribe to this forum and may unsubscribe');  
                 break;
-            case 2:
+            case IWforums_Constant::OPTIONAL:
                 $modeText['type'] = $this->__('Optional');
                 $modeText['explanation'] = $this->__('All users are subscribed by default and may unsubscribe');  
                 break;
-            case 3: 
+            case IWforums_Constant::COMPULSORY: 
                 $modeText['type'] = $this->__('Compulsory');
                 $modeText['explanation'] = $this->__("All users are subscribed and can't unsubscribe");  
                 break;                             
@@ -1658,4 +1627,65 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $modeText['val'] = $mode; 
         return $modeText;
     }
+    
+        /**
+     * Get user subscriptions
+     * 
+     * 
+     */
+ 
+    public function getUserSubscriptions($args){
+        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
+        if (!isset($uid) || is_null($uid)) {
+            $uid = UserUtil::getVar('uid');
+        }
+        $subscriptionInfo = array();
+        if (isset($fid)) {
+            // Get specific forum
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $forums = ModUtil::apiFunc($this->name, 'user', 'get', array('fid' => $fid, 'sv' => $sv));
+        } else {
+            // get all forums
+            $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );
+        }
+        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+        foreach ($forums as $forum){            
+            // For each forum get access level
+            $access = ModUtil::func($this->name, 'user', 'access', array('fid' => $forum['fid'], 'uid' => $uid, 'sv' => $sv));            
+
+            if ($access > IWforums_Constant::NONE) {
+                switch ($forum['subscriptionMode']) {
+                    case IWforums_Constant::OPTIONAL:
+                        // Subscribed by default. All users are subscribed if no have been canceled the subscription
+                        // Get unsubscriptors list
+                        $noSubsc = explode('$', $forum['noSubscribers']);
+                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::OPTIONAL;
+                        if (!$noSubsc) {
+                            $subscriptionInfo[ $forum['fid']]['action'] = in_array($noSubsc, $uid) ? 'add' : 'cancel'; 
+                        } else {
+                            $subscriptionInfo[ $forum['fid']]['action'] = 'cancel'; 
+                        }
+                        break;
+                    case IWforums_Constant::VOLUNTARY:
+                        // Unsubscribed by default.                        
+                        // Get subscriptors list
+                        $subsc = explode('$', $forum['subscribers']);
+                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::VOLUNTARY;
+                        if (!$subsc) {                           
+                            $subscriptionInfo[ $forum['fid']]['action'] = in_array($subsc, $uid) ? 'cancel' : 'add';
+                        } else {
+                            $subscriptionInfo[ $forum['fid']]['action'] = 'add';
+                        }
+                        break;
+                    case IWforums_Constant::COMPULSORY:
+                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::COMPULSORY;
+                        $subscriptionInfo[ $forum['fid']]['action'] = 'none';
+                        break;
+                }
+            }        
+        }
+        return $subscriptionInfo;
+    }
+
 }

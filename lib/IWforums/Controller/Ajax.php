@@ -94,10 +94,42 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
     }
     
     /**
+     * Change user subscription to a forum
+     * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * @param fid forum id
+     * @param action (1:add, 0:cancel)
+     * @version 3.1.0 
+     * @date 02/03/2015
+     */
+    public function changeUserSubscription($args) {
+        if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
+            throw new Zikula_Exception_Fatal($this->__('Sorry! No authorization to access this module.'));
+        }
+        $fid = $this->request->getPost()->get('fid', '');
+        $action = $this->request->getPost()->get('action', '');
+        
+        $uid = UserUtil::getVar('uid');
+        $result = ModUtil::apiFunc($this->name, 'user', 'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
+        
+        if ($result) {
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
+
+            // Update div
+            $view = Zikula_View::getInstance('IWforums', false);
+            $view->assign('fid', $fid);
+            $view->assign('action',$subscriptionInfo[$fid]['action'] );
+            $content = $view->fetch('ajax/IWforums_ajax_updateSubscription.tpl');
+            return new Zikula_Response_Ajax(array('content' => $content, 'fid' => $fid));
+        }
+    }
+    
+    /**
      * Delete message attached file
      * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
      * @param args Array with fmid (message id) where the file is attached
-     *  
+     * @version 3.0.1 
+     * @date 15/02/2015  
      */
     public function delAttachment($args){
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {

@@ -350,6 +350,27 @@ function showfieldinfo(fndid, infotext){
         }
     }
 }
+function changeSubscription(fid, action){
+    // action: 1 => subscribe ; action: 0 cancel subscription
+    var b = {
+        fid: fid,
+        action: action
+    }
+    var c=new Zikula.Ajax.Request(Zikula.Config.baseURL+"ajax.php?module=IWforums&func=changeUserSubscription",{
+        parameters: b,
+        onComplete: changeSubscription_response,
+        onFailure: failure
+    });
+}
+
+function changeSubscription_response(req){
+    if(!a.isSuccess()){
+        Zikula.showajaxerror(a.getMessage());
+        return;
+    }
+    var b=req.getData();
+    $('#sm_'+b.fid).update(b.content);
+}
 
 function setSubscriptionMode(){
     //alert(jQuery('#subscrMode').val()+" - "+ jQuery("#fid").val());   

@@ -109,11 +109,11 @@
                         <input type="hidden" id="fid">
                         <div class="form-group">
                             <label class="control-label"  for="subscrType">{gt text="Select forum subscription type"} </label>           
-                            <select class="form-control" id="subscrMode" id="subscrMode" name="subscrMode">
-                                <option value="1" {if $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
-                                <option value="0" {if $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
-                                <option value="2" {if $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
-                                <option value="3" {if $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
+                            <select class="form-control" id="subscrMode" name="subscrMode">                                
+                                <option value="0" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
+                                <option value="1" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
+                                <option value="2" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
+                                <option value="3" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
                             </select> 
                         </div>
                     </form>   
@@ -132,7 +132,7 @@
 
     jQuery('[data-toggle="tooltip"]').tooltip();
     
-    jQuery(".subscriptionMode").click(function(){ 
+    jQuery(".btnSubscriptionMode").click(function(){ 
         jQuery("#fid").val(jQuery(this).data('fid'));
         jQuery("#subscrMode option[value="+jQuery(this).data('mode')+"]").attr('selected', 'selected');
         // Applies to modal

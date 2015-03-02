@@ -37,10 +37,11 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                 'n_temes' => $n_temes,
                 'marcats' => $marcats,
                 'access' => $access);
-        }
-
+        }        
+        $subscrInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions');
         return $this->view->assign('forums', $forums)
-                        ->fetch('IWforums_user_main.htm');
+                        ->assign('forumSubscriptions', $subscrInfo)
+                        ->fetch('IWforums_user_main.tpl');
     }
 
     /**
@@ -262,7 +263,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
              ->assign('fid', $fid)
              ->assign('ftid', $ftid)
              ->assign('pager', $pager)
-             ->assign('url', $url)
+             ->assign('url', $url)            
              ->assign('inici', $inici);
         
         ModUtil::apiFunc('IWforums', 'user', 'markMessagesAsReaded', array('messages' =>$messages));

@@ -17,7 +17,7 @@
 </a>
 <br />
 <div id="subscriptionType_{$forum.fid}" data-toggle="tooltip" title="{$forum.subscrModeText.explanation}.&nbsp;{gt text="Click to modify"}">
-    <span class="subscriptionMode btn btn-primary btn-xs" style="cursor:pointer;" data-toggle="modal" data-target="#selectSubscriptionMode" data-fid="{$forum.fid}" data-mode="{$forum.subscrModeText.val}">
+    <span class="btnSubscriptionMode btn btn-primary btn-xs" style="cursor:pointer;" data-toggle="modal" data-target="#selectSubscriptionMode" data-fid="{$forum.fid}" data-mode="{$forum.subscrModeText.val}">
         <span>{$forum.subscrModeText.type}</span>
     </span>
 </div>
