@@ -9,43 +9,21 @@ class IWforums_Api_Admin extends Zikula_AbstractApi {
      * @return	true if success
      */
     public function create($args) {
-        $nom_forum = FormUtil::getPassedValue('nom_forum', isset($args['nom_forum']) ? $args['nom_forum'] : null, 'POST');
-        $descriu = FormUtil::getPassedValue('descriu', isset($args['descriu']) ? $args['descriu'] : null, 'POST');
-        $adjunts = FormUtil::getPassedValue('adjunts', isset($args['adjunts']) ? $args['adjunts'] : null, 'POST');
-        $msgEditTime = FormUtil::getPassedValue('msgEditTime', isset($args['msgEditTime']) ? $args['msgEditTime'] : null, 'POST');
-        $msgDelTime = FormUtil::getPassedValue('msgDelTime', isset($args['msgDelTime']) ? $args['msgDelTime'] : null, 'POST');
-        $observacions = FormUtil::getPassedValue('observacions', isset($args['observacions']) ? $args['observacions'] : null, 'POST');
-        $actiu = FormUtil::getPassedValue('actiu', isset($args['actiu']) ? $args['actiu'] : null, 'POST');
-        $grup = FormUtil::getPassedValue('grup', isset($args['grup']) ? $args['grup'] : null, 'POST');
-        $mod = FormUtil::getPassedValue('mod', isset($args['mod']) ? $args['mod'] : null, 'POST');
-        $longDescriu = FormUtil::getPassedValue('longDescriu', isset($args['longDescriu']) ? $args['longDescriu'] : null, 'POST');
+        $item = FormUtil::getPassedValue('item', isset($args['item']) ? $args['item'] : null, 'POST');
         
-
         // Security check
         if (!SecurityUtil::checkPermission('IWforums::', "::", ACCESS_ADMIN)) {
             throw new Zikula_Exception_Forbidden();
         }
 
         //Needed arguments
-        if ((!isset($nom_forum))) {
+        if ((!isset($item['nom_forum']))) {
             return LogUtil::registerError($this->__('Error! Could not do what you wanted. Please check your input.'));
         }
-
-        $item = array('nom_forum' => $nom_forum,
-            'descriu' => $descriu,
-            'adjunts' => $adjunts,
-            'longDescriu' => $longDescriu,
-            'observacions' => $observacions,
-            'msgEditTime' => $msgEditTime,
-            'msgDelTime' => $msgDelTime,
-            'grup' => $grup,
-            'mod' => $mod,
-            'actiu' => $actiu);
 
         if (!DBUtil::insertObject($item, 'IWforums_definition', 'fid')) {
             return LogUtil::registerError($this->__('Error! Creation attempt failed.'));
         }
-
 
         // Let any hooks know that we have created a new item
         ModUtil::callHooks('item', 'create', $item['fid'],

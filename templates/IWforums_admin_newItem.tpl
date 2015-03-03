@@ -34,7 +34,7 @@
             {gt text="Create a new forum"}
         {/if}
     </h2>
-    <form  class="form-horizontal" role="form" method="post" name="new_forum" id="new_forum" action="{modurl modname='IWforums' type='admin' func='create'}" enctype="application/x-www-form-urlencoded" onSubmit="return send()">
+    <form  class="form-horizontal" role="form" method="post" name="new_forum" id="new_forum" action="{modurl modname='IWforums' type='admin' func='create'}" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="m" value="{$m}" />
         <input type="hidden" name="grup" value="{$forum.grup}" />
@@ -68,22 +68,22 @@
         <div class="form-group">
             <div class="col-sm-offset-1" >
             <label class="control-label" for="msgEditTime">{gt text="Minutes, after the submission, during which the messages can be edited by theirs authors"}</label>
-            <input style="width:70px; display:inline" class="form-control" id="msgEditTime" name="msgEditTime" type="number" min="0" max="999" value="{$forum.msgEditTime}"/>
+            <input style="width:70px; display:inline" class="form-control" id="msgEditTime" name="msgEditTime" type="number" min="0" max="999" {if isset($forum.msgEditTime) && $forum.msgEditTime neq ""} value="{$forum.msgEditTime}" {else} value="15" {/if}/>
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-1 col-sx-10">
             <label for="msgDelTime">{gt text="Minutes, after the submission, during which the messages can be deleted by theirs authors"}</label>
-            <input style="width:70px; display:inline" class="form-control" id="msgDelTime" name="msgDelTime" type="number" min="0" max="999" value="{$forum.msgDelTime}"/>
+            <input style="width:70px; display:inline" class="form-control" id="msgDelTime" name="msgDelTime" type="number" min="0" max="999" {if isset($forum.msgDelTime) && $forum.msgDelTime neq ""} value="{$forum.msgDelTime}" {else} value='15' {/if}/>
             </div>
         </div>
         <div class="form-group">
-            <label class="control-label col-xs-3"  for="subscrType">{gt text="Forum subscription type"} </label>           
-                <select class="form-control" id="subscrMode" name="subscrMode" style="width:50%">
-                  <option value="1" {if $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
-                  <option value="0" {if $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
-                  <option value="2" {if $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
-                  <option value="3" {if $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
+            <label class="control-label col-xs-3"  for="subscrType">{gt text="Forum subscription type"} </label>  
+                <select class="form-control" id="subscrMode" name="subscrMode" style="width:50%">      
+                  <option value="{'IWforums_Constant::VOLUNTARY'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::VOLUNTARY'|constant}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
+                  <option value="{'IWforums_Constant::NOT_ALLOWED'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::NOT_ALLOWED'|constant }selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
+                  <option value="{'IWforums_Constant::OPTIONAL'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::OPTIONAL'|constant}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
+                  <option value="{'IWforums_Constant::COMPULSORY'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::COMPULSORY'|constant}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
                 </select> 
         </div>
         <div class="form-group">
@@ -111,9 +111,6 @@
                         <button type="button" class="btn btn-success" onclick="javascript: send();">
                             <span class="glyphicon glyphicon-ok"></span>&nbsp;{gt text="Modify"}
                         </button>
-                        {*<a onclick="javascript: send();"><span class="fs1em glyphicon glyphicon-ok"></span>                            
-                            &nbsp;{gt text="Modify"}
-                        </a>*}
                     {/if}
                 {else}
                    <button type="button" class="btn btn-success" onclick="javascript: send();">
@@ -123,12 +120,6 @@
                 <button type="button" class="btn btn-danger" onclick="javascript:cancel()">
                     <span class="glyphicon glyphicon-remove"></span>&nbsp;{gt text="Cancel"}
                 </button>
-
-                {*<a href="{modurl modname='IWforums' type='admin' func='main'}">
-                    <span class="fs1em glyphicon glyphicon-remove"></span>
-                    &nbsp;{gt text="Cancel"}
-                </a>*}
-
         </div>
         {notifydisplayhooks eventname='IWforums.ui_hooks.IWforums.form_edit' id=null}
     </form>

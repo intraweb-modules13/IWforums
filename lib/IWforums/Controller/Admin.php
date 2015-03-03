@@ -175,8 +175,7 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                 }
                 break;
             default: // New forum or copy existing forum
-                if (ModUtil::apiFunc('IWforums', 'admin', 'create', 
-                        array(
+                $item =  array(
                             'nom_forum'        => $nom_forum,
                             'descriu'          => $descriu,
                             'longDescriu'      => $longDescriu,
@@ -188,7 +187,8 @@ class IWforums_Controller_Admin extends Zikula_AbstractController {
                             'mod'              => $mod,
                             'msgDelTime'       => $msgDelTime,
                             'msgEditTime'      => $msgEditTime
-                        ))) 
+                        );
+                if (ModUtil::apiFunc('IWforums', 'admin', 'create', array('item'=>$item)))
                 {
                     //created successfully
                     LogUtil::registerStatus($this->__('A new forum has been created'));

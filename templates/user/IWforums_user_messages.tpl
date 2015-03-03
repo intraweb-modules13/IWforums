@@ -12,7 +12,7 @@
                         {if $adjunts}            
                             {if $message.adjunt neq ""}
                                 <a href="{modurl modname='IWforums' type='user' func='download' fileName=$message.adjunt fmid=$message.fmid fid=$fid}">
-                                    <span  class="fs1em glyphicon glyphicon-paperclip" alt={gt text='Download'}&nbsp;{$message.adjunt} title={gt text='Download'}&nbsp;{$message.adjunt}>
+                                    <span  class="fs1em glyphicon glyphicon-paperclip" alt={gt text='Download'}&nbsp;{$message.adjunt} data-toggle="tooltip" data-placement="left" title={gt text='Download'}&nbsp;{$message.adjunt}>
                                 </a>
                             {/if}            
                         {/if}
