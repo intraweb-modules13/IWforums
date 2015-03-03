@@ -4,7 +4,7 @@
     <div style="padding-left:{$message.indent}px;">
         <div class="panel panel-default">
             {if $userid neq ''}   
-                <div id="msgHeader{$message.fmid}" class="panel-heading {if not $message.llegit}unread{/if}" style="font-size:0.9em">
+                <div id="msgHeader{$message.fmid}" class="panel-heading {if not $message.llegit}unread{/if}">
                     <div style="float:right">
                         {if $message.onTop eq 1}
                             <span class="fs1em glyphicon glyphicon-pushpin" ></span>
@@ -49,7 +49,7 @@
                     </div>                  
             </div>
             {/if}
-            <div class="panel-body" style="font-size:0.9em">                
+            <div class="panel-body">                
                 <div id="msgContent{$message.fmid}">
                     {$message.missatge} 
                 </div>
@@ -67,7 +67,7 @@
             <table style="float:right"><tr>
                     {if $access gt 1}
                         <td>
-                            <button style="font-size:0.7em; margin-right:15px; padding:3px 6px" class="btn btn-default" onclick="replyMsg({$fid}, {$ftid}, {$message.fmid}, {$message.oid}, {$u}, {$inici})"><i class="fa fa-reply"></i>&nbsp;{gt text='Reply to the message'}</button>
+                            <button style="font-size:0.9em; margin-right:15px; padding:3px 6px" class="btn btn-default" onclick="replyMsg({$fid}, {$ftid}, {$message.fmid}, {$message.oid}, {$u}, {$inici})"><i class="fa fa-reply"></i>&nbsp;{gt text='Reply to the message'}</button>
                         </td>
                     
                         <td {if $moderator}style="width:100px; text-align:center;"{/if}>                
@@ -128,7 +128,7 @@
                     <input type="hidden" name="csrftoken" id="csrftoken" value="{insert name='csrftoken'}" />
                 </form>                
                 <div id="msgHeader"></div><br> 
-                <legend style="margin-bottom:0px;font-weight:bold;font-size:1em">{gt text="Message"}</legend>
+                <legend style="margin-bottom:0px;font-weight:bold">{gt text="Message"}</legend>
                 <div id="msgContent" class="panel-body" style="max-height: 150px; overflow-y:auto; "></div>
                 <div id="msgAttachment" class="badge" style="margin-top:5px"></div>                                                
             </div>         
