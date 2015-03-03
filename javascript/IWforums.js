@@ -352,6 +352,7 @@ function showfieldinfo(fndid, infotext){
 }
 function changeSubscription(fid, action){
     // action: 1 => subscribe ; action: 0 cancel subscription
+    alert("FID: "+fid+" ACTION: "+action);
     var b = {
         fid: fid,
         action: action

@@ -110,10 +110,10 @@
                         <div class="form-group">
                             <label class="control-label"  for="subscrType">{gt text="Select forum subscription type"} </label>           
                             <select class="form-control" id="subscrMode" name="subscrMode">                                
-                                <option value="0" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 0}selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
-                                <option value="1" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 1}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
-                                <option value="2" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 2}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
-                                <option value="3" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 3}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
+                                <option value="{'IWforums_Constant::NOT_ALLOWED'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::NOT_ALLOWED'|constant }selected{/if}>{gt text = "Nobody can subscribe to this forum (No subscription)"}</option>
+                                <option value="{'IWforums_Constant::VOLUNTARY'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::VOLUNTARY'|constant}selected{/if}>{gt text = "Users must subscribe to the forum (Voluntary)"}</option>
+                                <option value="{'IWforums_Constant::OPTIONAL'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::OPTIONAL'|constant}selected{/if}>{gt text = "All users are subscribed by default and may unsubscribe (Optional)"}</option> 
+                                <option value="{'IWforums_Constant::COMPULSORY'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::COMPULSORY'|constant}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
                             </select> 
                         </div>
                     </form>   
@@ -125,6 +125,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->         
+{adminfooter}
 <script type="text/javascript">
     var modifyingfield = '{{gt text="...modifying..."}}';
     var deleteConfirmation = '{{gt text="Confirm the deletion"}}';

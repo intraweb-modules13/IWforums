@@ -23,6 +23,10 @@ class IWforums_Constant
     const OPTIONAL    = 2;
     const COMPULSORY  = 3;
     
+    // Subscription action
+    const SUBSCRIBE   =  1;
+    const UNSUBSCRIBE = -1;
+    
     // Forum access level    
     const NONE         = 0;
     const READ         = 1;

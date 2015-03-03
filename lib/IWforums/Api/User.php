@@ -1596,9 +1596,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $action = FormUtil::getPassedValue('action', isset($args['action']) ? $args['action'] : null, 'GET');  
         
         switch ($action) {
-            case 1:
+            case IWforums_Constant::SUBSCRIBE:
                 break;
-            case 2:
+            case IWforums_Constant::UNSUBSCRIBE:
                 break;
         }
         //'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
@@ -1630,8 +1630,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     
         /**
      * Get user subscriptions
-     * 
-     * 
+     * @param fid forum id. If is set returns only information about specified forum. Otherwise all forums
+     * @param uid user id
      */
  
     public function getUserSubscriptions($args){

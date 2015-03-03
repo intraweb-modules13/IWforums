@@ -71,10 +71,10 @@
                                     <span style="cursor:pointer" class="blue glyphicon glyphicon-comment" data-toggle="tooltip" title="{gt text="Everybody is subscribed"}"  style="cursor:pointer" onclick='window.location ="{modurl modname='IWforums' type='user' func='forum' fid=$forum.fid}"'></span>
                                 {/case}
                                 {case expr='add'}
-                                    <span style="cursor:pointer" class="green glyphicon glyphicon-ok-circle" data-toggle="tooltip" title="{gt text="Subscribe me to this forum"}" onclick="changeSubscription({$forum.fid}, 1)"></span>
+                                    <span style="cursor:pointer" class="green glyphicon glyphicon-ok-circle" data-toggle="tooltip" title="{gt text="Subscribe me to this forum"}" onclick="changeSubscription({$forum.fid}, {'IWforums_Constant::SUBSCRIBE'|constant})"></span>
                                 {/case}
                                 {case expr='cancel'}
-                                    <span style="cursor:pointer" class="red glyphicon glyphicon-remove-circle" data-toggle="tooltip" title="{gt text="Cancel my subscription"}" onclick="changeSubscription({$forum.fid}, 0 )"></span>
+                                    <span style="cursor:pointer" class="red glyphicon glyphicon-remove-circle" data-toggle="tooltip" title="{gt text="Cancel my subscription"}" onclick="changeSubscription({$forum.fid}, {'IWforums_Constant::UNSUBSCRIBE'|constant} )"></span>
                                 {/case} 
                             {/switch}
                         {else}                                                            
