@@ -1590,19 +1590,122 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $links;
     }
 
+    /**
+     * Change user subscription to a forum
+     * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * @param fid forum id
+     * @param action (1:add, -1:cancel)
+     * @version 3.1.0 
+     * @date 04/03/2015
+     */
     public function setSubscriptionState($args) {
-        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
+        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid'), 'GET');  
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
         $action = FormUtil::getPassedValue('action', isset($args['action']) ? $args['action'] : null, 'GET');  
+
+        $uid = isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid');  
+        $fid = isset($args['fid']) ? $args['fid'] : null;  
+        $action = isset($args['action']) ? $args['action'] : null;  
         
-        switch ($action) {
-            case IWforums_Constant::SUBSCRIBE:
-                break;
-            case IWforums_Constant::UNSUBSCRIBE:
-                break;
+        $result = false;
+        if (true) {//(isset($fid) && isset($action) && is_numeric($fid) && is_numeric($action)) {
+            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            $forum = ModUtil::apiFunc($this->name, 'user', 'get', array('fid' => $fid, 'sv' => $sv));
+            switch ($action) {
+                case IWforums_Constant::SUBSCRIBE:
+                    // Check if forum allows subscription 
+                    if ($forum['subscriptionMode'] == IWforums_Constant::VOLUNTARY){
+                       // Add uid to subscribers field
+                        if (strlen($forum['subscribers'])) 
+                            $users = explode("$", $forum['subscribers']);
+                        else {
+                            $users = array();
+                        }
+                        // Verify uid isn't in subscribers list
+                        if (!in_array($uid, $users)) {
+                            // Add uid to subscriptors list
+                            $users[] = $uid;
+                            $subscribers = implode("$", $users);
+                            // Update table
+                            $pntable = DBUtil::getTables();
+                            $c = $pntable['IWforums_definition_column'];
+                            $where = "$c[fid]=$fid";
+                            $item = array('subscribers' => $subscribers);
+                            
+                            $result =  (DBUTil::updateObject($item, 'IWforums_definition', $where)) ;
+                        }
+                    } elseif ($forum['subscriptionMode'] == IWforums_Constant::OPTIONAL){
+                       // Remove uid from noSubscribers field 
+                       if (strlen($forum['noSubscribers'])) 
+                            $users = explode("$", $forum['noSubscribers']);
+                        else {
+                            $users = array();
+                        }
+                        // Verify uid isn't in subscribers list
+                        if (in_array($uid, $users)) {
+                            // Remove uid from noSubscriptors list
+                            $remove[] = $uid;
+                            //$nlist = array_diff($users, $remove);
+                            $noSubscribers = implode("$", array_diff($users, $remove));
+                            // Update table
+                            $pntable = DBUtil::getTables();
+                            $c = $pntable['IWforums_definition_column'];
+                            $where = "$c[fid]=$fid";
+                            $item = array('noSubscribers' => $noSubscribers);
+                            
+                            $result =  (DBUTil::updateObject($item, 'IWforums_definition', $where)) ;
+                        }                   
+                    }   
+                    break;
+                case IWforums_Constant::UNSUBSCRIBE:
+                    // Check if forum allows unsubscription 
+                    // Check if forum allows subscription 
+                    if ($forum['subscriptionMode'] == IWforums_Constant::VOLUNTARY){
+                       // Add uid to subscribers field
+                        if (strlen($forum['subscribers'])) 
+                            $users = explode("$", $forum['subscribers']);
+                        else {
+                            $users = array();
+                        }
+                        // Verify uid isn't in subscribers list
+                        if (in_array($uid, $users)) {
+                            // Remove uid from noSubscriptors list
+                            $remove[] = $uid;
+                            //$nlist = array_diff($users, $remove);
+                            $subscribers = implode("$", array_diff($users, $remove));
+                            // Update table
+                            $pntable = DBUtil::getTables();
+                            $c = $pntable['IWforums_definition_column'];
+                            $where = "$c[fid]=$fid";
+                            $item = array('subscribers' => $subscribers);
+                            
+                            $result =  (DBUTil::updateObject($item, 'IWforums_definition', $where)) ;
+                        }                   
+                    } elseif ($forum['subscriptionMode'] == IWforums_Constant::OPTIONAL){
+                       // Remove uid from noSubscribers field 
+                       if (strlen($forum['noSubscribers'])) 
+                            $users = explode("$", $forum['noSubscribers']);
+                        else {
+                            $users = array();
+                        }
+                        // Verify uid isn't in subscribers list
+                        if (!in_array($uid, $users)) {
+                            // Add uid to subscriptors list
+                            $users[] = $uid;
+                            $noSubscribers = implode("$", $users);
+                            // Update table
+                            $pntable = DBUtil::getTables();
+                            $c = $pntable['IWforums_definition_column'];
+                            $where = "$c[fid]=$fid";
+                            $item = array('noSubscribers' => $noSubscribers);
+                            
+                            $result =  (DBUTil::updateObject($item, 'IWforums_definition', $where)) ;
+                        }                        
+                    }   
+                    break;
+            }
         }
-        //'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
-        
+        return $result;        
     }
     public function getSubscriptionModeText($mode){
         $modeText = array();
@@ -1636,7 +1739,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
  
     public function getUserSubscriptions($args){
         $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
-        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
+        //$fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
         if (!isset($uid) || is_null($uid)) {
             $uid = UserUtil::getVar('uid');
         }
@@ -1649,36 +1752,39 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             // get all forums
             $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );
         }
+
+       // $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );
         $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
         foreach ($forums as $forum){            
             // For each forum get access level
-            $access = ModUtil::func($this->name, 'user', 'access', array('fid' => $forum['fid'], 'uid' => $uid, 'sv' => $sv));            
+            $access = ModUtil::func($this->name, 'user', 'access', array('fid' => $forum['fid'], 'uid' => $uid, 'sv'=> $sv));            
 
             if ($access > IWforums_Constant::NONE) {
                 switch ($forum['subscriptionMode']) {
                     case IWforums_Constant::OPTIONAL:
                         // Subscribed by default. All users are subscribed if no have been canceled the subscription
                         // Get unsubscriptors list
-                        $noSubsc = explode('$', $forum['noSubscribers']);
-                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::OPTIONAL;
-                        if (!$noSubsc) {
-                            $subscriptionInfo[ $forum['fid']]['action'] = in_array($noSubsc, $uid) ? 'add' : 'cancel'; 
+                        if (strlen($forum['noSubscribers'])) {
+                            $noSubsc = explode('$', $forum['noSubscribers']);
                         } else {
-                            $subscriptionInfo[ $forum['fid']]['action'] = 'cancel'; 
+                            $noSubsc = array();
                         }
+                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::OPTIONAL;
+                        $subscriptionInfo[ $forum['fid']]['action'] = in_array( $uid, $noSubsc) ? 'add' : 'cancel'; 
                         break;
                     case IWforums_Constant::VOLUNTARY:
                         // Unsubscribed by default.                        
                         // Get subscriptors list
-                        $subsc = explode('$', $forum['subscribers']);
-                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::VOLUNTARY;
-                        if (!$subsc) {                           
-                            $subscriptionInfo[ $forum['fid']]['action'] = in_array($subsc, $uid) ? 'cancel' : 'add';
+                        if (strlen($forum['subscribers'])) {
+                            $subsc = explode('$', $forum['subscribers']);
                         } else {
-                            $subscriptionInfo[ $forum['fid']]['action'] = 'add';
+                            $subsc = array();
                         }
+                        $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::VOLUNTARY;
+                        $subscriptionInfo[ $forum['fid']]['action'] = in_array( $uid ,$subsc) ? 'cancel' : 'add';
                         break;
                     case IWforums_Constant::COMPULSORY:
+                        // Everybody with, at least, read access is subscribed
                         $subscriptionInfo[ $forum['fid']]['mode'] = IWforums_Constant::COMPULSORY;
                         $subscriptionInfo[ $forum['fid']]['action'] = 'none';
                         break;

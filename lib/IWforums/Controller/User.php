@@ -38,7 +38,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                 'marcats' => $marcats,
                 'access' => $access);
         }        
-        $subscrInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions');
+        $subscrInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions');        
         return $this->view->assign('forums', $forums)
                         ->assign('forumSubscriptions', $subscrInfo)
                         ->fetch('IWforums_user_main.tpl');

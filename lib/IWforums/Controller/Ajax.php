@@ -112,13 +112,15 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         $result = ModUtil::apiFunc($this->name, 'user', 'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
         
         if ($result) {
-            $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            //$sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+            //$subscriptionInfo = DBUtil::selectObjectByID('IWforums_definition', $fid, 'fid');
             $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
 
             // Update div
             $view = Zikula_View::getInstance('IWforums', false);
             $view->assign('fid', $fid);
             $view->assign('action',$subscriptionInfo[$fid]['action'] );
+            $view->assign('si',$subscriptionInfo);
             $content = $view->fetch('ajax/IWforums_ajax_updateSubscription.tpl');
             return new Zikula_Response_Ajax(array('content' => $content, 'fid' => $fid));
         }

@@ -351,8 +351,7 @@ function showfieldinfo(fndid, infotext){
     }
 }
 function changeSubscription(fid, action){
-    // action: 1 => subscribe ; action: 0 cancel subscription
-    alert("FID: "+fid+" ACTION: "+action);
+    // action: 1 => subscribe ; action: -1 cancel subscription
     var b = {
         fid: fid,
         action: action
@@ -365,12 +364,13 @@ function changeSubscription(fid, action){
 }
 
 function changeSubscription_response(req){
-    if(!a.isSuccess()){
-        Zikula.showajaxerror(a.getMessage());
+    if(!req.isSuccess()){
+        Zikula.showajaxerror(req.getMessage());
         return;
     }
     var b=req.getData();
-    $('#sm_'+b.fid).update(b.content);
+    $('sm_'+b.fid).update(b.content);
+    jQuery('[data-toggle="tooltip"]').tooltip();
 }
 
 function setSubscriptionMode(){
