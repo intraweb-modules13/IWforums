@@ -24,7 +24,9 @@
 <div class="usercontainer">    
     <div id='forumDescription'>
         {include file="user/IWforums_user_forumDesc.tpl"}
+        {include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}
     </div>
+    
     <div id="btnNewElement">
     {if $topicsPage && ($access gt 2)}
         <div class="z-center" style="padding-bottom: 4px;" >

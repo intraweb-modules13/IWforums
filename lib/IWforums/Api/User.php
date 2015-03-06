@@ -1739,7 +1739,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
  
     public function getUserSubscriptions($args){
         $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
-        //$fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
+        $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
         if (!isset($uid) || is_null($uid)) {
             $uid = UserUtil::getVar('uid');
         }
@@ -1747,7 +1747,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         if (isset($fid)) {
             // Get specific forum
             $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            $forums = ModUtil::apiFunc($this->name, 'user', 'get', array('fid' => $fid, 'sv' => $sv));
+            $forums[$fid] = ModUtil::apiFunc($this->name, 'user', 'get', array('fid' => $fid, 'sv' => $sv));
         } else {
             // get all forums
             $forums = ModUtil::apiFunc($this->name, 'user', 'getall' );

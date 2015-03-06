@@ -141,6 +141,8 @@ class IWforums_Controller_User extends Zikula_AbstractController {
 
         // get the forum
         $registre = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
+        $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
+        echo '<pre>'. print_r($subscriptionInfo).'</pre>'; 
         if ($registre == false) {
             LogUtil::registerError($this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
@@ -242,7 +244,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             }
         }
         $url = ModUtil::url('IWforums', 'user', 'nou_tema', array('fid' => $fid, 'u' => $u, 'inici' => $inici));
-        $view = Zikula_View::getInstance($this->name, false);
+        $view = Zikula_View::getInstance($this->name, false);        
         
         $view->assign('users', $users)
              ->assign('icons', $icons)
@@ -263,7 +265,8 @@ class IWforums_Controller_User extends Zikula_AbstractController {
              ->assign('fid', $fid)
              ->assign('ftid', $ftid)
              ->assign('pager', $pager)
-             ->assign('url', $url)            
+             ->assign('url', $url)       
+             ->assign('action', $subscriptionInfo)
              ->assign('inici', $inici);
         
         ModUtil::apiFunc('IWforums', 'user', 'markMessagesAsReaded', array('messages' =>$messages));

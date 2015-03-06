@@ -7,7 +7,7 @@
 
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
-    <h2>{gt text="Add a new topic"}</h2>    
+    <h2><span style="font-size:0.8em" class="glyphicon glyphicon-comment"></span>&nbsp;{$name}&nbsp;<span style="font-size:0.7em" class="glyphicon glyphicon-arrow-right"></span> {gt text="Add a new topic"}</h2>    
     <form class="form-horizontal" action='javascript:void();' role="form"  name="new_tema" id="new_tema" method="post" enctype="multipart/form-data" >
         <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="fid" {if isset($fid)} value="{$fid}" {/if}/>

@@ -23,9 +23,9 @@
 <div class="usercontainer">
     <div class="userpageicon">{img modname='core' src='filenew.png' set='icons/large'}</div>
     {if $msg eq ''}
-    <h2>{$name}: {gt text="Add a new message"}</h2>
+    <h2><span style="font-size:0.8em" class="glyphicon glyphicon-comment"></span>&nbsp;{$name}&nbsp;<span style="font-size:0.7em" class="glyphicon glyphicon-arrow-right"></span> {gt text="Add a new message"}</h2>    
     {else}
-    <h2>{$name}: {gt text="Message reply"}</h2>
+    <h2><span style="font-size:0.8em" class="glyphicon glyphicon-comment"></span>&nbsp;{$name}&nbsp;<span style="font-size:0.7em" class="glyphicon glyphicon-arrow-right"></span> {gt text="Message reply"}</h2>    
     {/if}
     <form  class="form-horizontal" role="form" method="post" id="new_msg" action="javascript:void();" enctype="multipart/form-data">
         {*<form  class="form-horizontal" role="form" method="post" id="new_msg" action="{modurl modname='IWforums' type='user' func='crear_msg'}" enctype="multipart/form-data">*}
@@ -144,9 +144,6 @@
 {/if}        
 {notifydisplayhooks eventname='IWforums.ui_hooks.IWforums.form_edit' id='intraweb'}
 <script type="text/javascript">
-    jQuery( document ).ready(function() {
-        jQuery("#titol").focus();
-    });
     jQuery('[data-toggle="modal"]').tooltip();
     
     function preSubmit(){
@@ -180,32 +177,4 @@
             document.getElementById('new_msg').action = 'javascript:void();';
         }
     }
-/*        
-    function send(){       
-        var error = false;
-        var f = document.forms['new_msg'];
-        if (f.titol.value == ""){
-			//for gt detection
-            alert("{{gt text="You didn't write a title for the message."}}");
-            var error = true;
-        }
-            // It works if no editor is used
-            /*if (f.intraweb.value ==''){
-                alert("{{gt text="You didn't write a message."}}");
-                var error = true;
-            }*/
-/*
-        {{if $adjunts neq "0"}}
-            if (f.adjunt.value != "" && "{{$extensions}}".indexOf(f.adjunt.value.toLowerCase().substring(f.adjunt.value.toLowerCase().length - 3, f.adjunt.value.length)) == - 1 && "{{$extensions}}".indexOf(f.adjunt.value.toUpperCase().substring(f.adjunt.value.toUpperCase().length - 3, f.adjunt.value.length)) == - 1 && !error){
-				//for gt detection
-                alert("{{gt text="The extension of the attached file isn't correct. The valid extensions are: "}}{{$extensions}}");
-                var error = true;
-            }
-        {{/if}}
-        //if(!error){resposta=confirm("{{gt text="Do you really want to send the message?"}}");}
-        if (!error){ // && resposta){     
-            f.submit();
-        }
-    }
-    */
 </script>
