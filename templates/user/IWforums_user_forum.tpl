@@ -24,7 +24,9 @@
 <div class="usercontainer">    
     <div id='forumDescription'>
         {include file="user/IWforums_user_forumDesc.tpl"}
-        {include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}
+        <div id="fSubscription">
+            {include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}
+        </div>
     </div>
     
     <div id="btnNewElement">

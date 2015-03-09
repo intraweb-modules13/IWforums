@@ -107,22 +107,31 @@ class IWforums_Controller_Ajax extends Zikula_Controller_AbstractAjax {
         }
         $fid = $this->request->getPost()->get('fid', '');
         $action = $this->request->getPost()->get('action', '');
+        $template = $this->request->getPost()->get('template', 'IWforums_ajax_updateSubscription.tpl');
         
         $uid = UserUtil::getVar('uid');
         $result = ModUtil::apiFunc($this->name, 'user', 'setSubscriptionState', array('fid' => $fid, 'action' => $action, 'uid' => $uid)); 
         
         if ($result) {
-            //$sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
-            //$subscriptionInfo = DBUtil::selectObjectByID('IWforums_definition', $fid, 'fid');
             $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
 
             // Update div
             $view = Zikula_View::getInstance('IWforums', false);
+            
             $view->assign('fid', $fid);
-            $view->assign('action',$subscriptionInfo[$fid]['action'] );
-            $view->assign('si',$subscriptionInfo);
-            $content = $view->fetch('ajax/IWforums_ajax_updateSubscription.tpl');
-            return new Zikula_Response_Ajax(array('content' => $content, 'fid' => $fid));
+            if ($template == 'IWforums_ajax_updateSubscriptionLink.tpl') {
+                $what = 'link'; 
+                $view->assign('action',$subscriptionInfo);
+            }
+            else { 
+                $view->assign('action',$subscriptionInfo[$fid]['action'] );
+                $view->assign('si',$subscriptionInfo);
+                $template = 'IWforums_ajax_updateSubscription.tpl';
+                $what = 'list';
+            }
+            //$content = $view->fetch('ajax/IWforums_ajax_updateSubscription.tpl');
+            $content = $view->fetch('ajax/'.$template);
+            return new Zikula_Response_Ajax(array('content' => $content, 'fid' => $fid, 'what' => $what));
         }
     }
     

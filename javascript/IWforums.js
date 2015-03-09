@@ -350,17 +350,21 @@ function showfieldinfo(fndid, infotext){
         }
     }
 }
-function changeSubscription(fid, action){
+function changeSubscription(fid, action , template){
     // action: 1 => subscribe ; action: -1 cancel subscription
+
+    if (template === undefined) template = null;
+
     var b = {
         fid: fid,
-        action: action
+        action: action,      
+        template: template
     }
     var c=new Zikula.Ajax.Request(Zikula.Config.baseURL+"ajax.php?module=IWforums&func=changeUserSubscription",{
-        parameters: b,
-        onComplete: changeSubscription_response,
-        onFailure: failure
-    });
+            parameters: b,
+            onComplete: changeSubscription_response,
+            onFailure: failure
+        });
 }
 
 function changeSubscription_response(req){
@@ -369,8 +373,12 @@ function changeSubscription_response(req){
         return;
     }
     var b=req.getData();
-    $('sm_'+b.fid).update(b.content);
-    jQuery('[data-toggle="tooltip"]').tooltip();
+    if (b.what == 'link') {
+        $('fSubscription').update(b.content);
+    } else {
+        $('sm_'+b.fid).update(b.content);
+        jQuery('[data-toggle="tooltip"]').tooltip();
+    }
 }
 
 function setSubscriptionMode(){

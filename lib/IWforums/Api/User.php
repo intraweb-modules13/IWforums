@@ -43,9 +43,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                                     $c[grup] like '%$" . $group['gid'] . "|4$%' OR ";
                 }
                 $sqlWhere .= substr($groupsList, 0, -3);
-            } else {
-                $sqlWhere = "$c[actiu]=1 AND ($c[grup] like '%$-1|1$%'";
-            }
+            } else {  
+                $sqlWhere = "$c[actiu]=1 AND ($c[grup] like '%$-1|1$%'";                
+            }           
             $or = (trim(substr($groupsList, 0, -3)) === '') ? '' : " OR ";
             $sqlWhere .= ($uid != '-1') ? $or . "$c[mod] like '%$" . $uid . "$%')" : ')';
         }
@@ -1707,6 +1707,16 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         }
         return $result;        
     }
+    
+    /**
+     * Get susbscription mode information
+     * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * @param $mode
+     * @param action (1:add, -1:cancel)
+     * @return array (val, type, explanation) val: forum subscription type (numeric): type: forum subscription type (text); explanation: subscription type text description
+     * @version 3.1.0 
+     * @date 04/03/2015
+     */
     public function getSubscriptionModeText($mode){
         $modeText = array();
         switch ($mode) {
@@ -1731,18 +1741,22 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $modeText;
     }
     
-        /**
-     * Get user subscriptions
-     * @param fid forum id. If is set returns only information about specified forum. Otherwise all forums
-     * @param uid user id
-     */
+    /**
+    * Get user subscriptions. If is passed fid parameter then only  is considered 
+    * the specified forum, otherwise all forums. If uid is null then uses current user uid.
+    * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
+    * 
+    * @param fid forum id. If is set returns only information about specified forum. Otherwise all forums
+    * @param uid user id
+    * @return array (mode, action) mode: forum subscription mode or type; action: allowed subscription action for this forum 
+    * @version 3.1.0 
+    * @date 04/03/2015
+    */    
  
     public function getUserSubscriptions($args){
-        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : null, 'GET');  
+        $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid'), 'GET');  
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
-        if (!isset($uid) || is_null($uid)) {
-            $uid = UserUtil::getVar('uid');
-        }
+       
         $subscriptionInfo = array();
         if (isset($fid)) {
             // Get specific forum
@@ -1794,4 +1808,28 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $subscriptionInfo;
     }
 
+    /**
+     * Get all unreaded messages for all forums and all subscribers
+     * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
+     * 
+     * @param $dateTimeFrom timestamp date/time indicates starting period until now to collect unreaded messages 
+     * @return array with messages unreaded per user, grouped by forum and topic 
+     * 
+     * @version 3.1.0 
+     * @date 09/03/2015
+     */
+    public function getAllUnreadedMessages($dateTimeFrom) {
+        $messages = array();
+        if (!is_null($dateTimeFrom)) {
+            // Get forums that allow subscription
+            $pntable = DBUtil::getTables();
+            $c = $pntable['IWforums_definition_column'];
+            $where = "$c[actiu]=1 AND `subscriptionMode`>0";
+            $orderby = "$c[nom_forum]";
+            // get the objects from the db
+            $messages = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
+            //$messages = ModUtil::apiFunc($this->name, 'user', 'getall', array('notify' => TRUE));
+        } 
+        return $messages;
+    }
 }

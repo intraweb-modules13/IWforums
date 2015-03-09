@@ -126,6 +126,12 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $inici = FormUtil::getPassedValue('inici', isset($args['inici']) ? $args['inici'] : 1, 'REQUEST');
         $u = FormUtil::getPassedValue('u', isset($args['u']) ? $args['u'] : 0, 'REQUEST');
         // security check
+        
+        /** @TODO per testejar la funció
+         * $r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', 1);
+         * echo '<pre>'.print_r($r).'</pre>';
+         */
+                
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             throw new Zikula_Exception_Forbidden();
         }
@@ -142,7 +148,6 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         // get the forum
         $registre = ModUtil::apiFunc('IWforums', 'user', 'get', array('fid' => $fid));
         $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
-        echo '<pre>'. print_r($subscriptionInfo).'</pre>'; 
         if ($registre == false) {
             LogUtil::registerError($this->__('The forum upon which the ation had to be carried out hasn\'t been found'));
             return System::redirect(ModUtil::url('IWforums', 'user', 'main'));
