@@ -2,7 +2,7 @@
 <h1>{$name}</h1>
 <div id="forumIntroduction" style="display:block">
     {if isset($lDesc) && $lDesc neq ''}
-        <div class="well formInfo" id="longDesc" name="longDesc">            
+        <div class="panel formInfo" id="longDesc" name="longDesc">            
             {$lDesc}
         </div>
     {/if}

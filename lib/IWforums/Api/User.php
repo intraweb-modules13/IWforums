@@ -1824,11 +1824,59 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             // Get forums that allow subscription
             $pntable = DBUtil::getTables();
             $c = $pntable['IWforums_definition_column'];
-            $where = "$c[actiu]=1 AND `subscriptionMode`>0";
+            $where = "$c[actiu]=1 AND $c[subscriptionMode]>0";
             $orderby = "$c[nom_forum]";
-            // get the objects from the db
-            $messages = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
-            //$messages = ModUtil::apiFunc($this->name, 'user', 'getall', array('notify' => TRUE));
+            // get the forums that allow subscription
+            $forums = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
+            
+            foreach ($forums as $forum){
+                // Depenent del tipus de subscripció 
+                switch ($forum['subscriptionMode']){
+                    case IWforums_Constant::COMPULSORY:
+                        // Everybody in readers groups
+                        // Get forum groups
+                        
+                        $strGrups = $forum['grup'];
+                        $groups = explode('$$', $strGrups);
+                        $members = array();
+                        foreach ($groups as $group){
+                            // Get group members
+                            $users = UserUtil::getUsersForGroup($group);
+                            foreach ($users as $user){
+                                // Avoid duplicated users
+                                if (!in_array($user, $members)) $members[] = $user;
+                            }
+                        }
+                        foreach ($members as $uid){
+                            // Get the forum topics
+                            $t = $pntable['IWforums_temes_column'];
+                            $where = "$t[fid]=".$forum['fid'];
+                            $topics = DBUtil::selectObjectArray('IWforums_temes', $where);
+                            foreach ($topics as $topic){
+                                // Get the topic messages
+                                
+                                $m = $pntable['IWforums_msg_column'];
+                                $where = "$m[ftid]=".$topic['ftid']." AND $m[data] >= ".mkTime($dateTimeFrom);
+                                $where .= " AND $m[llegit] NOT LIKE '%$".$uid."$%'";
+                                $messages[] = DBUtil::selectObjectArray('IWforums_msg', $where, 'data');
+
+                            }
+                            
+                            // Check if message is unreaded
+                        }
+                        // in $members are all the users subscribed
+                        //array_key_exists()
+                         
+                        break;
+                    case IWforums_Constant::VOLUNTARY:
+                        // Only subscribers
+                        $subscribers = explode('$', $forum['subscribers']);
+                        break;
+                    case IWforums_Constant::OPTIONAL:
+                        // Everybody in readers groups execept unsubscribers
+                        break;
+                }
+            }
         } 
         return $messages;
     }

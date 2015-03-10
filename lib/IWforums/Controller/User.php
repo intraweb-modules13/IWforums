@@ -127,10 +127,10 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $u = FormUtil::getPassedValue('u', isset($args['u']) ? $args['u'] : 0, 'REQUEST');
         // security check
         
-        /** @TODO per testejar la funció
-         * $r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', 1);
-         * echo '<pre>'.print_r($r).'</pre>';
-         */
+        //** @TODO per testejar la funció
+        //$r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', '2015-03-01 00:00:00');
+        //echo '<pre>'.print_r($r).'</pre>';
+        //*/
                 
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             throw new Zikula_Exception_Forbidden();
@@ -555,6 +555,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
                     'total' => $total['nparent'],
                     'rpp' => 10,
                     'urltemplate' => 'index.php?module=IWforums&func=llista_msg&inici=%%&fid=' . $fid . '&ftid=' . $ftid . '&u=' . $u));
+        $subscriptionInfo = ModUtil::apiFunc($this->name, 'user', 'getUserSubscriptions' , array('fid' => $fid));
         $view = Zikula_View::getInstance($this->name, false);
         $view->assign('name', $registre['nom_forum'])
             ->assign('icons', $icons)
@@ -572,6 +573,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
             ->assign('hi_ha_missatges', $hi_ha_missatges)
             ->assign('pager', $pager)
             ->assign('inici', $inici)
+            ->assign('action', $subscriptionInfo)
             ->assign('hi_ha_temes', false)
             ->assign('restyled', ModUtil::getVar('IWforums', 'restyledTheme'));
                         //->fetch('IWforums_user_forum.htm');
