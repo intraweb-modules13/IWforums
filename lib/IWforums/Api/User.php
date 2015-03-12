@@ -543,7 +543,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
     }
         
     /*
-     * Update forum introduction vaalues
+     * Update forum introduction values
      */
     public function setForum($args){
         // Security check
@@ -1820,6 +1820,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
      */
     public function getAllUnreadedMessages($dateTimeFrom) {
         $messages = array();
+        /*
+         * SELECT D.iw_fmid, D.iw_ftid, D.iw_titol, D.iw_usuari, D.iw_data,T.iw_titol, F.iw_fid, F.iw_nom_forum, T.iw_order FROM `IWforums_msg` AS D, `IWforums_temes` AS T, `IWforums_definition` AS F  
+         * WHERE D.iw_ftid = T.iw_ftid AND T.iw_fid = F.iw_fid AND F.iw_actiu = 1 AND D.iw_data >= 1422748800
+         * ORDER BY F.iw_fid, T.iw_order, D.iw_data
+         */
         if (!is_null($dateTimeFrom)) {
             // Get forums that allow subscription
             $pntable = DBUtil::getTables();
@@ -1834,8 +1839,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                 switch ($forum['subscriptionMode']){
                     case IWforums_Constant::COMPULSORY:
                         // Everybody in readers groups
-                        // Get forum groups
-                        
+                        // Get forum groups                        
                         $strGrups = $forum['grup'];
                         $groups = explode('$$', $strGrups);
                         $members = array();
@@ -1856,10 +1860,14 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                                 // Get the topic messages
                                 
                                 $m = $pntable['IWforums_msg_column'];
-                                $where = "$m[ftid]=".$topic['ftid']." AND $m[data] >= ".mkTime($dateTimeFrom);
-                                $where .= " AND $m[llegit] NOT LIKE '%$".$uid."$%'";
-                                $messages[] = DBUtil::selectObjectArray('IWforums_msg', $where, 'data');
-
+                                $where = "$m[ftid]=".$topic['ftid']." AND $m[data] >= ".$dateTimeFrom; //mkTime($dateTimeFrom);
+                                $where .= " AND $m[llegit] NOT LIKE '%$".$uid."$%'";           
+                                $msgs = DBUtil::selectObjectArray('IWforums_msg', $where, $m[data]);
+                                if (!empty($msgs)) {
+                                    foreach ($msgs as $msg) {
+                                        $messages[$uid][$forum['fid']][$msg['fmid']]['titol'] = $msg['titol'];
+                                    }                                    
+                                }
                             }
                             
                             // Check if message is unreaded
@@ -1869,7 +1877,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                          
                         break;
                     case IWforums_Constant::VOLUNTARY:
-                        // Only subscribers
+                        // Only subscribers group membership
                         $subscribers = explode('$', $forum['subscribers']);
                         break;
                     case IWforums_Constant::OPTIONAL:

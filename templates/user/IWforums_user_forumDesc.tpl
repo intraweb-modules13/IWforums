@@ -1,8 +1,8 @@
 {* display mode *}
-<h1>{$name}</h1>
+<h1 style="margin-left:35px">{$name}</h1>
 <div id="forumIntroduction" style="display:block">
     {if isset($lDesc) && $lDesc neq ''}
-        <div class="panel formInfo" id="longDesc" name="longDesc">            
+        <div class="formInfo" id="longDesc" name="longDesc">            
             {$lDesc}
         </div>
     {/if}
