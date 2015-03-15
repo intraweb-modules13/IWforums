@@ -1812,7 +1812,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
      * Get all unreaded messages for all forums and all subscribers
      * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
      * 
-     * @param $dateTimeFrom timestamp date/time indicates starting period until now to collect unreaded messages 
+     * @param $dateTimeFrom timestamp date/time indicates starting period until now to retrieve unreaded messages 
      * @return array with messages unreaded per user, grouped by forum and topic 
      * 
      * @version 3.1.0 
@@ -1820,20 +1820,75 @@ class IWforums_Api_User extends Zikula_AbstractApi {
      */
     public function getAllUnreadedMessages($dateTimeFrom) {
         $messages = array();
-        /*
-         * SELECT D.iw_fmid, D.iw_ftid, D.iw_titol, D.iw_usuari, D.iw_data,T.iw_titol, F.iw_fid, F.iw_nom_forum, T.iw_order FROM `IWforums_msg` AS D, `IWforums_temes` AS T, `IWforums_definition` AS F  
-         * WHERE D.iw_ftid = T.iw_ftid AND T.iw_fid = F.iw_fid AND F.iw_actiu = 1 AND D.iw_data >= 1422748800
-         * ORDER BY F.iw_fid, T.iw_order, D.iw_data
-         */
+        
         if (!is_null($dateTimeFrom)) {
-            // Get forums that allow subscription
             $pntable = DBUtil::getTables();
-            $c = $pntable['IWforums_definition_column'];
+            $f = $pntable['IWforums_definition_column'];
+            $t = $pntable['IWforums_temes_column'];
+            $m = $pntable['IWforums_msg_column'];
+            
+            // Get all the messages posted after $dateTimeFrom in subscribibles forums
+            $sql  = "SELECT M.$m[fmid] AS fmid, M.$m[ftid] AS ftid, M.$m[titol] AS msgTitle, M.$m[usuari], M.$m[data], M.$m[llegit] AS readers, T.$t[titol] AS topic, T.$t[order], ";
+            $sql .= "F.$f[fid] AS fid, F.$f[nom_forum] AS forum, F.subscriptionMode, F.subscribers, F.noSubscribers, F.$f[grup] AS grup, F.$f[mod] AS moderators ";
+            $sql .= "FROM `IWforums_msg` AS M, `IWforums_temes` AS T, `IWforums_definition` AS F ";        
+            $sql .= "WHERE M.$m[ftid] = T.$t[ftid] AND T.$t[fid] = F.$f[fid] AND F.$f[actiu] = 1 AND M.$m[data] >= ".$dateTimeFrom." AND F.subscriptionMode > 0 ";
+            $sql .= "ORDER BY F.$f[fid], T.$t[order], M.$m[data]";
+            $query = DBUtil::executeSQL($sql);
+            $messages = DBUtil::marshallObjects($query);
+            
+            foreach ($messages as $message) {
+                // Extract forum moderators
+                $moderators = explode('$$', substr($message['mod'], 0, strlen($message['mod']) -1));
+                unset($moderators[0]);
+                //Extract message readers
+                $readers = explode('$$', substr($message['readers'], 0, strlen($message['readers']) -1));
+                unset($readers[0]);
+                // Extract grups 
+                $auxGroups = explode('$$', substr($message['grup'], 0, strlen($message['grup']) -1));
+                unset($auxGroups[0]);
+                $groups = array();
+                foreach ($auxGroups as $ag){
+                    $g = explode ('|', $ag);
+                    $groups[] = $g[0];
+                }
+                // Construct a unique list with the users that hava read access to a forum 
+                $members[$message['fid']] = array();
+                foreach ($groups as $group){
+                    // Get group members
+                    $users = UserUtil::getUsersForGroup($group);
+                    foreach ($users as $user){
+                        // Avoid duplicated users
+                        if (!in_array($user, $members[$message['fid']])) $members[$message['fid']][] = $user;
+                    }
+                }
+                // Add moderators
+                foreach ($moderators as $moderator){
+                    if (!in_array($moderator, $members[$message['fid']])) $members[$message['fid']][] = $moderator;
+                }
+                switch ($message['subscriptionMode']){
+                    case IWforums_Constant::COMPULSORY:
+                        // Everybody in readers groups are subscribed. Moderator too
+                        // Get forum groups                        
+                        
+                        
+                        break;
+                    case IWforums_Constant::VOLUNTARY:
+                        // Only subscribers group membership
+                        $subscribers = explode('$', $forum['subscribers']);
+                        break;
+                    case IWforums_Constant::OPTIONAL:
+                        // Everybody in readers groups execept unsubscribers
+                        break;    
+                }
+            }
+            // Get forums that allow subscription
+            /*
             $where = "$c[actiu]=1 AND $c[subscriptionMode]>0";
             $orderby = "$c[nom_forum]";
             // get the forums that allow subscription
             $forums = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
             
+            $forums = modUtil::apiFunc($this->name, 'user', 'getall');
             foreach ($forums as $forum){
                 // Depenent del tipus de subscripció 
                 switch ($forum['subscriptionMode']){
@@ -1884,8 +1939,8 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                         // Everybody in readers groups execept unsubscribers
                         break;
                 }
-            }
-        } 
-        return $messages;
+            }*/
+        }    
+        return $members;
     }
 }

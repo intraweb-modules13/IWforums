@@ -128,7 +128,7 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         // security check
         
         //** @TODO per testejar la funció
-        $r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', '1423958400');
+        $r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', '1422958400');
         echo '<pre>'.print_r($r).'</pre>';
         //*/
                 
