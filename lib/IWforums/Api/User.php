@@ -1594,10 +1594,11 @@ class IWforums_Api_User extends Zikula_AbstractApi {
      * Change user subscription to a forum
      * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
      * @param fid forum id
-     * @param action (1:add, -1:cancel)
+     * @param action (IWforums_Constant::SUBSCRIBE, IWforums_Constant::UNSUBSCRIBE)
      * @version 3.1.0 
      * @date 04/03/2015
      */
+                
     public function setSubscriptionState($args) {
         $uid = FormUtil::getPassedValue('uid', isset($args['uid']) ? $args['uid'] : UserUtil::getVar('uid'), 'GET');  
         $fid = FormUtil::getPassedValue('fid', isset($args['fid']) ? $args['fid'] : null, 'GET');  
@@ -1808,6 +1809,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         return $subscriptionInfo;
     }
 
+    
     /**
      * Get all unreaded messages for all forums and all subscribers
      * @author Josep Ferràndiz Farré (jferran6@xtec.cat)
@@ -1828,17 +1830,17 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             $m = $pntable['IWforums_msg_column'];
             
             // Get all the messages posted after $dateTimeFrom in subscribibles forums
-            $sql  = "SELECT M.$m[fmid] AS fmid, M.$m[ftid] AS ftid, M.$m[titol] AS msgTitle, M.$m[usuari], M.$m[data], M.$m[llegit] AS readers, T.$t[titol] AS topic, T.$t[order], ";
-            $sql .= "F.$f[fid] AS fid, F.$f[nom_forum] AS forum, F.subscriptionMode, F.subscribers, F.noSubscribers, F.$f[grup] AS grup, F.$f[mod] AS moderators ";
+            $sql  = "SELECT F.$f[fid] AS fid,  M.$m[ftid] AS ftid, M.$m[fmid] AS fmid, M.$m[titol] AS msgTitle, M.$m[usuari] AS user, M.$m[data] AS date, M.$m[llegit] AS readers, T.$t[titol] AS topic, T.$t[order], ";
+            $sql .= "F.$f[nom_forum] AS forum, F.subscriptionMode, F.subscribers, F.noSubscribers, F.$f[grup] AS grup, F.$f[mod] AS moderators ";
             $sql .= "FROM `IWforums_msg` AS M, `IWforums_temes` AS T, `IWforums_definition` AS F ";        
             $sql .= "WHERE M.$m[ftid] = T.$t[ftid] AND T.$t[fid] = F.$f[fid] AND F.$f[actiu] = 1 AND M.$m[data] >= ".$dateTimeFrom." AND F.subscriptionMode > 0 ";
             $sql .= "ORDER BY F.$f[fid], T.$t[order], M.$m[data]";
             $query = DBUtil::executeSQL($sql);
             $messages = DBUtil::marshallObjects($query);
-            
-            foreach ($messages as $message) {
+
+            foreach ($messages as $key => $message) {
                 // Extract forum moderators
-                $moderators = explode('$$', substr($message['mod'], 0, strlen($message['mod']) -1));
+                $moderators = explode('$$', substr($message['moderators'], 0, strlen($message['moderators']) -1));
                 unset($moderators[0]);
                 //Extract message readers
                 $readers = explode('$$', substr($message['readers'], 0, strlen($message['readers']) -1));
@@ -1852,95 +1854,73 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                     $groups[] = $g[0];
                 }
                 // Construct a unique list with the users that hava read access to a forum 
-                $members[$message['fid']] = array();
+                $members = array();
                 foreach ($groups as $group){
                     // Get group members
                     $users = UserUtil::getUsersForGroup($group);
                     foreach ($users as $user){
                         // Avoid duplicated users
-                        if (!in_array($user, $members[$message['fid']])) $members[$message['fid']][] = $user;
+                        if (!in_array($user, $members)) $members[$user] = $user;
                     }
                 }
                 // Add moderators
                 foreach ($moderators as $moderator){
-                    if (!in_array($moderator, $members[$message['fid']])) $members[$message['fid']][] = $moderator;
+                    if (!in_array($moderator, $members)) $members[$moderator] = $moderator;
                 }
+                // Remove readers
+                foreach ($readers as $reader) {
+                    if (in_array($reader, $members)) unset($members[$reader]);                        
+                }
+                
                 switch ($message['subscriptionMode']){
                     case IWforums_Constant::COMPULSORY:
                         // Everybody in readers groups are subscribed. Moderator too
-                        // Get forum groups                        
-                        
-                        
+                        // Get forum groups                                                
+                        $messages[$key]['receivers'] = $members;
                         break;
                     case IWforums_Constant::VOLUNTARY:
                         // Only subscribers group membership
-                        $subscribers = explode('$', $forum['subscribers']);
+                        $subscribers = explode('$', $message['subscribers']);
+                        foreach ($subscribers as $subscriber){
+                            if (in_array($subscriber, $members))  $messages[$key]['receivers'][$subscriber] = $subscriber;
+                        }
                         break;
+                    
                     case IWforums_Constant::OPTIONAL:
                         // Everybody in readers groups execept unsubscribers
+                        $noSubscribers = explode('$', $message['noSubscribers']);
+                        foreach ($noSubscribers as $noSubscriber){
+                            if (in_array($noSubscriber, $members)) unset($member[$noSubscriber]);
+                        }
+                        $messages[$key]['receivers'] = $members;
                         break;    
                 }
-            }
-            // Get forums that allow subscription
-            /*
-            $where = "$c[actiu]=1 AND $c[subscriptionMode]>0";
-            $orderby = "$c[nom_forum]";
-            // get the forums that allow subscription
-            $forums = DBUtil::selectObjectArray('IWforums_definition', $where, $orderby, '-1', '-1', 'fid');
+            }    
             
-            $forums = modUtil::apiFunc($this->name, 'user', 'getall');
-            foreach ($forums as $forum){
-                // Depenent del tipus de subscripció 
-                switch ($forum['subscriptionMode']){
-                    case IWforums_Constant::COMPULSORY:
-                        // Everybody in readers groups
-                        // Get forum groups                        
-                        $strGrups = $forum['grup'];
-                        $groups = explode('$$', $strGrups);
-                        $members = array();
-                        foreach ($groups as $group){
-                            // Get group members
-                            $users = UserUtil::getUsersForGroup($group);
-                            foreach ($users as $user){
-                                // Avoid duplicated users
-                                if (!in_array($user, $members)) $members[] = $user;
-                            }
-                        }
-                        foreach ($members as $uid){
-                            // Get the forum topics
-                            $t = $pntable['IWforums_temes_column'];
-                            $where = "$t[fid]=".$forum['fid'];
-                            $topics = DBUtil::selectObjectArray('IWforums_temes', $where);
-                            foreach ($topics as $topic){
-                                // Get the topic messages
-                                
-                                $m = $pntable['IWforums_msg_column'];
-                                $where = "$m[ftid]=".$topic['ftid']." AND $m[data] >= ".$dateTimeFrom; //mkTime($dateTimeFrom);
-                                $where .= " AND $m[llegit] NOT LIKE '%$".$uid."$%'";           
-                                $msgs = DBUtil::selectObjectArray('IWforums_msg', $where, $m[data]);
-                                if (!empty($msgs)) {
-                                    foreach ($msgs as $msg) {
-                                        $messages[$uid][$forum['fid']][$msg['fmid']]['titol'] = $msg['titol'];
-                                    }                                    
-                                }
-                            }
-                            
-                            // Check if message is unreaded
-                        }
-                        // in $members are all the users subscribed
-                        //array_key_exists()
-                         
-                        break;
-                    case IWforums_Constant::VOLUNTARY:
-                        // Only subscribers group membership
-                        $subscribers = explode('$', $forum['subscribers']);
-                        break;
-                    case IWforums_Constant::OPTIONAL:
-                        // Everybody in readers groups execept unsubscribers
-                        break;
+            // At this point, every message has a list of receivers
+            // Let's construct an array with the associated information to send
+            $information = array();
+            foreach ($messages as $message){
+                if (isset($message['receivers'])) {
+                    foreach($message['receivers'] as $receiver){
+                        $sv = ModUtil::func('IWmain', 'user', 'genSecurityValue');
+                        $information[$receiver][$message['fid']]['nom_forum'] = $message['forum'];
+                        $information[$receiver][$message['fid']]['subscriptionMode'] = $message['subscriptionMode'];
+                        $information[$receiver][$message['fid']]['fid'] = $message['fid'];
+                        $information[$receiver][$message['fid']]['topics'][$message['ftid']]['titol'] = $message['topic'];
+                        $information[$receiver][$message['fid']]['topics'][$message['ftid']]['messages'][$message['fmid']]['title'] = $message['msgTitle'];
+                        $information[$receiver][$message['fid']]['topics'][$message['ftid']]['messages'][$message['fmid']]['author'] = ModUtil::func('IWmain', 'user', 'getUserInfo', array('sv' => $sv, 'info' => 'ncc', 'uid' => $message['user']));
+                        $information[$receiver][$message['fid']]['topics'][$message['ftid']]['messages'][$message['fmid']]['date'] = strtolower(DateUtil::getDatetime($message['date'], 'datetimelong', true));
+                    }
                 }
-            }*/
+            }
+            $report = array();
+            foreach ($information as $key => $userReport){
+                $view = Zikula_View::getInstance($this->name, false);  
+                $view->assign('info', $userReport);
+                $report[$key] = $view->fetch('user/IWforums_user_report.tpl');
+            }
         }    
-        return $members;
+        return $report;
     }
 }

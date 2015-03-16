@@ -127,11 +127,6 @@ class IWforums_Controller_User extends Zikula_AbstractController {
         $u = FormUtil::getPassedValue('u', isset($args['u']) ? $args['u'] : 0, 'REQUEST');
         // security check
         
-        //** @TODO per testejar la funció
-        $r = ModUtil::apiFunc($this->name, 'user', 'getAllUnreadedMessages', '1422958400');
-        echo '<pre>'.print_r($r).'</pre>';
-        //*/
-                
         if (!SecurityUtil::checkPermission('IWforums::', '::', ACCESS_READ)) {
             throw new Zikula_Exception_Forbidden();
         }
