@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Zikula 1.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-17 01:10+0000\n"
+"POT-Creation-Date: 2015-03-17 11:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: javascript/IWforums.js:33 javascript/IWforums.js:34
+#: javascript/IWforums.js:16 javascript/IWforums.js:77
 msgid "Disable topics list reorder"
 msgstr ""
 
-#: javascript/IWforums.js:39 javascript/IWforums.js:47
+#: javascript/IWforums.js:20
 msgid "Enable topics list reorder"
 msgstr ""

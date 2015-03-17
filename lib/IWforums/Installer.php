@@ -17,7 +17,7 @@ class IWforums_Installer extends Zikula_AbstractInstaller {
         }
 
         // Check if the version needed is correct
-        $versionNeeded = '3.0.0';
+        $versionNeeded = '3.0.2';
         if (!ModUtil::func('IWmain', 'admin', 'checkVersion', array('version' => $versionNeeded))) {
             return false;
         }

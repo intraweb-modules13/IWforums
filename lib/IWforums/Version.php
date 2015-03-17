@@ -11,7 +11,7 @@ class IWforums_Version extends Zikula_AbstractVersion
         $meta['capabilities'] = array(HookUtil::SUBSCRIBER_CAPABLE => array('enabled' => true));
 
         $meta['dependencies'] = array(array('modname' => 'IWmain',
-                                            'minversion' => '3.0.0',
+                                            'minversion' => '3.0.2',
                                             'maxversion' => '',
                                             'status' => ModUtil::DEPENDENCY_REQUIRED));
          

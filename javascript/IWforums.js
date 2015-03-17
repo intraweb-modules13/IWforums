@@ -182,7 +182,7 @@ function checkName(){
     } else {
         jQuery('#btnSend').show();
         jQuery('#inputName').removeClass('has-error');
-        jQuery('#titol').focus();
+        //jQuery('#titol').focus();
     }
 }
 

@@ -1853,7 +1853,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                     $g = explode ('|', $ag);
                     $groups[] = $g[0];
                 }
-                // Construct a unique list with the users that hava read access to a forum 
+                // Construct a unique list with the users that have read access to a forum 
                 $members = array();
                 foreach ($groups as $group){
                     // Get group members
@@ -1918,7 +1918,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             foreach ($information as $key => $userReport){
                 $view = Zikula_View::getInstance($this->name, false);  
                 $view->assign('info', $userReport);
-                $report[$key] = $view->fetch('user/IWforums_user_report.tpl');
+                $report[$key]['forum'] = $view->fetch('user/IWforums_user_report.tpl');
             }
         }    
         return $report;

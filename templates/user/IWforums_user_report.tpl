@@ -1,8 +1,4 @@
 {* Generate report pending messages per user*}
-<div>
-{gt text = "This is your daily digest of messages sent to forums"}
-</div>
-<br>
 {foreach item="forum" from=$info}
     {gt text ="Forum"} -> <a href="{modurl modname='IWforums' type='user' func='forum' fid=$forum.fid}">{$forum.nom_forum}</a><br>
     {foreach item="topic" from=$forum.topics key="ftid"}
