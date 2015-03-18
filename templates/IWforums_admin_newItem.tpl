@@ -77,6 +77,7 @@
             <input style="width:70px; display:inline" class="form-control" id="msgDelTime" name="msgDelTime" type="number" min="0" max="999" {if isset($forum.msgDelTime) && $forum.msgDelTime neq ""} value="{$forum.msgDelTime}" {else} value='15' {/if}/>
             </div>
         </div>
+        {if $modvars.IWmain.crAc_UserReports && $modvars.IWmain.crAc_UR_IWforums} {* If reports are enabled *}
         <div class="form-group">
             <label class="control-label col-xs-3"  for="subscrType">{gt text="Forum subscription type"} </label>  
                 <select class="form-control" id="subscrMode" name="subscrMode" style="width:50%">      
@@ -86,6 +87,7 @@
                   <option value="{'IWforums_Constant::COMPULSORY'|constant}" {if isset($forum.subscriptionMode) && $forum.subscriptionMode eq 'IWforums_Constant::COMPULSORY'|constant}selected{/if}>{gt text = "All users are subscribed by default but can't unsubscribe (Compulsory)"}</option> 
                 </select> 
         </div>
+        {/if}
         <div class="form-group">
             <div class="col-sm-offset-2 col-sx-10" >
             <label class="control-label" for="adjunts">
