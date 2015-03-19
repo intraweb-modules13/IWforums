@@ -1820,7 +1820,9 @@ class IWforums_Api_User extends Zikula_AbstractApi {
      * @version 3.1.0 
      * @date 09/03/2015
      */
-    public function getAllUnreadedMessages($dateTimeFrom) {
+    public function getAllUnreadedMessages($time) {
+        $dateTimeFrom = $time['dateTimeFrom'];
+        $dateTimeTo   = $time['dateTimeTo'];
         $messages = array();
         
         if (!is_null($dateTimeFrom)) {
@@ -1833,7 +1835,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             $sql  = "SELECT F.$f[fid] AS fid,  M.$m[ftid] AS ftid, M.$m[fmid] AS fmid, M.$m[titol] AS msgTitle, M.$m[usuari] AS user, M.$m[data] AS date, M.$m[llegit] AS readers, T.$t[titol] AS topic, T.$t[order], ";
             $sql .= "F.$f[nom_forum] AS forum, F.subscriptionMode, F.subscribers, F.noSubscribers, F.$f[grup] AS grup, F.$f[mod] AS moderators ";
             $sql .= "FROM `IWforums_msg` AS M, `IWforums_temes` AS T, `IWforums_definition` AS F ";        
-            $sql .= "WHERE M.$m[ftid] = T.$t[ftid] AND T.$t[fid] = F.$f[fid] AND F.$f[actiu] = 1 AND M.$m[data] >= ".$dateTimeFrom." AND F.subscriptionMode > 0 ";
+            $sql .= "WHERE M.$m[ftid] = T.$t[ftid] AND T.$t[fid] = F.$f[fid] AND F.$f[actiu] = 1 AND M.$m[data] >= ".$dateTimeFrom." AND M.$m[data] < ".$dateTimeTo." AND F.subscriptionMode > 0 ";
             $sql .= "ORDER BY F.$f[fid], T.$t[order], M.$m[data]";
             $query = DBUtil::executeSQL($sql);
             $messages = DBUtil::marshallObjects($query);
@@ -1918,7 +1920,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
             foreach ($information as $key => $userReport){
                 $view = Zikula_View::getInstance($this->name, false);  
                 $view->assign('info', $userReport);
-                $report[$key]['forum'] = $view->fetch('user/IWforums_user_report.tpl');
+                $report[$key]['IWforums'] = $view->fetch('user/IWforums_user_report.tpl');
             }
         }    
         return $report;
