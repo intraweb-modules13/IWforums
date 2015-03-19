@@ -24,9 +24,11 @@
 <div class="usercontainer">    
     <div id='forumDescription'>
         {include file="user/IWforums_user_forumDesc.tpl"}
+        {if $modvars.IWmain.crAc_UserReports && $modvars.IWmain.crAc_UR_IWforums} {* If reports are enabled *}
         <div id="fSubscription">
             {include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}
         </div>
+        {/if}
     </div>
     
     <div id="btnNewElement">
