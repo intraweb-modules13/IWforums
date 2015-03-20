@@ -1824,6 +1824,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
         $dateTimeFrom = $time['dateTimeFrom'];
         $dateTimeTo   = $time['dateTimeTo'];
         $messages = array();
+        $report   = array();
         
         if (!is_null($dateTimeFrom)) {
             $pntable = DBUtil::getTables();
@@ -1915,8 +1916,7 @@ class IWforums_Api_User extends Zikula_AbstractApi {
                         $information[$receiver][$message['fid']]['topics'][$message['ftid']]['messages'][$message['fmid']]['date'] = strtolower(DateUtil::getDatetime($message['date'], 'datetimelong', true));
                     }
                 }
-            }
-            $report = array();
+            }            
             foreach ($information as $key => $userReport){
                 $view = Zikula_View::getInstance($this->name, false);  
                 $view->assign('info', $userReport);
