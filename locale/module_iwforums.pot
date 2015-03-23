@@ -1312,3 +1312,23 @@ msgstr ""
 #: templates/IWforums_admin_addModerator.htm:17
 msgid "Choose a moderator"
 msgstr ""
+
+#: templates/IWforums_admin_newitem.tpl:85
+#: templates/IWforums_admin_main.tpl
+msgid "Users must subscribe to the forum (Voluntary)"
+msgstr ""
+
+#: templates/IWforums_admin_newitem.tpl:88
+#: templates/IWforums_admin_main.tpl
+msgid "Nobody can subscribe to this forum (No subscription)"
+msgstr ""
+
+#: templates/IWforums_admin_newitem.tpl:91
+#: templates/IWforums_admin_main.tpl
+msgid "All users are subscribed by default and may unsubscribe (Optional)"
+msgstr ""
+
+#: templates/IWforums_admin_newitem.tpl:84
+#: templates/IWforums_admin_main.tpl
+msgid "All users are subscribed by default but can't unsubscribe (Compulsory)"
+msgstr ""
