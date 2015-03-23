@@ -1,6 +1,6 @@
 IWforums module
 ============
-IWforums module 3.1.x **for Zikula 1.3.x** from [Intraweb project](https://github.com/intraweb-modules13)
+IWforums module 3.1.0 **for Zikula 1.3.x** from [Intraweb project](https://github.com/intraweb-modules13)
 
 In development!
 
@@ -8,7 +8,7 @@ In development!
 
 Install notes
 -------------
-  - You must install [IWmain module](https://github.com/intraweb-modules13/IWmain). This module has general API for IW modules. In the configuration of this module, you must specify the path of a writable folder to save data files.
+  - You must install [IWmain module](https://github.com/intraweb-modules13/IWmain). This module has general API for IW modules. In the configuration of this module, you must specify the path of a writable folder to save data files. IWmain provides also User Reports function for email sending with the news subscription from forum.
   - You can install [IWusers module](https://github.com/intraweb-modules13/IWusers) (extends user functions) and then, forum module uses its profile information (name and surname)
   - You must copy the following vendors into **vendor** folder in Zikula root path.
     - Download [Bootstrap](http://getbootstrap.com/) into *Zk_root/vendor/bootstrap/*. It's tested with Bootstrap 3.1.1
