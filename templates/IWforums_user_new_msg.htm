@@ -27,7 +27,7 @@
     {else}
     <h2><span style="font-size:0.8em" class="glyphicon glyphicon-comment"></span>&nbsp;{$name}&nbsp;<span style="font-size:0.7em" class="glyphicon glyphicon-arrow-right"></span> {gt text="Message reply"}</h2>    
     {/if}
-    <form  class="form-horizontal" role="form" method="post" id="new_msg" action="javascript:void();" enctype="multipart/form-data">
+    <form  class="form-horizontal" role="form" method="post" id="new_msg" enctype="multipart/form-data">
         {*<form  class="form-horizontal" role="form" method="post" id="new_msg" action="{modurl modname='IWforums' type='user' func='crear_msg'}" enctype="multipart/form-data">*}
         <input type="hidden" name="csrftoken" value="{insert name='csrftoken'}" />
         <input type="hidden" name="fid" value="{$fid}" />
@@ -39,7 +39,7 @@
         <div class="form-group">
             <label for="titol" class="col-xs-2 control-label">{gt text="Title of the message"}</label>
             <div class="col-xs-8" id="inputName">
-                <input type='text' class='has-error form-control' id ='titol' name='titol' maxlength="100"  onblur="checkName();" oninput="checkName();"  value="{$title}" placeholder="{gt text='Enter message title'}">
+                <input type='text' class='has-error form-control' id ='titol' name='titol' onblur="checkName();" oninput="checkName();"  value="{$title}" placeholder="{gt text='Enter message title'}">
             </div>
         </div>
         <!-- Modal icon popup -->
@@ -147,8 +147,10 @@
     jQuery('[data-toggle="modal"]').tooltip();
     
     function preSubmit(){
-        document.getElementById('new_msg').action = "javascript:validate();";
-        document.getElementById('new_msg').submit();
+        document.getElementById('new_msg').action = "javascript:validate();";        
+        document.getElementById('new_msg').submit(); 
+        if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
+            document.getElementById('new_msg').submit();        
     }
     
     function validate() {
@@ -175,6 +177,6 @@
         } else {
             alert(error);
             document.getElementById('new_msg').action = 'javascript:void();';
-        }
+        }     
     }
 </script>

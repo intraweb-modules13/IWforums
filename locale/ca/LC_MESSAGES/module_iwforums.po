@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-17 11:33+0000\n"
-"PO-Revision-Date: 2015-03-25 09:17+0100\n"
+"PO-Revision-Date: 2015-03-25 13:48+0100\n"
 "Last-Translator: Joan Guillén i Pelegay <jguille2@xtec.cat>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: catalan\n"
@@ -1221,7 +1221,7 @@ msgstr "Tothom està susbscrit"
 #: templates/ajax/IWforums_ajax_updateSubscriptionLink.tpl:7
 #: templates/ajax/IWforums_ajax_updateSubscription.tpl:10
 msgid "Cancel my subscription"
-msgstr "Cancel·la la meva subscribció"
+msgstr "Cancel·la la meva subscripció"
 
 #: templates/user/IWforums_user_new_tema.tpl:20
 msgid "Subject"

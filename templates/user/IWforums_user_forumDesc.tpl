@@ -56,7 +56,7 @@
                 <button type="button" class="btn btn-danger btn-xs" onclick="showEditForumForm()">{gt text='Cancel'}&nbsp;<span class="glyphicon glyphicon-remove"></span></button>
             </div>
         </div>   
-    </form>
+    </form>            
     <hr class="gradient">
 </div>
 {notifydisplayhooks eventname='IWforums.ui_hooks.IWforums.form_edit' id=$fid}

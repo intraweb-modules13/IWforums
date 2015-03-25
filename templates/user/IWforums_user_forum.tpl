@@ -23,12 +23,7 @@
 {/if}
 <div class="usercontainer">    
     <div id='forumDescription'>
-        {include file="user/IWforums_user_forumDesc.tpl"}
-        {if $modvars.IWmain.crAc_UserReports && $modvars.IWmain.crAc_UR_IWforums} {* If reports are enabled *}
-        <div id="fSubscription">
-            {include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}
-        </div>
-        {/if}
+        {include file="user/IWforums_user_forumDesc.tpl"}        
     </div>
     
     <div id="btnNewElement">
@@ -40,10 +35,23 @@
         </div>
     {/if}
     {if !$topicsPage}
-        <div class="z-center" style="padding-bottom: 4px;" >
-            <button type="button" class="btn btn-success" onclick="javascript:addnew_msg();">
-                <span class="glyphicon glyphicon-plus-sign" ></span>&nbsp;{gt text="Send a new message"}
-            </button>
+        <div>
+            <table width="60%">
+                <tr>
+                    <td>
+                        {if $modvars.IWmain.crAc_UserReports && $modvars.IWmain.crAc_UR_IWforums} {* If reports are enabled *}
+                            <div id="fSubscription">
+                                <span  style="float:left">{include file="ajax/IWforums_ajax_updateSubscriptionLink.tpl"}</span>
+                            </div>
+                        {/if}
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-success" onclick="javascript:addnew_msg();">
+                        <span class="glyphicon glyphicon-plus-sign" ></span>&nbsp;{gt text="Send a new message"}
+                        </button>
+                    </td>                    
+                </tr>
+            </table>
         </div>
     {/if}
     </div>
@@ -61,7 +69,7 @@
     {/if}
 
     {if $usuaris|@count gt 2}
-        <div class="col-xs-12">
+        <div style="margin-top:-45px; margin-bottom:15px">
         <form class="navbar-form navbar-right" role="filtre" name="filtre" id="filtre" method="get" action="">
             <div>
                 <input type="hidden" name="fid" value="{$fid}">
@@ -73,19 +81,22 @@
                 {else}
                     <input type="hidden" name="func" value="llista_msg">
                 {/if}
+                <div class="form-group">
                 <label for="usrList"><span class="fs1em glyphicon glyphicon-filter"></span>{gt text="Filter"}:&nbsp;</label>
                 <select class="btn btn-default dropdown-toggle" id="usrList" name="u" onChange="this.form.submit()">
                     {section name=usuaris loop=$usuaris}
                         <option {if $u eq $usuaris[usuaris].id}selected{/if} value="{$usuaris[usuaris].id}">{$usuaris[usuaris].name}</option>
                     {/section}
                 </select>
+                </div>
             </div>  
         </form> 
         </div> 
+        <br> <br>
     {/if}
-
+    
     {include file="user/IWforums_user_messages.tpl"}
-
+    
     <div style="margin-left:20px;">{$pager}</div>
 {else}
 
