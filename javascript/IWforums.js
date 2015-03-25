@@ -2,12 +2,6 @@ function failure () {
 
 }
 
-function create_msg(){
-    //alert(document.getElementById('intraweb').value);
-    if (document.getElementById('intraweb').value == '') {
-        jQuery('#intraweb').focus();
-    }
-}
 
 function enableTopicListSort(){
     if (jQuery( "#EnDisSort" ).hasClass( "disabled" )) {

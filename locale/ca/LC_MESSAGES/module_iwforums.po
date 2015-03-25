@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Zikula 1.2.x\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-03-17 11:33+0000\n"
-"PO-Revision-Date: 2015-03-23 13:44+0100\n"
+"PO-Revision-Date: 2015-03-25 09:17+0100\n"
 "Last-Translator: Joan Guillén i Pelegay <jguille2@xtec.cat>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: catalan\n"
@@ -19,11 +19,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1;\n"
 
 #: lib/IWforums/Installer.php:16
-msgid "Module IWmain is required. You have to install the IWmain module previously to install it."
-msgstr "El mòdul IWmain ha d'estar instal·lat. Instal·leu-lo per poder instal·lar aquest mòdul."
+msgid ""
+"Module IWmain is required. You have to install the IWmain module previously "
+"to install it."
+msgstr ""
+"El mòdul IWmain ha d'estar instal·lat. Instal·leu-lo per poder instal·lar "
+"aquest mòdul."
 
-#: lib/IWforums/Version.php:6
-#: lib/IWforums/Version.php:8
+#: lib/IWforums/Version.php:6 lib/IWforums/Version.php:8
 msgid "IWforums"
 msgstr "IWForums"
 
@@ -35,223 +38,135 @@ msgstr "Creació, gestió i ús de fòrums."
 msgid "IWforums Hooks"
 msgstr "IWForums Hooks"
 
-#: lib/IWforums/Api/User.php:59
-#: lib/IWforums/Api/User.php:89
-#: lib/IWforums/Api/User.php:140
-#: lib/IWforums/Api/User.php:149
-#: lib/IWforums/Api/User.php:158
-#: lib/IWforums/Api/User.php:165
-#: lib/IWforums/Api/User.php:211
-#: lib/IWforums/Api/User.php:256
-#: lib/IWforums/Api/User.php:295
-#: lib/IWforums/Api/User.php:352
-#: lib/IWforums/Api/User.php:1154
-#: lib/IWforums/Api/User.php:1480
+#: lib/IWforums/Api/User.php:59 lib/IWforums/Api/User.php:89
+#: lib/IWforums/Api/User.php:140 lib/IWforums/Api/User.php:149
+#: lib/IWforums/Api/User.php:158 lib/IWforums/Api/User.php:165
+#: lib/IWforums/Api/User.php:211 lib/IWforums/Api/User.php:256
+#: lib/IWforums/Api/User.php:295 lib/IWforums/Api/User.php:352
+#: lib/IWforums/Api/User.php:1154 lib/IWforums/Api/User.php:1480
 msgid "Error! Could not load items."
 msgstr "S'ha produït un error en carregar elements"
 
-#: lib/IWforums/Api/User.php:83
-#: lib/IWforums/Api/User.php:193
-#: lib/IWforums/Api/User.php:242
-#: lib/IWforums/Api/User.php:281
-#: lib/IWforums/Api/User.php:327
-#: lib/IWforums/Api/User.php:427
-#: lib/IWforums/Api/User.php:433
-#: lib/IWforums/Api/User.php:483
-#: lib/IWforums/Api/User.php:601
-#: lib/IWforums/Api/User.php:718
-#: lib/IWforums/Api/User.php:831
-#: lib/IWforums/Api/User.php:891
-#: lib/IWforums/Api/User.php:953
-#: lib/IWforums/Api/User.php:1014
-#: lib/IWforums/Api/User.php:1098
-#: lib/IWforums/Api/User.php:1182
-#: lib/IWforums/Api/User.php:1286
-#: lib/IWforums/Api/User.php:1344
-#: lib/IWforums/Api/User.php:1434
-#: lib/IWforums/Api/User.php:1494
-#: lib/IWforums/Api/Admin.php:21
-#: lib/IWforums/Api/Admin.php:52
-#: lib/IWforums/Api/Admin.php:89
-#: lib/IWforums/Controller/User.php:1081
-#: lib/IWforums/Controller/Admin.php:239
-#: lib/IWforums/Controller/Admin.php:304
-#: lib/IWforums/Controller/Admin.php:368
-#: lib/IWforums/Controller/Admin.php:426
+#: lib/IWforums/Api/User.php:83 lib/IWforums/Api/User.php:193
+#: lib/IWforums/Api/User.php:242 lib/IWforums/Api/User.php:281
+#: lib/IWforums/Api/User.php:327 lib/IWforums/Api/User.php:427
+#: lib/IWforums/Api/User.php:433 lib/IWforums/Api/User.php:483
+#: lib/IWforums/Api/User.php:601 lib/IWforums/Api/User.php:718
+#: lib/IWforums/Api/User.php:831 lib/IWforums/Api/User.php:891
+#: lib/IWforums/Api/User.php:953 lib/IWforums/Api/User.php:1014
+#: lib/IWforums/Api/User.php:1098 lib/IWforums/Api/User.php:1182
+#: lib/IWforums/Api/User.php:1286 lib/IWforums/Api/User.php:1344
+#: lib/IWforums/Api/User.php:1434 lib/IWforums/Api/User.php:1494
+#: lib/IWforums/Api/Admin.php:21 lib/IWforums/Api/Admin.php:52
+#: lib/IWforums/Api/Admin.php:89 lib/IWforums/Controller/User.php:1081
+#: lib/IWforums/Controller/Admin.php:239 lib/IWforums/Controller/Admin.php:304
+#: lib/IWforums/Controller/Admin.php:368 lib/IWforums/Controller/Admin.php:426
 msgid "Error! Could not do what you wanted. Please check your input."
 msgstr "No s'ha pogut carregar el que volíeu. Reviseu les dades"
 
-#: lib/IWforums/Api/User.php:199
-#: lib/IWforums/Api/User.php:248
-#: lib/IWforums/Api/User.php:287
-#: lib/IWforums/Api/User.php:332
-#: lib/IWforums/Api/User.php:447
-#: lib/IWforums/Api/User.php:489
-#: lib/IWforums/Api/User.php:525
-#: lib/IWforums/Api/User.php:563
-#: lib/IWforums/Api/User.php:606
-#: lib/IWforums/Api/User.php:849
-#: lib/IWforums/Api/User.php:854
-#: lib/IWforums/Api/User.php:896
-#: lib/IWforums/Api/User.php:901
-#: lib/IWforums/Api/User.php:958
-#: lib/IWforums/Api/User.php:963
-#: lib/IWforums/Api/User.php:1030
-#: lib/IWforums/Api/User.php:1094
-#: lib/IWforums/Api/User.php:1199
-#: lib/IWforums/Api/User.php:1204
-#: lib/IWforums/Api/User.php:1328
-#: lib/IWforums/Api/User.php:1340
-#: lib/IWforums/Api/User.php:1445
-#: lib/IWforums/Api/User.php:1504
-#: lib/IWforums/Controller/User.php:139
-#: lib/IWforums/Controller/User.php:302
-#: lib/IWforums/Controller/User.php:363
-#: lib/IWforums/Controller/User.php:429
-#: lib/IWforums/Controller/User.php:607
-#: lib/IWforums/Controller/User.php:704
-#: lib/IWforums/Controller/User.php:800
-#: lib/IWforums/Controller/User.php:995
-#: lib/IWforums/Controller/User.php:1126
-#: lib/IWforums/Controller/User.php:1195
-#: lib/IWforums/Controller/User.php:1256
-#: lib/IWforums/Controller/User.php:1290
-#: lib/IWforums/Controller/User.php:1366
-#: lib/IWforums/Controller/User.php:1383
-#: lib/IWforums/Controller/User.php:1439
-#: lib/IWforums/Controller/User.php:1460
-#: lib/IWforums/Controller/User.php:1526
-#: lib/IWforums/Controller/User.php:1611
-#: lib/IWforums/Controller/User.php:1673
-#: lib/IWforums/Controller/User.php:1727
-#: lib/IWforums/Controller/User.php:1815
-#: lib/IWforums/Controller/User.php:1868
-#: lib/IWforums/Controller/User.php:1945
-#: lib/IWforums/Controller/User.php:1964
-#: lib/IWforums/Controller/User.php:1970
-#: lib/IWforums/Controller/User.php:2100
-#: lib/IWforums/Controller/User.php:2160
-#: lib/IWforums/Controller/Ajax.php:265
-#: lib/IWforums/Controller/Ajax.php:485
+#: lib/IWforums/Api/User.php:199 lib/IWforums/Api/User.php:248
+#: lib/IWforums/Api/User.php:287 lib/IWforums/Api/User.php:332
+#: lib/IWforums/Api/User.php:447 lib/IWforums/Api/User.php:489
+#: lib/IWforums/Api/User.php:525 lib/IWforums/Api/User.php:563
+#: lib/IWforums/Api/User.php:606 lib/IWforums/Api/User.php:849
+#: lib/IWforums/Api/User.php:854 lib/IWforums/Api/User.php:896
+#: lib/IWforums/Api/User.php:901 lib/IWforums/Api/User.php:958
+#: lib/IWforums/Api/User.php:963 lib/IWforums/Api/User.php:1030
+#: lib/IWforums/Api/User.php:1094 lib/IWforums/Api/User.php:1199
+#: lib/IWforums/Api/User.php:1204 lib/IWforums/Api/User.php:1328
+#: lib/IWforums/Api/User.php:1340 lib/IWforums/Api/User.php:1445
+#: lib/IWforums/Api/User.php:1504 lib/IWforums/Controller/User.php:139
+#: lib/IWforums/Controller/User.php:302 lib/IWforums/Controller/User.php:363
+#: lib/IWforums/Controller/User.php:429 lib/IWforums/Controller/User.php:607
+#: lib/IWforums/Controller/User.php:704 lib/IWforums/Controller/User.php:800
+#: lib/IWforums/Controller/User.php:995 lib/IWforums/Controller/User.php:1126
+#: lib/IWforums/Controller/User.php:1195 lib/IWforums/Controller/User.php:1256
+#: lib/IWforums/Controller/User.php:1290 lib/IWforums/Controller/User.php:1366
+#: lib/IWforums/Controller/User.php:1383 lib/IWforums/Controller/User.php:1439
+#: lib/IWforums/Controller/User.php:1460 lib/IWforums/Controller/User.php:1526
+#: lib/IWforums/Controller/User.php:1611 lib/IWforums/Controller/User.php:1673
+#: lib/IWforums/Controller/User.php:1727 lib/IWforums/Controller/User.php:1815
+#: lib/IWforums/Controller/User.php:1868 lib/IWforums/Controller/User.php:1945
+#: lib/IWforums/Controller/User.php:1964 lib/IWforums/Controller/User.php:1970
+#: lib/IWforums/Controller/User.php:2100 lib/IWforums/Controller/User.php:2160
+#: lib/IWforums/Controller/Ajax.php:265 lib/IWforums/Controller/Ajax.php:485
 #: lib/IWforums/Controller/Ajax.php:654
 msgid "You can't access the forum"
 msgstr "No podeu accedir a aquest fòrum"
 
-#: lib/IWforums/Api/User.php:337
-#: lib/IWforums/Api/User.php:1322
-#: lib/IWforums/Api/User.php:1440
-#: lib/IWforums/Controller/User.php:79
-#: lib/IWforums/Controller/User.php:147
-#: lib/IWforums/Controller/User.php:311
-#: lib/IWforums/Controller/User.php:357
-#: lib/IWforums/Controller/User.php:617
-#: lib/IWforums/Controller/User.php:630
-#: lib/IWforums/Controller/User.php:806
-#: lib/IWforums/Controller/User.php:813
-#: lib/IWforums/Controller/User.php:857
-#: lib/IWforums/Controller/User.php:1120
-#: lib/IWforums/Controller/User.php:1207
-#: lib/IWforums/Controller/User.php:1372
-#: lib/IWforums/Controller/User.php:1445
-#: lib/IWforums/Controller/User.php:1536
-#: lib/IWforums/Controller/User.php:1679
-#: lib/IWforums/Controller/User.php:1733
-#: lib/IWforums/Controller/User.php:1745
-#: lib/IWforums/Controller/User.php:1821
-#: lib/IWforums/Controller/User.php:1874
-#: lib/IWforums/Controller/User.php:1909
-#: lib/IWforums/Controller/User.php:1951
-#: lib/IWforums/Controller/User.php:1988
-#: lib/IWforums/Controller/Ajax.php:647
+#: lib/IWforums/Api/User.php:337 lib/IWforums/Api/User.php:1322
+#: lib/IWforums/Api/User.php:1440 lib/IWforums/Controller/User.php:79
+#: lib/IWforums/Controller/User.php:147 lib/IWforums/Controller/User.php:311
+#: lib/IWforums/Controller/User.php:357 lib/IWforums/Controller/User.php:617
+#: lib/IWforums/Controller/User.php:630 lib/IWforums/Controller/User.php:806
+#: lib/IWforums/Controller/User.php:813 lib/IWforums/Controller/User.php:857
+#: lib/IWforums/Controller/User.php:1120 lib/IWforums/Controller/User.php:1207
+#: lib/IWforums/Controller/User.php:1372 lib/IWforums/Controller/User.php:1445
+#: lib/IWforums/Controller/User.php:1536 lib/IWforums/Controller/User.php:1679
+#: lib/IWforums/Controller/User.php:1733 lib/IWforums/Controller/User.php:1745
+#: lib/IWforums/Controller/User.php:1821 lib/IWforums/Controller/User.php:1874
+#: lib/IWforums/Controller/User.php:1909 lib/IWforums/Controller/User.php:1951
+#: lib/IWforums/Controller/User.php:1988 lib/IWforums/Controller/Ajax.php:647
 msgid "The forum upon which the ation had to be carried out hasn't been found"
 msgstr "No s'ha trobat el fòrum sobre el qual fer l'acció sol·licitada"
 
-#: lib/IWforums/Api/User.php:454
-#: lib/IWforums/Api/User.php:1243
-#: lib/IWforums/Api/User.php:1382
-#: lib/IWforums/Api/User.php:1412
+#: lib/IWforums/Api/User.php:454 lib/IWforums/Api/User.php:1243
+#: lib/IWforums/Api/User.php:1382 lib/IWforums/Api/User.php:1412
 msgid "An error has occurred while reading records from the data base"
 msgstr "S'ha produït un error en la consulta de les taules a la base de dades."
 
-#: lib/IWforums/Api/User.php:499
-#: lib/IWforums/Api/User.php:986
-#: lib/IWforums/Api/User.php:1119
-#: lib/IWforums/Api/Admin.php:25
+#: lib/IWforums/Api/User.php:499 lib/IWforums/Api/User.php:986
+#: lib/IWforums/Api/User.php:1119 lib/IWforums/Api/Admin.php:25
 msgid "Error! Creation attempt failed."
 msgstr "L'intent de creació ha fallat"
 
-#: lib/IWforums/Api/User.php:538
-#: lib/IWforums/Api/User.php:577
-#: lib/IWforums/Api/User.php:1127
-#: lib/IWforums/Api/User.php:1162
-#: lib/IWforums/Api/User.php:1359
-#: lib/IWforums/Api/User.php:1454
-#: lib/IWforums/Api/Admin.php:67
-#: lib/IWforums/Api/Admin.php:151
+#: lib/IWforums/Api/User.php:538 lib/IWforums/Api/User.php:577
+#: lib/IWforums/Api/User.php:1127 lib/IWforums/Api/User.php:1162
+#: lib/IWforums/Api/User.php:1359 lib/IWforums/Api/User.php:1454
+#: lib/IWforums/Api/Admin.php:67 lib/IWforums/Api/Admin.php:151
 msgid "Error! Update attempt failed."
 msgstr "No s'ha pogut actualitzar"
 
 #: lib/IWforums/Api/User.php:729
 msgid "The modification of the users who have read the message has failed"
-msgstr "La modificació dels usuaris i usuàries que han llegit el missatge ha fallat."
+msgstr ""
+"La modificació dels usuaris i usuàries que han llegit el missatge ha fallat."
 
-#: lib/IWforums/Api/User.php:769
-#: lib/IWforums/Controller/User.php:183
-#: lib/IWforums/Controller/User.php:477
-#: lib/IWforums/Controller/User.php:867
-#: lib/IWforums/Controller/User.php:906
-#: lib/IWforums/Controller/Ajax.php:510
+#: lib/IWforums/Api/User.php:769 lib/IWforums/Controller/User.php:183
+#: lib/IWforums/Controller/User.php:477 lib/IWforums/Controller/User.php:867
+#: lib/IWforums/Controller/User.php:906 lib/IWforums/Controller/Ajax.php:510
 msgid "Check the message"
 msgstr "Marca el missatge"
 
-#: lib/IWforums/Api/User.php:773
-#: lib/IWforums/Controller/User.php:183
-#: lib/IWforums/Controller/User.php:481
-#: lib/IWforums/Controller/User.php:867
-#: lib/IWforums/Controller/User.php:906
-#: lib/IWforums/Controller/Ajax.php:510
+#: lib/IWforums/Api/User.php:773 lib/IWforums/Controller/User.php:183
+#: lib/IWforums/Controller/User.php:481 lib/IWforums/Controller/User.php:867
+#: lib/IWforums/Controller/User.php:906 lib/IWforums/Controller/Ajax.php:510
 msgid "Uncheck the message"
 msgstr "Desmarca el missatge"
 
-#: lib/IWforums/Api/User.php:837
-#: lib/IWforums/Api/User.php:968
-#: lib/IWforums/Api/User.php:1021
-#: lib/IWforums/Api/User.php:1188
-#: lib/IWforums/Api/User.php:1335
-#: lib/IWforums/Api/User.php:1499
-#: lib/IWforums/Api/User.php:1550
-#: lib/IWforums/Controller/User.php:1132
-#: lib/IWforums/Controller/User.php:1201
-#: lib/IWforums/Controller/User.php:1268
-#: lib/IWforums/Controller/User.php:1281
-#: lib/IWforums/Controller/User.php:1378
-#: lib/IWforums/Controller/User.php:1456
-#: lib/IWforums/Controller/User.php:1542
-#: lib/IWforums/Controller/User.php:1550
-#: lib/IWforums/Controller/User.php:1827
-#: lib/IWforums/Controller/User.php:1880
-#: lib/IWforums/Controller/User.php:1958
-#: lib/IWforums/Controller/User.php:2107
-#: lib/IWforums/Controller/Ajax.php:492
+#: lib/IWforums/Api/User.php:837 lib/IWforums/Api/User.php:968
+#: lib/IWforums/Api/User.php:1021 lib/IWforums/Api/User.php:1188
+#: lib/IWforums/Api/User.php:1335 lib/IWforums/Api/User.php:1499
+#: lib/IWforums/Api/User.php:1550 lib/IWforums/Controller/User.php:1132
+#: lib/IWforums/Controller/User.php:1201 lib/IWforums/Controller/User.php:1268
+#: lib/IWforums/Controller/User.php:1281 lib/IWforums/Controller/User.php:1378
+#: lib/IWforums/Controller/User.php:1456 lib/IWforums/Controller/User.php:1542
+#: lib/IWforums/Controller/User.php:1550 lib/IWforums/Controller/User.php:1827
+#: lib/IWforums/Controller/User.php:1880 lib/IWforums/Controller/User.php:1958
+#: lib/IWforums/Controller/User.php:2107 lib/IWforums/Controller/Ajax.php:492
 #: lib/IWforums/Controller/Ajax.php:661
 msgid "No messages have been found"
 msgstr "No s'ha trobat el missatge."
 
-#: lib/IWforums/Api/User.php:842
-#: lib/IWforums/Api/User.php:1193
-#: lib/IWforums/Controller/User.php:440
-#: lib/IWforums/Controller/User.php:711
-#: lib/IWforums/Controller/User.php:1001
-#: lib/IWforums/Controller/User.php:1008
-#: lib/IWforums/Controller/User.php:1262
-#: lib/IWforums/Controller/Ajax.php:478
+#: lib/IWforums/Api/User.php:842 lib/IWforums/Api/User.php:1193
+#: lib/IWforums/Controller/User.php:440 lib/IWforums/Controller/User.php:711
+#: lib/IWforums/Controller/User.php:1001 lib/IWforums/Controller/User.php:1008
+#: lib/IWforums/Controller/User.php:1262 lib/IWforums/Controller/Ajax.php:478
 msgid "The forum upon which the action had to be carried out hasn't been found"
 msgstr "No s'ha trobat el fòrum sobre el qual fer l'acció sol·licitada"
 
-#: lib/IWforums/Api/User.php:858
-#: lib/IWforums/Api/Admin.php:108
-#: lib/IWforums/Api/Admin.php:115
-#: lib/IWforums/Api/Admin.php:120
+#: lib/IWforums/Api/User.php:858 lib/IWforums/Api/Admin.php:108
+#: lib/IWforums/Api/Admin.php:115 lib/IWforums/Api/Admin.php:120
 msgid "Error! Sorry! Deletion attempt failed."
 msgstr "L'intent d'esborrament ha fallat"
 
@@ -259,13 +174,11 @@ msgstr "L'intent d'esborrament ha fallat"
 msgid "The empty topic has been deleted."
 msgstr "S'ha esborrat el tema buit."
 
-#: lib/IWforums/Api/User.php:911
-#: lib/IWforums/Api/User.php:927
+#: lib/IWforums/Api/User.php:911 lib/IWforums/Api/User.php:927
 msgid "The transfer of the message has failed"
 msgstr "El desplaçament del missatge ha fallat."
 
-#: lib/IWforums/Api/User.php:1054
-#: lib/IWforums/Api/User.php:1058
+#: lib/IWforums/Api/User.php:1054 lib/IWforums/Api/User.php:1058
 msgid "An error has occurred while deleting the message"
 msgstr "S'ha produït un error en esborrar el missatge."
 
@@ -281,8 +194,7 @@ msgstr "S'ha produït un error en el marcatge/desmarcatge d'un missatge"
 msgid "An error has occurred while setting a message as main message."
 msgstr "S'ha produït un error en marcar el missatge com a principal."
 
-#: lib/IWforums/Api/User.php:1556
-#: templates/IWforums_user_openMsg.htm:34
+#: lib/IWforums/Api/User.php:1556 templates/IWforums_user_openMsg.htm:34
 #: templates/user/IWforums_user_messages.tpl:70
 msgid "Reply to the message"
 msgstr "Respon el missatge"
@@ -291,13 +203,11 @@ msgstr "Respon el missatge"
 msgid "Who has read the message?"
 msgstr "Qui ha llegit el missatge?"
 
-#: lib/IWforums/Api/User.php:1563
-#: templates/user/IWforums_user_forum.tpl:36
+#: lib/IWforums/Api/User.php:1563 templates/user/IWforums_user_forum.tpl:36
 msgid "Create a new topic"
 msgstr "Crea un tema nou"
 
-#: lib/IWforums/Api/User.php:1566
-#: templates/user/IWforums_user_forum.tpl:43
+#: lib/IWforums/Api/User.php:1566 templates/user/IWforums_user_forum.tpl:43
 msgid "Send a new message"
 msgstr "Envia un missatge nou"
 
@@ -317,8 +227,7 @@ msgstr "Torna a la llista de missatges"
 msgid "Return to the message"
 msgstr "Torna al missatge"
 
-#: lib/IWforums/Api/User.php:1582
-#: lib/IWforums/Api/User.php:1584
+#: lib/IWforums/Api/User.php:1582 lib/IWforums/Api/User.php:1584
 msgid "Check all messages as read"
 msgstr "Marca com a llegits tots els missatges"
 
@@ -340,7 +249,9 @@ msgstr "Voluntària"
 
 #: lib/IWforums/Api/User.php:1730
 msgid "Users must subscribe to this forum and may unsubscribe"
-msgstr "Els usuaris/àries s'han de subscriure a aquest fòrum i poden cancel·lar la subscripció"
+msgstr ""
+"Els usuaris/àries s'han de subscriure a aquest fòrum i poden cancel·lar la "
+"subscripció"
 
 #: lib/IWforums/Api/User.php:1733
 msgid "Optional"
@@ -348,7 +259,9 @@ msgstr "Opcional"
 
 #: lib/IWforums/Api/User.php:1734
 msgid "All users are subscribed by default and may unsubscribe"
-msgstr "Tots els usuaris/àries estan subscrits per defecte i poden cancel·lar la subscripció"
+msgstr ""
+"Tots els usuaris/àries estan subscrits per defecte i poden cancel·lar la "
+"subscripció"
 
 #: lib/IWforums/Api/User.php:1737
 msgid "Compulsory"
@@ -356,15 +269,14 @@ msgstr "Obligatòria"
 
 #: lib/IWforums/Api/User.php:1738
 msgid "All users are subscribed and can't unsubscribe"
-msgstr "Tots els usuaris/àries estan subscrits i no poden cancel·lar la subscripció"
+msgstr ""
+"Tots els usuaris/àries estan subscrits i no poden cancel·lar la subscripció"
 
-#: lib/IWforums/Api/Admin.php:59
-#: lib/IWforums/Api/Admin.php:96
+#: lib/IWforums/Api/Admin.php:59 lib/IWforums/Api/Admin.php:96
 msgid "No valid forum"
 msgstr "Fòrum no "
 
-#: lib/IWforums/Api/Admin.php:129
-#: templates/IWforums_admin_newItem.tpl:32
+#: lib/IWforums/Api/Admin.php:129 templates/IWforums_admin_newItem.tpl:32
 msgid "Create a new forum"
 msgstr "Crea un fòrum nou"
 
@@ -372,13 +284,11 @@ msgstr "Crea un fòrum nou"
 msgid "View the created forums"
 msgstr "Mostra els fòrums creats"
 
-#: lib/IWforums/Api/Admin.php:131
-#: templates/IWforums_admin_configura.htm:4
+#: lib/IWforums/Api/Admin.php:131 templates/IWforums_admin_configura.htm:4
 msgid "Configure the module"
 msgstr "Configura el mòdul"
 
-#: lib/IWforums/Controller/User.php:239
-#: lib/IWforums/Controller/User.php:537
+#: lib/IWforums/Controller/User.php:239 lib/IWforums/Controller/User.php:537
 msgid "Choose the sender..."
 msgstr "Tots els remitents"
 
@@ -386,8 +296,7 @@ msgstr "Tots els remitents"
 msgid "A new topic has been created."
 msgstr "S'ha creat un tema nou."
 
-#: lib/IWforums/Controller/User.php:375
-#: lib/IWforums/Controller/User.php:754
+#: lib/IWforums/Controller/User.php:375 lib/IWforums/Controller/User.php:754
 #: lib/IWforums/Controller/User.php:757
 msgid "During the next "
 msgstr "Durant els propers"
@@ -400,13 +309,15 @@ msgstr " minuts pot esborrar el tema."
 msgid "An error has occurred while creating a new topic"
 msgstr "S'ha produït un error en la creació d'un tema nou."
 
-#: lib/IWforums/Controller/User.php:391
-#: lib/IWforums/Controller/User.php:725
-msgid "An error has occurred in the attachment of the file. The message has been sent without the attached file."
-msgstr "S'ha produït un error en pujar el fitxer al servidor. El missatge s'ha enviat sense el fitxer adjunt."
+#: lib/IWforums/Controller/User.php:391 lib/IWforums/Controller/User.php:725
+msgid ""
+"An error has occurred in the attachment of the file. The message has been "
+"sent without the attached file."
+msgstr ""
+"S'ha produït un error en pujar el fitxer al servidor. El missatge s'ha "
+"enviat sense el fitxer adjunt."
 
-#: lib/IWforums/Controller/User.php:405
-#: lib/IWforums/Controller/User.php:761
+#: lib/IWforums/Controller/User.php:405 lib/IWforums/Controller/User.php:761
 msgid "An error has occurred while creating a new message"
 msgstr "S'ha produït un error en la creació d'un missatge nou."
 
@@ -427,8 +338,12 @@ msgid "You are not allowed to do this action"
 msgstr "No estàs autoritzat a fer aquesta acció"
 
 #: lib/IWforums/Controller/User.php:1295
-msgid "The message can not be deleted because have answers. You can move the answers to an other theme or forum."
-msgstr "El missatge no es pot esborrar perquè té respostes. Podràs esborrar el missatge si mous les respostes a un altre fòrum o a un altre tema"
+msgid ""
+"The message can not be deleted because have answers. You can move the "
+"answers to an other theme or forum."
+msgstr ""
+"El missatge no es pot esborrar perquè té respostes. Podràs esborrar el "
+"missatge si mous les respostes a un altre fòrum o a un altre tema"
 
 #: lib/IWforums/Controller/User.php:1321
 msgid "The message has been deleted."
@@ -447,8 +362,11 @@ msgid "Error trying to edit the message"
 msgstr "S'ha produit un error en intentar editar el missatge"
 
 #: lib/IWforums/Controller/User.php:1619
-msgid "No action done because the source and destiny forum and topic are the same"
-msgstr "No s'ha realitzat cap acció perquè el fòrum i el tema origen i destí són coincidents"
+msgid ""
+"No action done because the source and destiny forum and topic are the same"
+msgstr ""
+"No s'ha realitzat cap acció perquè el fòrum i el tema origen i destí són "
+"coincidents"
 
 #: lib/IWforums/Controller/User.php:1628
 msgid "The message has been copied to the new destiny."
@@ -478,36 +396,27 @@ msgstr "S'ha marcat el missatge com a no principal."
 msgid "The message has been set as main message."
 msgstr "S'ha marcat el missatge com a principal."
 
-#: lib/IWforums/Controller/User.php:2148
-#: lib/IWforums/Controller/Ajax.php:297
-#: lib/IWforums/Controller/Ajax.php:320
-#: lib/IWforums/Controller/Ajax.php:370
+#: lib/IWforums/Controller/User.php:2148 lib/IWforums/Controller/Ajax.php:297
+#: lib/IWforums/Controller/Ajax.php:320 lib/IWforums/Controller/Ajax.php:370
 #: lib/IWforums/Controller/Ajax.php:411
 msgid "No forum id"
 msgstr "No s'indica cap fòrum"
 
-#: lib/IWforums/Controller/User.php:2153
-#: lib/IWforums/Controller/Ajax.php:301
+#: lib/IWforums/Controller/User.php:2153 lib/IWforums/Controller/Ajax.php:301
 #: lib/IWforums/Controller/Ajax.php:374
 msgid "No topic id"
 msgstr "No s'indica cap tema"
 
-#: lib/IWforums/Controller/Admin.php:53
-#: lib/IWforums/Controller/Admin.php:292
+#: lib/IWforums/Controller/Admin.php:53 lib/IWforums/Controller/Admin.php:292
 #: templates/IWforums_admin_addGroup.htm:13
 msgid "Unregistered"
 msgstr "No registrats"
 
-#: lib/IWforums/Controller/Admin.php:116
-#: lib/IWforums/Controller/Admin.php:221
-#: lib/IWforums/Controller/Admin.php:280
-#: lib/IWforums/Controller/Admin.php:340
-#: lib/IWforums/Controller/Admin.php:406
-#: lib/IWforums/Controller/Admin.php:460
-#: lib/IWforums/Controller/Admin.php:558
-#: lib/IWforums/Controller/Ajax.php:188
-#: lib/IWforums/Controller/Ajax.php:233
-#: lib/IWforums/Controller/Ajax.php:557
+#: lib/IWforums/Controller/Admin.php:116 lib/IWforums/Controller/Admin.php:221
+#: lib/IWforums/Controller/Admin.php:280 lib/IWforums/Controller/Admin.php:340
+#: lib/IWforums/Controller/Admin.php:406 lib/IWforums/Controller/Admin.php:460
+#: lib/IWforums/Controller/Admin.php:558 lib/IWforums/Controller/Ajax.php:188
+#: lib/IWforums/Controller/Ajax.php:233 lib/IWforums/Controller/Ajax.php:557
 #: lib/IWforums/Controller/Ajax.php:600
 msgid "Forum not found"
 msgstr "Fòrum no trobat"
@@ -545,44 +454,35 @@ msgstr "S'ha esborrat el fòrum."
 msgid "The configuration of the module has been modified"
 msgstr "S'ha modificat la configuració del mòdul"
 
-#: lib/IWforums/Controller/Ajax.php:11
-#: lib/IWforums/Controller/Ajax.php:106
-#: lib/IWforums/Controller/Ajax.php:147
-#: lib/IWforums/Controller/Ajax.php:171
-#: lib/IWforums/Controller/Ajax.php:219
-#: lib/IWforums/Controller/Ajax.php:256
-#: lib/IWforums/Controller/Ajax.php:292
-#: lib/IWforums/Controller/Ajax.php:315
-#: lib/IWforums/Controller/Ajax.php:365
-#: lib/IWforums/Controller/Ajax.php:407
-#: lib/IWforums/Controller/Ajax.php:427
-#: lib/IWforums/Controller/Ajax.php:457
-#: lib/IWforums/Controller/Ajax.php:540
-#: lib/IWforums/Controller/Ajax.php:583
+#: lib/IWforums/Controller/Ajax.php:11 lib/IWforums/Controller/Ajax.php:106
+#: lib/IWforums/Controller/Ajax.php:147 lib/IWforums/Controller/Ajax.php:171
+#: lib/IWforums/Controller/Ajax.php:219 lib/IWforums/Controller/Ajax.php:256
+#: lib/IWforums/Controller/Ajax.php:292 lib/IWforums/Controller/Ajax.php:315
+#: lib/IWforums/Controller/Ajax.php:365 lib/IWforums/Controller/Ajax.php:407
+#: lib/IWforums/Controller/Ajax.php:427 lib/IWforums/Controller/Ajax.php:457
+#: lib/IWforums/Controller/Ajax.php:540 lib/IWforums/Controller/Ajax.php:583
 #: lib/IWforums/Controller/Ajax.php:626
 msgid "Sorry! No authorization to access this module."
 msgstr "No teniu autorització per accedir a aquest mòdul"
 
-#: lib/IWforums/Controller/Ajax.php:16
-#: lib/IWforums/Controller/Ajax.php:550
+#: lib/IWforums/Controller/Ajax.php:16 lib/IWforums/Controller/Ajax.php:550
 msgid "no group id"
 msgstr "No s'ha identificat cap grup"
 
 #: lib/IWforums/Controller/Ajax.php:28
 msgid "unable to get group members or group is empty for gid="
-msgstr "No s'han pogut obtenir els membres del grup o bé el grup indicat està buit. gid="
+msgstr ""
+"No s'han pogut obtenir els membres del grup o bé el grup indicat està buit. "
+"gid="
 
 #: lib/IWforums/Controller/Ajax.php:160
 #: templates/ajax/IWforums_ajax_attachment.tpl:7
 msgid "Browse..."
 msgstr "Navega..."
 
-#: lib/IWforums/Controller/Ajax.php:176
-#: lib/IWforums/Controller/Ajax.php:215
-#: lib/IWforums/Controller/Ajax.php:432
-#: lib/IWforums/Controller/Ajax.php:466
-#: lib/IWforums/Controller/Ajax.php:545
-#: lib/IWforums/Controller/Ajax.php:588
+#: lib/IWforums/Controller/Ajax.php:176 lib/IWforums/Controller/Ajax.php:215
+#: lib/IWforums/Controller/Ajax.php:432 lib/IWforums/Controller/Ajax.php:466
+#: lib/IWforums/Controller/Ajax.php:545 lib/IWforums/Controller/Ajax.php:588
 #: lib/IWforums/Controller/Ajax.php:630
 msgid "no forum id"
 msgstr "no s'ha identificat cap fòrum"
@@ -603,8 +503,7 @@ msgstr "No teniu autorització per editar aquest fòrum."
 msgid "No topic title"
 msgstr "No hi ha títol del tema"
 
-#: lib/IWforums/Controller/Ajax.php:471
-#: lib/IWforums/Controller/Ajax.php:635
+#: lib/IWforums/Controller/Ajax.php:471 lib/IWforums/Controller/Ajax.php:635
 msgid "no message id"
 msgstr "Falta identificador del missatge"
 
@@ -622,10 +521,8 @@ msgid "Confirm the deletion of the forum"
 msgstr "Confirma l'esborrament del fòrum."
 
 #: templates/IWforums_admin_delete.htm:13
-#: templates/IWforums_admin_delete.htm:14
-#: templates/IWforums_admin_main.tpl:46
-#: templates/IWforums_admin_main.tpl:61
-#: templates/IWforums_admin_main.tpl:84
+#: templates/IWforums_admin_delete.htm:14 templates/IWforums_admin_main.tpl:46
+#: templates/IWforums_admin_main.tpl:61 templates/IWforums_admin_main.tpl:84
 #: templates/IWforums_admin_deleteModerator.htm:16
 #: templates/IWforums_admin_deleteModerator.htm:17
 msgid "Delete"
@@ -670,8 +567,7 @@ msgstr "Cancel·la l'esborrament"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: templates/IWforums_user_forum.htm:9
-#: templates/IWforums_user_new_msg.htm:14
+#: templates/IWforums_user_forum.htm:9 templates/IWforums_user_new_msg.htm:14
 #: templates/IWforums_user_edit_msg.htm:14
 #: templates/user/IWforums_user_moveMessage.tpl:18
 #: templates/user/IWforums_user_topicsList.tpl:10
@@ -684,13 +580,11 @@ msgstr "Llista de temes"
 msgid "topic created by:"
 msgstr "Tema iniciat per"
 
-#: templates/IWforums_user_forum.htm:50
-#: templates/IWforums_user_forum.htm:64
+#: templates/IWforums_user_forum.htm:50 templates/IWforums_user_forum.htm:64
 msgid "on"
 msgstr "el"
 
-#: templates/IWforums_user_forum.htm:50
-#: templates/IWforums_user_forum.htm:64
+#: templates/IWforums_user_forum.htm:50 templates/IWforums_user_forum.htm:64
 #: templates/user/IWforums_user_topicInfo.tpl:32
 #: templates/user/IWforums_user_topicInfo.tpl:57
 msgid "at"
@@ -713,23 +607,19 @@ msgstr "Darrera intervenció per"
 msgid "Delete the topic"
 msgstr "Esborra el tema"
 
-#: templates/IWforums_user_forum.htm:72
-#: templates/IWforums_user_del_tema.htm:4
+#: templates/IWforums_user_forum.htm:72 templates/IWforums_user_del_tema.htm:4
 msgid "Topic and messages deletion"
 msgstr "Esborrament del tema i els seus misssatges"
 
-#: templates/IWforums_user_forum.htm:76
-#: templates/IWforums_user_forum.htm:77
+#: templates/IWforums_user_forum.htm:76 templates/IWforums_user_forum.htm:77
 msgid "Up"
 msgstr "Puja"
 
-#: templates/IWforums_user_forum.htm:81
-#: templates/IWforums_user_forum.htm:82
+#: templates/IWforums_user_forum.htm:81 templates/IWforums_user_forum.htm:82
 msgid "Down"
 msgstr "Baixa"
 
-#: templates/IWforums_user_forum.htm:99
-#: templates/IWforums_user_forum.htm:101
+#: templates/IWforums_user_forum.htm:99 templates/IWforums_user_forum.htm:101
 msgid "List of messages"
 msgstr "Llista de missatges"
 
@@ -737,22 +627,19 @@ msgstr "Llista de missatges"
 msgid "All the messages of the list"
 msgstr "Obre tots els missatges de la llista"
 
-#: templates/IWforums_user_forum.htm:144
-#: templates/IWforums_user_msg.htm:69
+#: templates/IWforums_user_forum.htm:144 templates/IWforums_user_msg.htm:69
 #: templates/ajax/IWforums_ajax_editTopic.tpl:8
 msgid "Title"
 msgstr "Títol"
 
-#: templates/IWforums_user_forum.htm:145
-#: templates/IWforums_user_msg.htm:70
+#: templates/IWforums_user_forum.htm:145 templates/IWforums_user_msg.htm:70
 msgid "Sender"
 msgstr "Remitent"
 
 #: templates/IWforums_user_forum.htm:146
 #: templates/IWforums_user_del_msg.htm:20
 #: templates/IWforums_user_printallmsg.htm:20
-#: templates/IWforums_user_msg.htm:33
-#: templates/IWforums_user_msg.htm:71
+#: templates/IWforums_user_msg.htm:33 templates/IWforums_user_msg.htm:71
 #: templates/IWforums_user_allmsg.htm:18
 #: templates/IWforums_user_move_msg.htm:32
 msgid "Date"
@@ -761,8 +648,7 @@ msgstr "Data"
 #: templates/IWforums_user_forum.htm:147
 #: templates/IWforums_user_del_msg.htm:25
 #: templates/IWforums_user_printallmsg.htm:25
-#: templates/IWforums_user_msg.htm:36
-#: templates/IWforums_user_msg.htm:72
+#: templates/IWforums_user_msg.htm:36 templates/IWforums_user_msg.htm:72
 #: templates/IWforums_user_allmsg.htm:21
 #: templates/IWforums_user_move_msg.htm:37
 msgid "Time"
@@ -776,24 +662,20 @@ msgstr "Accions"
 msgid "Main message"
 msgstr "Missatge principal"
 
-#: templates/IWforums_user_forum.htm:203
-#: templates/IWforums_user_forum.htm:204
+#: templates/IWforums_user_forum.htm:203 templates/IWforums_user_forum.htm:204
 #: templates/IWforums_user_del_msg.htm:4
 #: templates/user/IWforums_user_messages.tpl:96
 msgid "Delete the message"
 msgstr "Esborra el missatge"
 
-#: templates/IWforums_user_forum.htm:208
-#: templates/IWforums_user_forum.htm:209
+#: templates/IWforums_user_forum.htm:208 templates/IWforums_user_forum.htm:209
 #: templates/IWforums_user_edit_msg.htm:22
 #: templates/user/IWforums_user_messages.tpl:75
 msgid "Edit the message"
 msgstr "Edita el missatge"
 
-#: templates/IWforums_user_forum.htm:213
-#: templates/IWforums_user_forum.htm:214
-#: templates/IWforums_user_forum.htm:219
-#: templates/IWforums_user_forum.htm:221
+#: templates/IWforums_user_forum.htm:213 templates/IWforums_user_forum.htm:214
+#: templates/IWforums_user_forum.htm:219 templates/IWforums_user_forum.htm:221
 #: templates/IWforums_user_forum.htm:225
 #: templates/IWforums_user_openMsg.htm:33
 #: templates/user/IWforums_user_moveMessage.tpl:20
@@ -803,16 +685,14 @@ msgstr "Edita el missatge"
 msgid "Move the message"
 msgstr "Mou el missatge"
 
-#: templates/IWforums_user_forum.htm:217
-#: templates/IWforums_user_forum.htm:221
+#: templates/IWforums_user_forum.htm:217 templates/IWforums_user_forum.htm:221
 #: templates/IWforums_user_new_msg.htm:76
 #: templates/IWforums_user_edit_msg.htm:69
 #: templates/user/IWforums_user_messages.tpl:83
 msgid "Set as main message"
 msgstr "Marca com a principal"
 
-#: templates/IWforums_user_forum.htm:217
-#: templates/IWforums_user_forum.htm:219
+#: templates/IWforums_user_forum.htm:217 templates/IWforums_user_forum.htm:219
 #: templates/user/IWforums_user_messages.tpl:83
 msgid "Set as not main message"
 msgstr "Marca com a no principal"
@@ -890,7 +770,8 @@ msgstr "Inici del directori de fitxers"
 
 #: templates/IWforums_admin_configura.htm:15
 msgid "Server folder where will be save the attached files"
-msgstr "Directori del servidor on s'emmagatzemen els fitxers adjunts a les notes"
+msgstr ""
+"Directori del servidor on s'emmagatzemen els fitxers adjunts a les notes"
 
 #: templates/IWforums_admin_configura.htm:19
 msgid "The attached files folder have not been found."
@@ -902,7 +783,9 @@ msgstr "Aquest directori ha de tenir permisos d'escriptura."
 
 #: templates/IWforums_admin_configura.htm:29
 msgid "The unregistered users can view messages writers avatars"
-msgstr "Els usuaris no registrats poden veure els avatars del remitents dels missatges"
+msgstr ""
+"Els usuaris no registrats poden veure els avatars del remitents dels "
+"missatges"
 
 #: templates/IWforums_admin_configura.htm:33
 msgid "Smilies active"
@@ -1006,8 +889,10 @@ msgstr "Falta el text del missatge."
 #: templates/IWforums_user_new_msg.htm:169
 #: templates/IWforums_user_edit_msg.htm:148
 #: templates/IWforums_user_new_tema.htm:17
-msgid "The extension of the attached file isn't correct. The valid extensions are: "
-msgstr "L'extensió del fitxer adjunt no és admesa. Les extensions possibles són: "
+msgid ""
+"The extension of the attached file isn't correct. The valid extensions are: "
+msgstr ""
+"L'extensió del fitxer adjunt no és admesa. Les extensions possibles són: "
 
 #: templates/IWforums_user_edit_msg.htm:16
 #: templates/IWforums_admin_main.tpl:80
@@ -1029,8 +914,7 @@ msgstr "Cancel·la"
 
 #: templates/IWforums_user_del_msg.htm:14
 #: templates/IWforums_user_printallmsg.htm:14
-#: templates/IWforums_user_msg.htm:29
-#: templates/IWforums_user_allmsg.htm:14
+#: templates/IWforums_user_msg.htm:29 templates/IWforums_user_allmsg.htm:14
 #: templates/IWforums_user_move_msg.htm:26
 msgid "From: "
 msgstr "De: "
@@ -1042,8 +926,7 @@ msgstr "Confirma l'esborrament del missatge"
 
 #: templates/IWforums_user_openMsg.htm:15
 #: templates/IWforums_user_printallmsg.htm:32
-#: templates/IWforums_user_new_tema.htm:60
-#: templates/IWforums_user_msg.htm:40
+#: templates/IWforums_user_new_tema.htm:60 templates/IWforums_user_msg.htm:40
 #: templates/user/IWforums_user_moveMessage.tpl:84
 #: templates/user/IWforums_user_messages.tpl:59
 #: templates/ajax/IWforums_ajax_attachment.tpl:4
@@ -1068,26 +951,22 @@ msgid "Access type"
 msgstr "Tipus d'accés"
 
 #: templates/IWforums_admin_addGroup.htm:27
-#: templates/IWforums_admin_main.tpl:43
-#: templates/IWforums_user_main.tpl:63
+#: templates/IWforums_admin_main.tpl:43 templates/IWforums_user_main.tpl:63
 msgid "Read only"
 msgstr "Només lectura"
 
 #: templates/IWforums_admin_addGroup.htm:28
-#: templates/IWforums_admin_main.tpl:37
-#: templates/IWforums_user_main.tpl:61
+#: templates/IWforums_admin_main.tpl:37 templates/IWforums_user_main.tpl:61
 msgid "Read and write"
 msgstr "Lectura i escriptura"
 
 #: templates/IWforums_admin_addGroup.htm:29
-#: templates/IWforums_admin_main.tpl:39
-#: templates/IWforums_user_main.tpl:59
+#: templates/IWforums_admin_main.tpl:39 templates/IWforums_user_main.tpl:59
 msgid "Read, write and topics creation"
 msgstr "Lectura, escriptura i creació de temes"
 
 #: templates/IWforums_admin_addGroup.htm:30
-#: templates/IWforums_admin_main.tpl:41
-#: templates/IWforums_user_main.tpl:57
+#: templates/IWforums_admin_main.tpl:41 templates/IWforums_user_main.tpl:57
 msgid "Moderation"
 msgstr "Moderació"
 
@@ -1127,8 +1006,7 @@ msgstr "Primer missatge del tema (opcional)"
 
 #: templates/IWforums_admin_main.tpl:14
 #: templates/user/IWforums_user_forumDesc.tpl:29
-#: templates/IWforums_admin_newItem.tpl:42
-#: templates/IWforums_user_main.tpl:19
+#: templates/IWforums_admin_newItem.tpl:42 templates/IWforums_user_main.tpl:19
 msgid "Forum name"
 msgstr "Nom del fòrum"
 
@@ -1159,8 +1037,7 @@ msgstr "Afegeix un moderador"
 msgid "Duplicate"
 msgstr "Duplicació"
 
-#: templates/IWforums_admin_main.tpl:91
-#: templates/IWforums_user_main.tpl:107
+#: templates/IWforums_admin_main.tpl:91 templates/IWforums_user_main.tpl:107
 msgid "There are no forum created"
 msgstr "No hi ha cap fòrum definit"
 
@@ -1268,7 +1145,7 @@ msgstr "No llegits"
 
 #: templates/user/IWforums_user_topicsList.tpl:22
 msgid "Last post"
-msgstr "Darrera missatge"
+msgstr "Darrer missatge"
 
 #: templates/user/IWforums_user_topicsList.tpl:27
 msgid "Enable topics list reorder"
@@ -1372,12 +1249,20 @@ msgid "Edit forum"
 msgstr "Edita el fòrum"
 
 #: templates/IWforums_admin_newItem.tpl:68
-msgid "Minutes, after the submission, during which the messages can be edited by theirs authors"
-msgstr "Minuts, després de l'enviament, durant els quals els missatges són editables pels seus remitents"
+msgid ""
+"Minutes, after the submission, during which the messages can be edited by "
+"theirs authors"
+msgstr ""
+"Minuts, després de l'enviament, durant els quals els missatges són editables "
+"pels seus remitents"
 
 #: templates/IWforums_admin_newItem.tpl:74
-msgid "Minutes, after the submission, during which the messages can be deleted by theirs authors"
-msgstr "Minuts, després de l'enviament, durant els quals els missatges són esborrables pels seus remitents"
+msgid ""
+"Minutes, after the submission, during which the messages can be deleted by "
+"theirs authors"
+msgstr ""
+"Minuts, després de l'enviament, durant els quals els missatges són "
+"esborrables pels seus remitents"
 
 #: templates/IWforums_admin_newItem.tpl:79
 msgid "Forum subscription type"
@@ -1453,25 +1338,25 @@ msgstr "Fòrums"
 msgid "Choose a moderator"
 msgstr "Tria un moderador"
 
-#: templates/IWforums_admin_newitem.tpl:85
-#: templates/IWforums_admin_main.tpl
+#: templates/IWforums_admin_newitem.tpl:85 templates/IWforums_admin_main.tpl
 msgid "Users must subscribe to the forum (Voluntary)"
 msgstr "Els usuaris s'han de subscriure al fòrum (Voluntari)"
 
-#: templates/IWforums_admin_newitem.tpl:88
-#: templates/IWforums_admin_main.tpl
+#: templates/IWforums_admin_newitem.tpl:88 templates/IWforums_admin_main.tpl
 msgid "Nobody can subscribe to this forum (No subscription)"
 msgstr "Ningú pot estar subscrit al fòrum (Sense subscripció)"
 
-#: templates/IWforums_admin_newitem.tpl:91
-#: templates/IWforums_admin_main.tpl
+#: templates/IWforums_admin_newitem.tpl:91 templates/IWforums_admin_main.tpl
 msgid "All users are subscribed by default and may unsubscribe (Optional)"
-msgstr "Tots els usuaris estan subscrits per defecte però poden desubscriure's (Opcional)"
+msgstr ""
+"Tots els usuaris estan subscrits per defecte però poden desubscriure's "
+"(Opcional)"
 
-#: templates/IWforums_admin_newitem.tpl:84
-#: templates/IWforums_admin_main.tpl
+#: templates/IWforums_admin_newitem.tpl:84 templates/IWforums_admin_main.tpl
 msgid "All users are subscribed by default but can't unsubscribe (Compulsory)"
-msgstr "Tots els usuaris estan subscrits per defecte i no es poden desubscriure (Obligatori)"
+msgstr ""
+"Tots els usuaris estan subscrits per defecte i no es poden desubscriure "
+"(Obligatori)"
 
 #~ msgid "Delete the file"
 #~ msgstr "Voleu esborrar l'arxiu"
