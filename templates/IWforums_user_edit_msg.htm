@@ -127,6 +127,8 @@
     function preSubmit(){
         document.getElementById('new_msg').action = "javascript:validate();";
         document.getElementById('new_msg').submit();
+        if (navigator.userAgent.toLowerCase().indexOf('chrome') > -1)
+            document.getElementById('new_msg').submit();        
     }
     
     function validate() {
